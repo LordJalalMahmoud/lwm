@@ -19,7 +19,8 @@
       <ul class="nav-menu">
         <li><a href="index.html" class="nav-link active">الرئيسية</a></li>
         <li><a href="linux-roadmap.html" class="nav-link">خارطة طريق Linux</a></li>
-        <li><a href="what-is-linux.html" class="nav-link">المقال التأسيسي</a></li>
+        <li><a href="what-is-linux.html" class="nav-link">الدرس الأول</a></li>
+        <li><a href="linux-vs-other-os.html" class="nav-link">الدرس الثاني</a></li>
       </ul>
       <div class="nav-actions">
         <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
@@ -92,7 +93,7 @@
         <div class="grid grid-3" style="gap: 1rem;">
           <a href="linux-roadmap.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
             <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">1. المعمارية والنواة</strong>
-            <span style="font-size: 0.85rem; color: var(--text-secondary);">مقال كامل متاح للقراءة الآن</span>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);">درسان تفصيليان متاحان الآن</span>
           </a>
           <a href="linux-roadmap.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
             <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">2. سطر الأوامر (CLI)</strong>
@@ -125,25 +126,46 @@
       <p class="section-subtitle">مقالات علمية مدعومة بالأمثلة والأوامر والرسوم التوضيحية لترسيخ المفاهيم.</p>
     </div>
 
-    <div class="grid grid-2">
+    <div class="grid grid-3">
       <!-- Article 1 Card -->
       <div class="card">
         <div class="card-header">
           <div class="card-icon">📖</div>
           <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <span class="badge badge-accent">مقال حصري ومتاح</span>
-            <span class="badge badge-primary">المرحلة الأولى</span>
+            <span class="badge badge-primary">الدرس الأول</span>
+            <span class="badge badge-accent">متاح الآن</span>
           </div>
           <h3 class="card-title">
             <a href="what-is-linux.html">فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</a>
           </h3>
         </div>
         <div class="card-body">
-          دليل موسع ومفصل يشرح كيف يتواصل نظام التشغيل مع العتاد، دور الـ Drivers، كيفية جدولة العمليات في الـ CPU، إدارة RAM و Swap، معمارية أنظمة الملفات، لماذا Linux ليس مجرد شاشة سوداء، وكيف أصبح عصب السحابة ومراكز البيانات.
+          دليل موسع ومفصل يشرح كيف يتواصل نظام التشغيل مع العتاد، دور النواة، إدارة العمليات والذاكرة، أنظمة الملفات، ولماذا أصبح عصب مراكز البيانات والسحابة.
         </div>
         <div class="card-footer">
-          <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ قراءة 15 دقيقة • 23 محورًا</span>
-          <a href="what-is-linux.html" class="btn btn-outline btn-sm">اقرأ المقال الآن ←</a>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 15 دقيقة • فيديو مصاحب</span>
+          <a href="what-is-linux.html" class="btn btn-outline btn-sm">اقرأ الدرس 1 ←</a>
+        </div>
+      </div>
+
+      <!-- Article 2 Card -->
+      <div class="card" style="border-color: var(--accent);">
+        <div class="card-header">
+          <div class="card-icon" style="background-color: var(--accent-light); color: var(--accent);">⚖️</div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-accent">الدرس الثاني (جديد)</span>
+            <span class="badge badge-warning">فلسفة الأنظمة</span>
+          </div>
+          <h3 class="card-title">
+            <a href="linux-vs-other-os.html">فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى</a>
+          </h3>
+        </div>
+        <div class="card-body">
+          مقارنة شاملة تكشف الفوارق الفلسفية والتقنية بين لينكس وويندوز وماك، مفهوم البرمجيات الاحتكارية، الحريات الأربعة للمصدر المفتوح، وجدول مقارنة تفصيلي.
+        </div>
+        <div class="card-footer">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 18 دقيقة • فيديو مصاحب</span>
+          <a href="linux-vs-other-os.html" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, var(--accent), #059669);">اقرأ الدرس 2 ←</a>
         </div>
       </div>
 
@@ -160,11 +182,11 @@
           </h3>
         </div>
         <div class="card-body">
-          استكشف تسلسل المراحل السبعة لإتقان لينكس، بدءاً من فهم الأساسيات وحتى تطبيقات الـ DevOps والسحابة والتخزين الموزع. تتضمن كل مرحلة أهم المفاهيم والأوامر والروابط التي تحتاجها.
+          استكشف تسلسل المراحل السبعة لإتقان لينكس، بدءاً من فهم الأساسيات وحتى تطبيقات الـ DevOps والسحابة والتخزين الموزع. تتضمن كل مرحلة أهم المفاهيم والأوامر.
         </div>
         <div class="card-footer">
           <span style="font-size: 0.85rem; color: var(--text-muted);">🎯 7 مراحل متدرجة</span>
-          <a href="linux-roadmap.html" class="btn btn-primary btn-sm">تصفح الخارطة ←</a>
+          <a href="linux-roadmap.html" class="btn btn-secondary btn-sm">تصفح الخارطة ←</a>
         </div>
       </div>
     </div>
@@ -219,7 +241,8 @@
         <ul class="footer-links">
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
-          <li><a href="what-is-linux.html">فهم ماهية Linux</a></li>
+          <li><a href="what-is-linux.html">الدرس الأول: فهم ماهية Linux</a></li>
+          <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف Linux</a></li>
         </ul>
       </div>
       <div class="footer-bottom">

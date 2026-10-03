@@ -19,7 +19,8 @@
       <ul class="nav-menu">
         <li><a href="index.html" class="nav-link">الرئيسية</a></li>
         <li><a href="linux-roadmap.html" class="nav-link active">خارطة طريق Linux</a></li>
-        <li><a href="what-is-linux.html" class="nav-link">المقال التأسيسي</a></li>
+        <li><a href="what-is-linux.html" class="nav-link">الدرس الأول</a></li>
+        <li><a href="linux-vs-other-os.html" class="nav-link">الدرس الثاني</a></li>
       </ul>
       <div class="nav-actions">
         <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
@@ -57,8 +58,8 @@
             <div style="color: var(--text-muted); font-size: 0.85rem;">مسار متدرج ومترابط</div>
           </div>
           <div class="card" style="padding: 1rem;">
-            <div style="font-size: 1.75rem; font-weight: 800; color: var(--accent);">مقال تأسيسي كامل</div>
-            <div style="color: var(--text-muted); font-size: 0.85rem;">متاح الآن للقراءة المباشرة</div>
+            <div style="font-size: 1.75rem; font-weight: 800; color: var(--accent);">درسان متكاملان</div>
+            <div style="color: var(--text-muted); font-size: 0.85rem;">متاحان الآن للقراءة والمشاهدة</div>
           </div>
           <div class="card" style="padding: 1rem;">
             <div style="font-size: 1.75rem; font-weight: 800; color: var(--accent-orange);">100% عملي</div>
@@ -74,7 +75,7 @@
         <span class="section-tag">مسار التعلم خطوة بخطوة</span>
         <h2 class="section-title">مراحل الخارطة والمصادر التعليمية</h2>
         <p class="section-subtitle">
-          اتبع المراحل بالترتيب التالي، وابدأ بقراءة المقال التأسيسي المتاح داخل المرحلة الأولى.
+          اتبع المراحل بالترتيب التالي، وابدأ بدراسة الدروس المتاحة داخل المرحلة الأولى.
         </p>
       </div>
 
@@ -92,24 +93,44 @@
               <span class="badge badge-primary">المستوى: مبتدئ</span>
             </div>
             <p>
-              فهم كيفية عمل نظام التشغيل كحلقة وصل بين العتاد والتطبيقات، وبنية النواة (Linux Kernel)، والفرق بين مساحة المستخدم (User Space) ومساحة النواة (Kernel Space).
+              فهم كيفية عمل نظام التشغيل كحلقة وصل بين العتاد والتطبيقات، وبنية النواة (Linux Kernel)، والفرق الجوهري بين لينكس والأنظمة الاحتكارية ومفهوم البرمجيات الحرة مفتوحة المصدر.
             </p>
 
-            <!-- FEATURED ARTICLE CARD LINK -->
+            <!-- FEATURED LESSON 1 CARD -->
             <div class="roadmap-article-highlight">
               <div class="roadmap-article-info">
                 <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem;">
-                  <span class="badge badge-primary">مقال تفصيلي مميز 📄</span>
-                  <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 15 دقيقة قراءة</span>
+                  <span class="badge badge-primary">الدرس الأول 📄</span>
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 15 دقيقة قراءة • فيديو مصاحب</span>
                 </div>
                 <h4><a href="what-is-linux.html" style="color: inherit;">فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</a></h4>
                 <p>
-                  مقال شامل يغطي 23 محوراً أساسياً: اكتشاف العتاد والـ Drivers، إدارة العمليات والـ Scheduling، الذاكرة الافتراضية و Swap، أنظمة الملفات، الصلاحيات، ومقدمة للـ Clustering والسحابة.
+                  مقال تأسيسي شامل يغطي 23 محوراً أساسياً: اكتشاف العتاد والـ Drivers، إدارة العمليات والـ Scheduling، الذاكرة الافتراضية و Swap، أنظمة الملفات، الصلاحيات، ومقدمة للـ Clustering والسحابة.
                 </p>
               </div>
               <div>
                 <a href="what-is-linux.html" class="btn btn-primary">
-                  <span>اقرأ المقال الآن</span>
+                  <span>فتح الدرس الأول</span>
+                  <span>←</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- FEATURED LESSON 2 CARD -->
+            <div class="roadmap-article-highlight" style="margin-top: 1rem; border-color: var(--accent);">
+              <div class="roadmap-article-info">
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem;">
+                  <span class="badge badge-accent">الدرس الثاني (جديد) 🚀</span>
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 18 دقيقة قراءة • فيديو مصاحب</span>
+                </div>
+                <h4><a href="linux-vs-other-os.html" style="color: inherit;">فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى (ويندوز وماك)</a></h4>
+                <p>
+                  مقارنة فلسفية ومعمارية عميقة: ما هي النظم الاحتكارية؟ لماذا الكود المفتوح ليس مجرد مجاني؟ جدول المقارنة الشامل، ولماذا غيرت فلسفة لينكس تاريخ التكنولوجيا والحوسبة السحابية.
+                </p>
+              </div>
+              <div>
+                <a href="linux-vs-other-os.html" class="btn btn-primary" style="background: linear-gradient(135deg, var(--accent), #059669);">
+                  <span>فتح الدرس الثاني</span>
                   <span>←</span>
                 </a>
               </div>
@@ -296,7 +317,8 @@
         <ul class="footer-links">
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
-          <li><a href="what-is-linux.html">فهم ماهية Linux</a></li>
+          <li><a href="what-is-linux.html">الدرس الأول: فهم ماهية Linux</a></li>
+          <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف Linux</a></li>
         </ul>
       </div>
       <div class="footer-bottom">

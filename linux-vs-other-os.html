@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الدرس الثاني: فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى | Learn With Me</title>
+  <meta name="description" content="الدرس الثاني في سلسلة دروس لينكس: مقارنة تفصيلية بين لينكس والأنظمة الاحتكارية (ويندوز وماك)، فلسفة المصدر المفتوح وحرية التعديل، ولماذا غير لينكس قواعد التكنولوجيا.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">🐧</div>
+        <div class="brand-text">Learn <span>With Me</span></div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="linux-roadmap.html" class="nav-link">خارطة طريق Linux</a></li>
+        <li><a href="what-is-linux.html" class="nav-link">الدرس الأول</a></li>
+        <li><a href="linux-vs-other-os.html" class="nav-link active">الدرس الثاني</a></li>
+        <li><a href="#toc" class="nav-link">فهرس المقال</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="مسار التنقل">
+      <a href="index.html">الرئيسية</a>
+      <span class="separator">/</span>
+      <a href="linux-roadmap.html">خارطة طريق Linux</a>
+      <span class="separator">/</span>
+      <a href="what-is-linux.html">المرحلة الأولى: الأساسيات</a>
+      <span class="separator">/</span>
+      <span class="current">الدرس الثاني: كيف يختلف Linux عن الأنظمة الأخرى</span>
+    </nav>
+
+    <div class="article-layout">
+      <!-- Table of Contents Sidebar -->
+      <aside class="article-sidebar" id="toc">
+        <div class="sidebar-title">
+          <span>📑</span> فهرس محتويات الدرس
+        </div>
+        <ul class="toc-list">
+          <li><a href="#intro">مقدمة: ما وراء الاختلاف السطحي</a></li>
+          <li><a href="#video-section">📺 الفيديو التعليمي المصاحب</a></li>
+          <li><a href="#sec-proprietary">أولاً: ما هو نظام التشغيل الاحتكاري؟</a></li>
+          <li><a href="#sec-1">1. لا يمكنك رؤية الكود الكامل للنظام</a></li>
+          <li><a href="#sec-2">2. لا تستطيع تعديل النظام كما تشاء</a></li>
+          <li><a href="#sec-philosophy">Linux: نظام يمكنك فهمه بعمق</a></li>
+          <li><a href="#sec-3">3. إمكانية دراسة كيفية عمل النظام</a></li>
+          <li><a href="#sec-4">4. المصدر المفتوح لا يعني مجرد "مجاني"</a></li>
+          <li><a href="#sec-5">5. ماذا يعني Open Source حقاً؟</a></li>
+          <li><a href="#sec-6">6. مستوى أعمق وغير مسبوق من التحكم</a></li>
+          <li><a href="#sec-7">7. ولهذا ظهرت توزيعات Linux (Distros)</a></li>
+          <li><a href="#sec-8">8. ماذا تفعل عندما لا يعجبك سلوك النظام؟</a></li>
+          <li><a href="#sec-9">9. Linux لم ينتشر بفضل الهواة فقط</a></li>
+          <li><a href="#sec-10">10. لماذا تفضل كبرى الشركات استخدام Linux؟</a></li>
+          <li><a href="#sec-11">11. المصدر المفتوح خفّض تكلفة الابتكار</a></li>
+          <li><a href="#sec-12">12. دراسة حالة ملهمة: Google ونظام Android</a></li>
+          <li><a href="#sec-13">13. Linux وسيلة للتعلم وليست مجرد أداة</a></li>
+          <li><a href="#sec-14">14. Linux يجعل الحاسوب أكثر شفافية (أوامر عملية)</a></li>
+          <li><a href="#sec-15">15. حرية الواجهات: لا قيود على مظهر النظام</a></li>
+          <li><a href="#sec-16">16. الحرية تمتد إلى إدارة وتثبيت البرامج</a></li>
+          <li><a href="#sec-17">17. لماذا يهم كل هذا المستخدم العادي؟</a></li>
+          <li><a href="#sec-18">18. جدول المقارنة الشامل: Linux مقابل Windows وmacOS</a></li>
+          <li><a href="#sec-19">19. هل يعني هذا أن Linux هو الخيار الأفضل دائمًا؟</a></li>
+          <li><a href="#sec-20">20. كيف غيّر Linux تاريخ صناعة البرمجيات؟</a></li>
+          <li><a href="#sec-21">21. سر النجاح: ما وراء مجانية الكود</a></li>
+          <li><a href="#sec-22">22. لماذا يتعين على طالب علوم الحاسب إتقان Linux؟</a></li>
+          <li><a href="#sec-23">23. أكبر فارق: لا تتعامل مع النظام كصندوق مغلق</a></li>
+          <li><a href="#sec-24">24. من Linux إلى قيادة التكنولوجيا الحديثة</a></li>
+          <li><a href="#conclusion">خلاصة الدرس</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Article Content -->
+      <article class="article-main">
+        <header class="article-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="badge badge-accent">الدرس الثاني في السلسلة 🚀</span>
+            <span class="badge badge-primary">المرحلة 1: الأساسيات والمعمارية</span>
+            <span class="badge badge-warning">فلسفة الأنظمة والمصدر المفتوح</span>
+          </div>
+          <h1 id="intro">فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى</h1>
+          <div class="article-header-meta">
+            <span class="article-meta-item">⏱️ وقت القراءة: 18 دقيقة</span>
+            <span class="article-meta-item">🎯 الفئة: مبتدئون، مطورون، مهندسو نظم، وطلاب علوم الحاسب</span>
+            <span class="article-meta-item">📂 المسار: <a href="linux-roadmap.html">خارطة طريق Linux</a></span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>
+            إذا كنت جديدًا على <strong>Linux</strong>، فمن المحتمل جدًا أنك اعتدت استخدام أحد النظامين الأكثر شيوعًا على الحواسيب الشخصية: <strong>Microsoft Windows</strong> أو <strong>Apple macOS</strong>. وربما يخيل إليك في الوهلة الأولى أن Linux ليس مختلفًا عنهما إلا في مظهر النوافذ وسطح المكتب، أو في بعض الأوامر النصية التي تُكتب داخل الطرفية (Terminal).
+          </p>
+
+          <p>
+            لكن الحقيقة في واقع الأمر أعمق بكثير من ذلك بكثير!
+          </p>
+
+          <p>
+            الاختلاف الحقيقي بين Linux والعديد من أنظمة التشغيل الأخرى لا ينحصر في طريقة الاستخدام الظاهرية أو شكل واجهة المستخدم، بل يضرب في جذور <strong>فلسفة النظام، وطريقة تطويره، ومدى إمكانية الوصول إلى الكود المصدري البرمجي، والقدرة الكاملة على تعديله وتطويره، وطريقة بناء النظام وتوزيعه حول العالم</strong>.
+          </p>
+
+          <p>
+            ولكي ندرك كنه Linux بصورة دقيقة ومنهجية، يجب أن نغوص أولاً في الفهم الفاصل بين <strong>البرمجيات الاحتكارية (Proprietary Software)</strong> و<strong>البرمجيات الحرة والمفتوحة المصدر (Free and Open Source Software - FOSS)</strong>؛ فهذا التمييز هو المفتاح الذهبي لفك شيفرة الانتشار الساحق للينكس والتأثير الهائل الذي أحدثه في كل ركن من أركان الثورة التقنية الحديثة.
+          </p>
+
+          <!-- Embedded YouTube Video Section -->
+          <div class="video-wrapper" id="video-section">
+            <div class="video-container">
+              <iframe 
+                src="https://www.youtube.com/embed/0EKHPkXOkPs" 
+                title="الدرس الثاني: فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <p class="video-caption">
+              <span>📺</span> <strong>فيديو الدرس الثاني:</strong> شاهد الشرح العملي والمرئي المرفق حول الفروق الجوهرية وفلسفة نظام لينكس المفتوح
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- أولاً: ما المقصود بنظام تشغيل احتكاري؟ -->
+          <h2 id="sec-proprietary">أولاً: ما المقصود بنظام تشغيل احتكاري؟</h2>
+          <p>
+            عندما تقوم بتشغيل واستخدام نظام مثل <strong>Windows</strong> أو <strong>macOS</strong>، فأنت في الحقيقة تستخدم منتجاً برمجياً مملوكاً بالكامل لشركة ربحية كبرى قامت بتطويره وتمتلك حقوق ملكيته الفكرية الحصرية.
+          </p>
+          <p>
+            ففي حالة Windows، المطوّر والمالك الحصري هو عملاق البرمجيات <strong>Microsoft</strong>، بينما يُطور نظام macOS ويُحكم إغلاقه بواسطة شركة <strong>Apple</strong>.
+          </p>
+          <p>
+            تُصنّف هذه المنظومات عموماً ضمن فئة <strong>البرمجيات الاحتكارية (Proprietary Software)</strong>؛ ويعني ذلك بموجب القانون والتقنية أن المستخدم لا يشتري "النظام" ذاته، بل يشتري فقط <em>ترخيصاً مقيداً للاستخدام (License)</em> وفق شروط واتفاقيات صارمة تُمليها الشركة. والأهم من ذلك: <strong>الكود المصدري البرمجي (Source Code) الكامل للنظام محجوب ومغلق تماماً عن العامة</strong>، ولا يمكن لأحد الاطلاع عليه أو تدقيقه خارج أسوار الشركة المطورة.
+          </p>
+          <p>وهذا النموذج يترتب عليه واقع له تداعيات ونتائج حاسمة:</p>
+
+          <!-- 1. لا يمكنك رؤية الكود الكامل للنظام -->
+          <h3 id="sec-1">1. لا يمكنك رؤية الكود الكامل للنظام</h3>
+          <p>
+            عندما تعمل على Windows، يمكنك فتح البرامج وإجراء المهام، ولكن لا يمكنك مطلقاً فتح مستودع الأكواد المصدري للنظام وقراءة السطور البرمجية التي بُني منها نظام التشغيل ومكونات النواة وخوارزميات إدارة الذاكرة.
+          </p>
+          <p>
+            والأمر عينه ينطبق على الأجزاء الاحتكارية المغلقة والطبقات الأساسية في macOS.
+          </p>
+          <p>
+            هذا القيد يعني أنك تتعامل مع الحاسوب حصراً عبر <strong>الواجهات والخيارات التي قررت الشركة إتاحتها لك مسبقاً</strong>. أنت مستخدم ومستهلك للخدمة، لكنك لا تملك حرية أو وسيلة لفحص ما يدور في أعماق النظام من الداخل.
+          </p>
+
+          <hr>
+
+          <!-- 2. لا تستطيع تعديل النظام كما تشاء -->
+          <h2 id="sec-2">2. لا تستطيع تعديل النظام كما تشاء</h2>
+          <p>
+            تخيل للحظة أنك مهندس برمجيات تواجه تحدياً كبيراً وتريد تغيير سلوك جوهري في نظام التشغيل:
+          </p>
+          <ul>
+            <li>ربما ترغب في إعادة ضبط الطريقة التي تُدير بها النواة الذاكرة المؤقتة (Memory Management).</li>
+            <li>أو ترغب في تعديل آلية عمل النواة (Kernel Scheduler) لتعطي أولوية فائقة لعمليات حسابية خاصة بالذكاء الاصطناعي.</li>
+            <li>أو إضافة دالة أو ميزة ذات مستوى منخفض جداً في طبقة الاتصال بالعتاد (Hardware Layer).</li>
+            <li>أو حتى التخلص تماماً من مكونات وخدمات مدمجة لا تحتاجها لإعادة بناء نسخة خفيفة الوزن للغاية تعمل على جهاز ذي موارد محدودة.</li>
+          </ul>
+          <p>
+            في النظام الاحتكاري، هذا الباب موصد تماماً! لا يمكنك قانونياً ولا تقنياً أخذ الكود المصدري وتعديله ثم إعادة تجميع وبناء النظام بما يلائم متطلباتك. نعم، قد تمنحك الشركة بعض واجهات البرمجة التنسيقية (APIs) أو خيارات تخصيص الإعدادات، إلا أن هذا يظل شاسع البعد عن امتلاك حرية تعديل الصميم البرمجي للنظام.
+          </p>
+          <p>
+            أما في عالم البرمجيات الحرة والمفتوحة المصدر، فالقاعدة مقلوبة تماماً لصالح المستخدم والمطور.
+          </p>
+
+          <div class="callout-box">
+            <strong>قاعدة المصادر المفتوحة:</strong> عندما يُتاح الكود البرمجي بموجب ترخيص حر ومفتوح، يصبح من حق كل إنسان دراسة البرنامج، تعديله، تكييفه، وإعادة توزيعه لخدمة أهدافه الخاصة دون الرجوع لإذن مسبق من جهة احتكارية.
+          </div>
+
+          <hr>
+
+          <!-- Linux ليس مجرد نظام يمكنك استخدامه، بل نظام يمكنك فهمه -->
+          <h1 id="sec-philosophy">Linux ليس مجرد نظام يمكنك استخدامه، بل نظام يمكنك فهمه</h1>
+          <p>
+            السمة الفارقة الكبرى التي تُميز Linux هي أن <strong>الكود المصدري لنواة لينكس (Linux Kernel) متاح للجميع حول العالم كبرمجية حرة مفتوحة المصدر بالكامل</strong> (تحت رخصة GNU General Public License v2).
+          </p>
+          <p>
+            هذه النقطة لا تمثل تفصيلاً قانونياً، بل تُمثل فارقاً فلسفياً وهندسياً جذرياً يباعد بين Linux وبين أي نظام تجاري مغلق:
+          </p>
+          <p>
+            فالمستخدم، والباحث الأكاديمي، والطالب، ومهندس النظم، يستطيعون جميعاً قراءة كود النواة، فهم الخوارزميات الحقيقية التي تحرك العتاد، فحص بروتوكولات الأمان، والمساهمة الفاعلة في سد الثغرات وتطوير الميزات، بل وإطلاق إصدارات وتوزيعات متخصصة مبنية على ذلك الأساس.
+          </p>
+
+          <!-- 3. إمكانية دراسة كيفية عمل النظام -->
+          <h2 id="sec-3">3. إمكانية دراسة كيفية عمل النظام</h2>
+          <p>قد يخطر ببال القارئ سؤال منطقي وطبيعي للغاية:</p>
+
+          <blockquote>
+            "لكنني لست مبرمج نوى أو خبيراً في لغة C، فلماذا يعنيني بالأساس أن أرى كود نظام التشغيل؟"
+          </blockquote>
+
+          <p>
+            هذا تساؤل وجيه، فغالبية مستخدمي الحواسيب لا يقضون أيامهم في تصفح ملايين الأسطر من كود النواة.
+          </p>
+          <p>
+            ولكن عظمة البرمجيات مفتوحة المصدر لا تقتضي أن يتحول كل إنسان إلى مطور Kernel، بل تكمن القوة في أن <strong>المعرفة بحد ذاتها لم تعد حكراً ولا سراً مغلقاً خلف الأبواب</strong>:
+          </p>
+          <ul>
+            <li><strong>إذا كنت باحثاً في الأمن السيبراني:</strong> يمكنك التدقيق في كود معالجة حزم الشبكات لاكتشاف الثغرات وتفادي هجمات تجاوز سعة الذاكرة، دون انتظار تقرير مبهم من جهة تجارية.</li>
+            <li><strong>إذا كنت طالباً في علوم الحاسب:</strong> يمكنك دراسة كود حقيقي يُشغل أسرع الحواسيب الفائقة ومراكز البيانات العالمية، بدلاً من الاقتصار على مجرد رسوم نظرية في الكتب.</li>
+            <li><strong>إذا كنت مهندس برمجيات:</strong> يمكنك فحص أسلوب تصميم استدعاءات النظام (System Calls) والتعامل مع الإدخال والإخراج لتبني تطبيقات فائقة الكفاءة.</li>
+          </ul>
+          <p>
+            بذلك يتحول نظام التشغيل من مجرد أداة مصمتة إلى <strong>أعظم معمل تعليمي تفاعلي حي على وجه الأرض</strong>.
+          </p>
+
+          <hr>
+
+          <!-- 4. المصدر المفتوح لا يعني مجرد "مجاني" -->
+          <h2 id="sec-4">4. المصدر المفتوح لا يعني مجرد "مجاني"</h2>
+          <p>
+            هناك التباس ذائع وشائع للغاية في الأوساط التقنية يحتاج إلى تفنيد حاسم ودقيق:
+          </p>
+          <p>
+            إن كلمة <strong>Free</strong> في مصطلح <em>Free Software</em> لا تُقصد بها بالدرجة الأولى المجانية المالية، بل تعني <strong>الحرية (Freedom)</strong>.
+          </p>
+          <p>
+            قد تحصل على البرنامج دون أن تدفع مقابلاً نقدياً، لكن القضية الجوهرية هي <strong>الحقوق والحريات الدائمة التي يمنحها الترخيص للمستخدم</strong> في استعمال البرنامج، والاطلاع على أسراره، وتعديل وظائفه، وإعادة مشاركته مع المجتمع.
+          </p>
+          <p>ولهذا السبب صاغ رواد حركة البرمجيات الحرة هذا التمييز البليغ والشهير في اللغة الإنجليزية:</p>
+
+          <div class="flow-compare-grid">
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🍺</span> Free as in free beer
+              </div>
+              <p style="margin: 0; font-size: 0.95rem; color: var(--text-secondary);">
+                المقصود هنا المجانية المالية، أي أنك حصلت على الشيء مجاناً دون دفع مال، لكنك قد تظل مقيداً بشروط المانح ولا تملك أدنى حق في معرفة كيف صُنع أو تعديله.
+              </p>
+            </div>
+            <div class="flow-card" style="border-color: var(--accent); background: var(--accent-light);">
+              <div class="flow-card-title" style="color: var(--accent);">
+                <span>🕊️</span> Free as in freedom
+              </div>
+              <p style="margin: 0; font-size: 0.95rem; color: var(--text-main);">
+                المقصود هو الحرية الفكرية والتقنية الكاملة، أي السيادة والتحكم التام في أداتك الرقمية والتحرر من الاحتكار والتبعية القسرية.
+              </p>
+            </div>
+          </div>
+
+          <p>ونظام Linux هو التجسيد الأبرز والأكثر نضجاً لثقافة الحرية البرمجية.</p>
+
+          <hr>
+
+          <!-- 5. ماذا يعني Open Source؟ -->
+          <h2 id="sec-5">5. ماذا يعني Open Source؟</h2>
+          <p>
+            المصطلح التوأم المهم هو <strong>Open Source (المصدر المفتوح)</strong>.
+          </p>
+          <p>
+            ويعني تقنياً وتنظيمياً أن الكود المصدري متاح بشفافية وفق رخص محددة ومعترف بها دولياً تتيح الدراسة والتعديل والمشاركة. وبالتالي، فعندما نتحدث عن Linux، فنحن لا نصف برنامجاً تحمّله مجاناً عبر متصفحك، بل نتحدث عن <strong>نموذج تطوير مفتوح، تعاوني، وتشاركي عابر للحدود والقارات</strong> أحدث زلزالاً إيجابياً في اقتصاد وهندسة صناعة التكنولوجيا برمتها.
+          </p>
+
+          <hr>
+
+          <!-- 6. Linux يمنحك مستوى أعمق من التحكم -->
+          <h2 id="sec-6">6. Linux يمنحك مستوى أعمق من التحكم</h2>
+          <p>
+            في الأنظمة الاحتكارية، غالباً ما يتم حصر المستخدم النهائي في زاوية "المستهلك المتلقي". الشركة المطورة تصمم التجربة، تضع الواجهات، تفرض التحديثات الإجبارية، وتحدد متى وكيف تتوقف الأجهزة عن العمل أو الدعم.
+          </p>
+          <p>
+            أما في Linux، فالمعادلة مختلفة كلياً؛ إذ يتمتع المستخدم بمرونة وتحكم لا يضاهيهما أي نظام آخر. فبإمكانك بملء إرادتك اختيار وتغيير كافة طبقات ومكونات النظام:
+          </p>
+
+          <div class="grid grid-3" style="margin: 1.5rem 0;">
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">النواة (Kernel)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">اختيار إصدار النواة، مخصصة للأداء أو الأمان أو الأجهزة المضمنة.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">التوزيعة (Distribution)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">اختيار التوزيعة المناسبة لاحتياجاتك الخاصة.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">بيئة سطح المكتب (DE)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">GNOME, KDE Plasma, Xfce أو العمل بدون واجهة أصلاً.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">مدير النوافذ (WM)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Mutter, KWin, i3, Sway أو bspwm.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">مدير الحزم (Package Manager)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">apt, dnf, pacman, zypper لإدارة البرمجيات بكفاءة.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">صدفة الأوامر (Shell)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Bash, Zsh, Fish لتخصيص بيئة الطرفية التفاعلية.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">إدارة الخدمات (Init / Services)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">systemd أو OpenRC أو runit لإدارة إقلاع النظام والخدمات.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">أنظمة الملفات (Filesystems)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">ext4, XFS, Btrfs, ZFS لتنظيم وتأمين وسائط التخزين.</span>
+            </div>
+            <div class="card" style="padding: 1rem;">
+              <strong style="color: var(--primary);">أدوات الشبكات (Networking)</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">iproute2, iptables, nftables, firewalld لحماية المسارات.</span>
+            </div>
+          </div>
+
+          <p>
+            وهذا يعني أن Linux ليس "منتجاً أحادياً مسبق التجهيز" بالطريقة التقليدية الصارمة، بل هو <strong>نظام بيئي متكامل ومتناغم من البرمجيات والمكونات التي يمكن تشكيلها بحرية مطلقة</strong>.
+          </p>
+
+          <hr>
+
+          <!-- 7. ولهذا ظهرت توزيعات Linux -->
+          <h2 id="sec-7">7. ولهذا ظهرت توزيعات Linux (Distributions)</h2>
+          <p>
+            كثيراً ما يتردد على مسامعك في المجتمع التقني أسماء مثل:
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+            <span class="badge badge-primary">Ubuntu</span>
+            <span class="badge badge-accent">Debian</span>
+            <span class="badge badge-warning">Fedora</span>
+            <span class="badge badge-dark">Arch Linux</span>
+            <span class="badge badge-primary">openSUSE</span>
+            <span class="badge badge-accent">Linux Mint</span>
+            <span class="badge badge-warning">Red Hat Enterprise Linux (RHEL)</span>
+            <span class="badge badge-dark">Alpine Linux</span>
+          </div>
+
+          <p>
+            قد يظن البعض خطأً أن هذه أنظمة تشغيل منفصلة ومتباينة كلياً، بينما الحقيقة أنها جميعاً <strong>توزيعات Linux (Linux Distributions أو Distros)</strong>.
+          </p>
+          <p>
+            التوزيعة هي حزمة متكاملة تُوفق بين <strong>نواة Linux kernel</strong> ومجموعة مختارة من البرمجيات الخدمية، بيئة سطح المكتب، برامج التثبيت، ومدير الحزم المتخصص.
+          </p>
+          <p>
+            وهنا تتجلى إحدى ألمع مزايا نموذج المصدر المفتوح: بمقدور مجتمعات ومؤسسات وشركات مختلفة صياغة توزيعات تلبي أغراضاً شديدة التنوع؛ فنجد توزيعة موجهة لراحة المستخدم المنزلي البسيط (مثل Linux Mint)، وأخرى فائقة الاستقرار للخوادم السحابية الضخمة (مثل Debian و RHEL)، وثالثة متخصصة في اختبارات الاختراق والأمن السيبراني (مثل Kali Linux)، ورابعة بالغة الخفة لتشغيل الحاويات والحواسيب المصغرة (مثل Alpine).
+          </p>
+
+          <hr>
+
+          <!-- 8. ماذا يحدث عندما لا تعجبك طريقة عمل النظام؟ -->
+          <h2 id="sec-8">8. ماذا يحدث عندما لا تعجبك طريقة عمل النظام؟</h2>
+          <p>
+            في النظم الاحتكارية المغلقة، تظل خياراتك مقيدة ومحصورة: يمكنك تبديل بعض الإعدادات المسموحة، أو تثبيت برنامج بديل من مطور خارجي؛ لكن إن كان السلوك البنيوي للنظام لا يناسب أهدافك، فلن تستطيع إعادة برمجته أو تعديله.
+          </p>
+          <p>
+            أما في Linux، فإنك تملك الوصول إلى كافة الطبقات البرمجية. تستطيع تشذيب النظام وإزالة كل ما لا تحتاجه، وبناء توزيعة خاصة تناسب غرضاً دقيقاً للغاية. وهذا ما جعل Linux هو الخيار الأوحد في:
+          </p>
+          <ul>
+            <li><strong>خوادم الويب والشركات (Enterprise Servers)</strong></li>
+            <li><strong>أجهزة الشبكات والموجهات المتقدمة (Routers & Switches)</strong></li>
+            <li><strong>الحواسيب الصغيرة وبطاقات التطوير (Raspberry Pi & SBCs)</strong></li>
+            <li><strong>الأنظمة المدمجة في السيارات والعتاد الطبي (Embedded Systems)</strong></li>
+            <li><strong>أجهزة إنترنت الأشياء (Internet of Things - IoT)</strong></li>
+            <li><strong>البنى التحتية للحوسبة السحابية (Cloud Platforms)</strong></li>
+            <li><strong>الحواسيب الفائقة (Supercomputers)</strong>، حيث تُشغل أسرع 500 حاسوب خارق في العالم بلا استثناء بنظام Linux!</li>
+            <li><strong>الهواتف والأجهزة الذكية والمحمولة</strong></li>
+          </ul>
+
+          <hr>
+
+          <!-- 9. Linux لم ينتشر بسبب الهواة فقط -->
+          <h2 id="sec-9">9. Linux لم ينتشر بسبب الهواة فقط</h2>
+          <p>
+            يتخيل البعض في بداية رحلتهم أن Linux هو مجرد هواية للمبرمجين الذين يقضون ساعات طويلة أمام الشاشات السوداء يكتبون السكربتات بدافع المتعة.
+          </p>
+          <p>
+            لكن الواقع الاقتصادي والتكنولوجي اليوم يثبت أن Linux هو <strong>العمود الفقري الحقيقي للبنية التحتية الرقمية لكوكب الأرض</strong>.
+          </p>
+          <p>
+            فكر في شبكة الإنترنت، ومراكز بيانات شركات السحاب العالمية مثل Google وAmazon AWS وMicrosoft Azure، وتطبيقات الهاتف الذكي وشبكات التواصل، والخدمات المالية والبنكية: كلها تعتمد بصورة مباشرة أو غير مباشرة على لينكس. ولهذا السبب تحديداً، أصبحت إجادة Linux واحدة من أكثر المهارات المطلوبة في أسواق التوظيف التقني وهندسة البرمجيات.
+          </p>
+
+          <hr>
+
+          <!-- 10. لماذا تستفيد الشركات من Linux؟ -->
+          <h2 id="sec-10">10. لماذا تفضل كبرى الشركات استخدام Linux؟</h2>
+          <p>تفضل المؤسسات العملاقة اعتماد Linux لعدة محاور استراتيجية:</p>
+          <ol>
+            <li><strong>مرونة منقطعة النظير:</strong> لا توجد قيود اصطناعية تعوق التخصيص أو تلزم بطريقة عمل معينة.</li>
+            <li><strong>التخصيص الدقيق لاحتياجات المؤسسة:</strong> يمكن تشغيل النظام بأقل قدر من الموارد المستهلكة وبأقصى درجات الكفاءة.</li>
+            <li><strong>التشغيل على شريحة هائلة من العتاد:</strong> من معالجات ARM و RISC-V الدقيقة إلى خوادم x86_64 ومعالجات IBM الموجهة للشركات.</li>
+            <li><strong>قاعدة انطلاق للمنتجات الجديدة:</strong> إمكانية بناء حلول تجارية متقدمة فوق كود ناضج ومختبر على مدار عقود.</li>
+            <li><strong>التعاون الدولي المشترك:</strong> بدلاً من أن تتحمل شركة مفردة تكاليف تطوير وصيانة منصة عملاقة من الصفر، يشترك آلاف المطورين ومئات الشركات (بما فيها Intel و Red Hat و Google و IBM و Meta) في تطوير وتحسين النواة، مما يرفع معايير الأمان والاستقرار.</li>
+          </ol>
+
+          <hr>
+
+          <!-- 11. المصدر المفتوح خفض تكلفة الابتكار -->
+          <h2 id="sec-11">11. المصدر المفتوح خفّض تكلفة الابتكار</h2>
+          <p>
+            إن بناء نظام تشغيل من الصفر هو أحد أكثر المشاريع الهندسية تعقيداً وكلفة مالية في التاريخ البشري، ويتطلب استثمارات بمليارات الدولارات وسنوات طويلة من العمل.
+          </p>
+          <p>
+            لكن وجود بنية برمجية متينة ومفتوحة المصدر مثل Linux أتاح للشركات الناشئة والمبتكرين التركيز الفوري على بناء القيمة المضافة لمنتجاتهم دون الحاجة إلى "إعادة اختراع العجلة". هذا التحول الجذري خفض تكلفة الابتكار الرقمي بصورة دراماتيكية، وفتح الباب أمام ولادة آلاف الشركات والخدمات الحديثة التي نراها اليوم.
+          </p>
+
+          <hr>
+
+          <!-- 12. مثال مهم: Google وAndroid -->
+          <h2 id="sec-12">12. دراسة حالة ملهمة: Google ونظام Android</h2>
+          <p>
+            يُعد نظام <strong>Android</strong> من أروع النماذج الحية على إمكانات البرمجيات المفتوحة. فنظام التشغيل الأوسع انتشاراً على الهواتف والأجهزة اللوحية حول العالم يعتمد في قلبه النابض على <strong>Linux kernel</strong> لإدارة العتاد والأمان والذاكرة.
+          </p>
+          <p>
+            لم تبدأ Google من نقطة الصفر لبناء مشغلات العتاد وتفاصيل المعالج، بل استثمرت نواة لينكس القوية وبنت فوقها طبقات الواجهة وحزم البرمجة. هذا يبرهن كيف تشكل التقنيات المفتوحة حجر أساس تقني يمكن للجميع البناء عليه والوصول إلى مئات الملايين من المستخدمين.
+          </p>
+
+          <hr>
+
+          <!-- 13. Linux وسيلة للتعلم وليست مجرد أداة -->
+          <h2 id="sec-13">13. Linux وسيلة للتعلم وليست مجرد أداة</h2>
+          <p>
+            بالنسبة للطالب والمطور الطموح، فإن تعلم Linux لا يعني حفظ ستة أو سبعة أوامر نمطية مثل:
+          </p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+              <span>Bash Shell</span>
+            </div>
+            <pre><code>ls      # استعراض الملفات
+cd      # التنقل بين المجلدات
+cp      # نسخ الملفات
+mv      # نقل وإعادة تسمية الملفات
+rm      # حذف الملفات
+mkdir   # إنشاء مجلد جديد</code></pre>
+          </div>
+
+          <p>
+            بل يفتح أمامك أفقاً علمياً وتطبيقياً لفهم المفاهيم النظرية الحقيقية لعلوم الحاسوب وأنظمة التشغيل، والتي تشمل:
+          </p>
+          <div class="roadmap-tags" style="margin: 1.5rem 0;">
+            <span class="roadmap-topic-tag">العمليات (Processes)</span>
+            <span class="roadmap-topic-tag">الخيوط البرمجية (Threads)</span>
+            <span class="roadmap-topic-tag">إدارة الذاكرة الافتراضية (Memory)</span>
+            <span class="roadmap-topic-tag">نموذج الصلاحيات (Permissions)</span>
+            <span class="roadmap-topic-tag">أنظمة الملفات (Filesystems)</span>
+            <span class="roadmap-topic-tag">حزم الشبكات (Networking)</span>
+            <span class="roadmap-topic-tag">متغيرات البيئة (Environment Variables)</span>
+            <span class="roadmap-topic-tag">استدعاءات النواة (System Calls)</span>
+            <span class="roadmap-topic-tag">الخدمات والخلفيات (Daemons & Services)</span>
+            <span class="roadmap-topic-tag">الإشارات (Signals)</span>
+            <span class="roadmap-topic-tag">مفسرات الأوامر (Shells)</span>
+            <span class="roadmap-topic-tag">المستخدمون والمجموعات (Users & Groups)</span>
+            <span class="roadmap-topic-tag">إدارة الأجهزة (Device Management)</span>
+          </div>
+
+          <hr>
+
+          <!-- 14. Linux يجعل الكمبيوتر أكثر شفافية -->
+          <h2 id="sec-14">14. Linux يجعل الحاسوب أكثر شفافية (أوامر عملية)</h2>
+          <p>
+            إحدى الفلسفات الجوهرية في Linux هي أن الحاسوب يجب ألا يكون صندوقاً أسود مُبهماً يعجز المستخدم عن معرفة ما يحدث بداخله. ففي أي وقت، يمكنك فتح الطرفية واستجواب النظام مباشرةً:
+          </p>
+
+          <!-- Code Samples Grid -->
+          <div class="grid grid-2" style="margin: 1.5rem 0;">
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>المستخدم الحالي</span>
+              </div>
+              <pre><code>whoami
+# لمعرفة هوية المستخدم المسجل حالياً</code></pre>
+            </div>
+
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>العمليات الجارية</span>
+              </div>
+              <pre><code>ps aux
+# استعراض كافة العمليات النشطة ومواردها</code></pre>
+            </div>
+
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>مسارات البرامج التنفيذية</span>
+              </div>
+              <pre><code>echo $PATH
+# المسارات التي يبحث فيها النظام عن الأوامر</code></pre>
+            </div>
+
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>معلومات المعالج (CPU)</span>
+              </div>
+              <pre><code>lscpu
+# فحص معمارية المعالج، الأنوية، والسرعات</code></pre>
+            </div>
+
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>حالة الذاكرة (RAM & Swap)</span>
+              </div>
+              <pre><code>free -h
+# حجم الذاكرة المستخدمة والحرة بصيغة مقروءة</code></pre>
+            </div>
+
+            <div class="code-wrapper">
+              <div class="code-header">
+                <span class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></span>
+                <span>مساحات الأقراص والتخزين</span>
+              </div>
+              <pre><code>df -h
+# سعة الأقراص وأنظمة الملفات ونقاط التوصيل</code></pre>
+            </div>
+          </div>
+
+          <p>هذا المستوى من الشفافية يحول النظام إلى شاشة بانورامية كاشفة تمكنك من تشخيص المشاكل والتعلم المستمر.</p>
+
+          <hr>
+
+          <!-- 15. Linux لا يجبرك على استخدام واجهة واحدة -->
+          <h2 id="sec-15">15. حرية الواجهات: لا قيود على مظهر النظام</h2>
+          <p>
+            في نظامي Windows و macOS، تأتي الواجهة الرسومية مدمجة وثابتة كجزء لا يتجزأ من تجربة المستخدم المصممة من قبل الشركة.
+          </p>
+          <p>
+            أما في Linux، فإن الواجهة الرسومية هي مجرد برنامج مستخدم (User-space application) قابل للاستبدال كلياً! يمكنك تثبيت أي بيئة سطح مكتب (Desktop Environment) تعجبك:
+          </p>
+          <ul>
+            <li><strong>GNOME:</strong> عصرية، أنيقة، وتعتمد على تدفق عمل يركز على الإنتاجية وإيماءات اللمس.</li>
+            <li><strong>KDE Plasma:</strong> غنية بالمزايا وخيارات التخصيص الدقيقة والمظهر الجمالي المتقدم.</li>
+            <li><strong>Xfce:</strong> خفيفة الوزن للغاية، سريعة، ومثالية للحواسيب القديمة أو المحدودة.</li>
+            <li><strong>Cinnamon:</strong> واجهة كلاسيكية مريحة تشبه الواجهات التقليدية وتسهل انتقال مستخدمي ويندوز.</li>
+            <li><strong>LXQt:</strong> فائقة السرعة والخفة في استهلاك الذاكرة.</li>
+          </ul>
+          <p>
+            بل والأكثر إثارة أنك تستطيع تشغيل Linux بدون أي واجهة رسومية على الإطلاق (Headless Server) والاعتماد التام على الطرفية، وهو النمط القياسي المفضل في إدارة خوادم الويب العالمية لتوفير كافة موارد العتاد للتطبيقات الفعلية.
+          </p>
+
+          <hr>
+
+          <!-- 16. والحرية تمتد إلى إدارة البرامج -->
+          <h2 id="sec-16">16. الحرية تمتد إلى إدارة وتثبيت البرامج</h2>
+          <p>
+            تعتمد كل توزيعة لينكس تقريباً على <strong>مدير حزم (Package Manager)</strong> ذكي ومنظم يدير تحميل البرامج والتحقق من صحتها وتحديثها وحل اعتمادياتها تلقائياً وبأمان:
+          </p>
+          <ul>
+            <li>في Debian و Ubuntu: يتم استخدام أداة <code>apt</code> أو <code>apt-get</code>.</li>
+            <li>في Fedora و Red Hat: يتم الاعتماد على أداة <code>dnf</code>.</li>
+            <li>في Arch Linux: تُستخدم أداة <code>pacman</code> فائقة السرعة.</li>
+          </ul>
+          <p>
+            مدير الحزم ليس مجرد متجر تطبيقات إعلاني، بل هو فلسفة معمارية متكاملة تضمن ترقية كامل النظام وجميع أدواته البرمجية بأمر سطر أوامر واحد ودون الحاجة لتنقل متكرر بين مواقع الإنترنت لتحميل ملفات تثبيت مشبوهة.
+          </p>
+
+          <hr>
+
+          <!-- 17. لماذا يهم هذا حتى للمستخدم العادي؟ -->
+          <h2 id="sec-17">17. لماذا يهم كل هذا المستخدم العادي؟</h2>
+          <p>قد يتصور المستخدم العادي غير المتخصص أن هذه النقاشات تهم المطورين والمهندسين فحسب، ولكن هذا التصور يغفل المكاسب المباشرة التي يجنيها أي شخص من وجود عالم المصادر المفتوحة:</p>
+          <ul>
+            <li><strong>وفرة أدوات ممتازة مجانية:</strong> وجود برمجيات عالية الجودة (مثل Blender و VLC و LibreOffice) دون فرض رسوم اشتراك شهرية أو قيود تجارية.</li>
+            <li><strong>تسارع حل المشاكل وتطوير البرامج:</strong> الأخطاء البرمجية تُكتشف وتُعالج بسرعة بفضل تعاون المجتمع التقني الدولي.</li>
+            <li><strong>تخفيض كلفة الخدمات التقنية:</strong> انخفاض تكاليف تشغيل الخوادم انعكس إيجابياً على إتاحة الخدمات السحابية ومواقع الإنترنت بأسعار زهيدة للمستخدمين.</li>
+            <li><strong>كسر احتكار البيانات:</strong> التحرر من التبعية لشركة وحيدة تفرض شروط الاستخدام أو تراقب نشاط المستخدمين.</li>
+            <li><strong>إطالة عمر الأجهزة:</strong> إمكانية إعادة تشغيل الحواسيب الشخصية القديمة بكفاءة عبر توزيعات خفيفة بدلاً من التخلص منها بداعي أنها لا تدعم متطلبات النظام الاحتكاري الجديد.</li>
+          </ul>
+
+          <hr>
+
+          <!-- 18. Linux مقابل Windows وmacOS: ما الاختلاف الجوهري؟ -->
+          <h2 id="sec-18">18. جدول المقارنة الشامل: Linux مقابل Windows وmacOS</h2>
+          <p>
+            لتتضح الصورة بأعلى قدر من الدقة والوضوح، يلخص الجدول التالي المقارنة المعمارية والفلسفية والوظيفية بين النظم الثلاثة:
+          </p>
+
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>الجانب</th>
+                  <th>Linux 🐧</th>
+                  <th>Windows 🪟</th>
+                  <th>macOS 🍏</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>طبيعة النظام البرمجية</strong></td>
+                  <td>مفتوح المصدر في مكوناته الأساسية والرئيسية (FOSS)</td>
+                  <td>احتكاري مغلق بالكامل (Proprietary)</td>
+                  <td>احتكاري في معظم أجزائه وطبقات واجهته</td>
+                </tr>
+                <tr>
+                  <td><strong>الوصول إلى الكود المصدري</strong></td>
+                  <td>متاح للـ Kernel ولآلاف المكونات والبرمجيات المحيطة</td>
+                  <td>غير متاح للعامة إطلاقاً ومملوك حصراً لميكروسوفت</td>
+                  <td>بعض المكونات السفلية مفتوحة (Darwin)، ولكن النظام ككل مغلق</td>
+                </tr>
+                <tr>
+                  <td><strong>القدرة على التعديل العميق</strong></td>
+                  <td>كاملة ومتاحة ضمن حدود التراخيص الحرة</td>
+                  <td>محدودة جداً وضمن ما تسمح به الشركة فقط</td>
+                  <td>محدودة ومقيدة بسياسات آبل الصارمة</td>
+                </tr>
+                <tr>
+                  <td><strong>تعدد التوزيعات والبيئات</strong></td>
+                  <td>تنوع هائل (مئات التوزيعات وبيئات سطح المكتب)</td>
+                  <td>تجربة أساسية واحدة وموحدة نسبياً</td>
+                  <td>تجربة مغلقة وموحدة بصرامة على أجهزة آبل</td>
+                </tr>
+                <tr>
+                  <td><strong>مستوى التخصيص والتحكم</strong></td>
+                  <td>مرتفع للغاية ولا حدود له</td>
+                  <td>متوسط إلى أقل، ومقيد بإعدادات النظام</td>
+                  <td>أقل، ومصمم لاتباع نمط آبل الموحد</td>
+                </tr>
+                <tr>
+                  <td><strong>الاستخدام في الخوادم والسحاب</strong></td>
+                  <td>واسع وهيمنة شبه مطلقة (أكثر من 90% من السحاب)</td>
+                  <td>واسع في الشبكات والشركات (Active Directory)</td>
+                  <td>نادر وأقل شيوعاً في بيئات الإنتاج الكبرى</td>
+                </tr>
+                <tr>
+                  <td><strong>الأنظمة المدمجة وإنترنت الأشياء</strong></td>
+                  <td>واسع جداً ومرن على كافة المعالجات والعتاد</td>
+                  <td>موجود (Windows IoT) ولكن بنطاق أضيق</td>
+                  <td>محدود جداً وغير متاح للأجهزة العامة</td>
+                </tr>
+                <tr>
+                  <td><strong>التعلم المباشر من الكود</strong></td>
+                  <td>متاح للجميع ومفتوح للدراسة الأكاديمية والعملية</td>
+                  <td>محدود، وتعتمد المعرفة على الوثائق الرسمية فقط</td>
+                  <td>ممكن لبعض المكونات المفتوحة فقط</td>
+                </tr>
+                <tr>
+                  <td><strong>بناء نظام تشغيل مخصص</strong></td>
+                  <td>متاح وسهل نسبياً ومطبق في آلاف المشاريع</td>
+                  <td>غير متاح وخارج نطاق الاستخدام المعتاد</td>
+                  <td>غير متاح وخارج نطاق الاستخدام المعتاد</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            تذكر دائماً أن هذه المقارنة ليست منافسة سطحية حول "من هو الأفضل بالمطلق؟"، بل هي توضيح لتباين الفلسفات والأهداف وحالات الاستخدام في عالم الهندسة البرمجية.
+          </p>
+
+          <hr>
+
+          <!-- 19. وهل يعني هذا أن Linux أفضل دائمًا؟ -->
+          <h2 id="sec-19">19. هل يعني هذا أن Linux هو الخيار الأفضل دائمًا؟</h2>
+          <p>
+            ليس من الدقة الهندسية ولا الموضوعية العلمية التعامل مع الأمور بهذا التبسيط!
+          </p>
+          <p>
+            لكل نظام بيئته وأهدافه ومزاياه التنافسية:
+          </p>
+          <ul>
+            <li><strong>Linux:</strong> يمنحك السيادة، الحرية، الأمان الفائق، والتحكم البرمجي المطلق، وهو الخيار الأمثل للخوادم والشبكات والتطوير التكنولوجي والـ DevOps.</li>
+            <li><strong>Windows:</strong> يقدم بيئة مكتبية متكاملة مدعومة بقوة لقطاع الألعاب الإلكترونية الضخمة (PC Gaming)، والبرامج التجارية المتخصصة للمكاتب، والدعم الشامل للأجهزة والعتاد الاستهلاكي المتنوع.</li>
+            <li><strong>macOS:</strong> يقدم تكاملاً فائق السلاسة بين العتاد والنظام والبرمجيات داخل منظومة أجهزة Apple، مما يجعله مفضلاً لدى شريحة واسعة من المصممين ومنتجي الوسائط والمطورين.</li>
+          </ul>
+
+          <div class="callout-box">
+            <strong>السؤال الصحيح ليس:</strong> "أي نظام تشغيل هو الأفضل عالمياً؟"<br>
+            <strong>بل السؤال الهندسي الاحترافي هو:</strong> "أي نموذج تشغيلي يلبي متطلبات مشروعي، ويمنحني الكفاءة والأمان المنشودين؟"
+          </div>
+
+          <hr>
+
+          <!-- 20. كيف ساهم Linux في تغيير صناعة التكنولوجيا؟ -->
+          <h2 id="sec-20">20. كيف غيّر Linux تاريخ صناعة البرمجيات؟</h2>
+          <p>
+            الأثر الجليل للينكس لا ينبع فقط من كونه نظام تشغيل متاحاً بالمجان، بل في كونه <strong>البرهان العملي الأكثر سطوعاً في تاريخ التكنولوجيا على أن نموذج التطوير المفتوح والتشاركي قادر على بناء منظومات برمجية عملاقة تشغل العالم وتتفوق على أكبر المنصات الاحتكارية</strong>.
+          </p>
+          <p>
+            هذا النموذج مهد الطريق لولادة أعظم ثورة برمجية حرة عرفتها البشرية؛ فاليوم لا يكاد يخلو مشروع تقني معاصر من هذه التقنيات المفتوحة التي بنيت وتطورت في فلك تلك الفلسفة:
+          </p>
+          <div class="roadmap-tags">
+            <span class="roadmap-topic-tag">نواة Linux</span>
+            <span class="roadmap-topic-tag">نظام التحكم بالإصدارات Git</span>
+            <span class="roadmap-topic-tag">حاويات التطبيقات Docker</span>
+            <span class="roadmap-topic-tag">إدارة وتنسيق السحاب Kubernetes</span>
+            <span class="roadmap-topic-tag">قواعد البيانات PostgreSQL</span>
+            <span class="roadmap-topic-tag">خادم الويب فائق السرعة Nginx</span>
+            <span class="roadmap-topic-tag">لغة البرمجة والذكاء الاصطناعي Python</span>
+            <span class="roadmap-topic-tag">مجمع لغات البرمجة GCC</span>
+          </div>
+
+          <hr>
+
+          <!-- 21. Linux لم ينتشر لأن الكود مجاني فقط -->
+          <h2 id="sec-21">21. سر النجاح: ما وراء مجانية الكود</h2>
+          <p>
+            إن إتاحة الكود للعامة وحدها لا تصنع نجاحاً ولا تضمن بقاء أي مشروع تقني؛ فكم من المشاريع المفتوحة اندثرت ونُسيت في طيات التاريخ!
+          </p>
+          <p>لقد انتصر Linux وبلغ هذه المكانة الدولية بفضل توليفة عبقرية من العوامل المتضافرة:</p>
+          <ul>
+            <li><strong>المجتمع التقني الضخم والنشط:</strong> ملايين المساهمين الذين يصححون الأخطاء ويطورون التحسينات يومياً.</li>
+            <li><strong>التعاون العابر للشركات المتنافسة:</strong> التقاء عمالقة الصناعة على مصلحة مشتركة في تطوير نواة قياسية آمنة.</li>
+            <li><strong>المرونة المعمارية الفائقة:</strong> القدرة على التكيف مع أصغر المتحكمات وحتى أضخم العناقيد الحسابية.</li>
+            <li><strong>الاستقرار التشغيلي الصلب:</strong> خوادم لينكس تستطيع العمل لسنوات متواصلة دون الحاجة لإعادة التشغيل (Uptime).</li>
+          </ul>
+
+          <hr>
+
+          <!-- 22. لماذا يتعين على طالب علوم الحاسب إتقان Linux؟ -->
+          <h2 id="sec-22">22. لماذا يتعين على طالب علوم الحاسب إتقان Linux؟</h2>
+          <p>
+            لأن Linux ينقل المفاهيم الأكاديمية المجردة من صفحات الكتب المدرسية الجافة ويجعلها <strong>حقائق ملموسة يمكنك التفاعل معها وتعديلها بيدك</strong>:
+          </p>
+          <ul>
+            <li>أنت لا تكتفي بدراسة تعريف الـ Process، بل ترى العمليات الحية أمامك، وتتحكم في أولويات جدولتها عبر <code>nice</code> و <code>renice</code>، وترسل إليها الإشارات البرمجية عبر <code>kill</code>.</li>
+            <li>أنت لا تحفظ نظريات الأمان، بل تطبق نموذج الصلاحيات عملياً باستخدام <code>chmod</code> و <code>chown</code>.</li>
+            <li>أنت لا تتخيل كيفية انتقال حزم البيانات في الشبكة، بل تفحص المنافذ والحزم عبر أدوات حقيقية مثل <code>ip</code> و <code>ss</code> و <code>ping</code> و <code>curl</code>.</li>
+            <li>أنت لا تتكهن بكيفية تشغيل البرامج، بل تتعامل مباشرة مع متغيرات البيئة <code>$PATH</code> و <code>$HOME</code> و <code>$SHELL</code>.</li>
+          </ul>
+          <p>هنا يتحول التحصيل الدراسي إلى مهارة هندسية تطبيقية راسخة.</p>
+
+          <hr>
+
+          <!-- 23. أكبر فارق: لا تتعامل مع النظام كصندوق مغلق -->
+          <h2 id="sec-23">23. أكبر فارق: لا تتعامل مع النظام كصندوق مغلق</h2>
+          <p>
+            تتلخص الفكرة الجوهرية والرسالة الأهم لهذا الدرس في المقارنة المعمارية التالية:
+          </p>
+
+          <div class="flow-compare-grid">
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🔒</span> دورة حياة النظم الاحتكارية
+              </div>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span>طُوّر بواسطة الشركة المطورة</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span>اختُبر داخلياً وفق معاييرها</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span>وُزّع برخصة استخدام مقيدة</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span>استخدمه كمستهلك كما هو فقط</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-card" style="border-color: var(--primary); background: var(--primary-light);">
+              <div class="flow-card-title" style="color: var(--primary);">
+                <span>🚀</span> دورة حياة عالم Linux والمصدر المفتوح
+              </div>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span><strong>ادرسه:</strong> تصفح الكود وافهم هندسته</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span><strong>استخدمه:</strong> طوعه لأهدافك بحرية</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span><strong>عدّله:</strong> غير ما تراه مناسباً لحالتك</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span><strong>ابنِ عليه:</strong> أنتج خدمات ومنتجات جديدة</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">5</span>
+                  <span><strong>ساهم فيه:</strong> رد الجميل للمجتمع المفتوح</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- 24. من Linux إلى قيادة التكنولوجيا الحديثة -->
+          <h2 id="sec-24">24. من Linux إلى قيادة التكنولوجيا الحديثة</h2>
+          <p>
+            حين تنظر إلى أحدث التطورات التقنية التي تصنع مستقبل البشرية اليوم، تجد بصمات فلسفة Linux والمصدر المفتوح حاضرة في كل زاوية:
+          </p>
+          <div class="grid grid-3" style="margin: 1.5rem 0;">
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--primary); font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">الحوسبة السحابية (Cloud)</strong>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">الخوادم الافتراضية وشبكات OpenStack والبنى التحتية السحابية الهجينة.</p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--primary); font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">هندسة الـ DevOps</strong>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">خطوط التكامل والنشر الآلي (CI/CD)، والحاويات (Docker & Podman).</p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--primary); font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">البنى التحتية للذكاء الاصطناعي</strong>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">تدريب النماذج اللغوية الضخمة على مجموعات خوادم لينكس مدعومة بآلاف الـ GPUs.</p>
+            </div>
+          </div>
+
+          <p>ولذا، فإن تعلمك للينكس لا يعني مجرد اكتساب معرفة بنظام تشغيل جديد، بل يعني امتلاكك <strong>لمفتاح العبور إلى قلب البنية التحتية لعصر الذكاء الاصطناعي والتقنيات الرقمية المتقدمة</strong>.</p>
+
+          <hr>
+
+          <!-- الخلاصة -->
+          <h1 id="conclusion">خلاصة الدرس الثاني</h1>
+          <p>
+            الفرق الجوهري بين <strong>Linux</strong> والأنظمة الاحتكارية مثل <strong>Windows</strong> و <strong>macOS</strong> ليس مجرد اختلاف عابر في واجهة سطح المكتب أو الأوامر التنفيذية أو شكل التطبيقات؛ بل هو اختلاف أصيل في <strong>فلسفة النظام، ودرجة الشفافية والانفتاح، والحرية والسيادة الرقمية المتاحة للمستخدم والمهندس</strong>.
+          </p>
+          <p>
+            في الأنظمة الاحتكارية، تضع الشركة حدود ما تستطيع رؤيته وتعديله، بينما يرتكز Linux على أساس تشاركي مفتوح يوفر النواة والبرمجيات للجميع، ويمنح الأفراد والمؤسسات القدرة على الابتكار دون عوائق.
+          </p>
+          <p>
+            وهنا تتجلى الفكرة الأعظم للينكس:
+          </p>
+
+          <blockquote style="font-size: 1.15rem; line-height: 1.8;">
+            "أنت لا تحصل مع Linux على مجرد برنامج مغلق يُملى عليك استخدامه كما هو؛ بل تمتلك نظاماً حياً يمكنك دراسته، وفهم أدق تفاصيله، والبناء فوقه، والمساهمة الفاعلة في صياغة مستقبله."
+          </blockquote>
+
+          <!-- Previous and Next Lesson Navigation -->
+          <div class="lesson-navigation">
+            <a href="what-is-linux.html" class="lesson-nav-card prev">
+              <span class="lesson-nav-label">← الدرس السابق</span>
+              <span class="lesson-nav-title">الدرس الأول: فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</span>
+            </a>
+            <a href="linux-roadmap.html" class="lesson-nav-card next">
+              <span class="lesson-nav-label">المرحلة التالية في الخارطة ←</span>
+              <span class="lesson-nav-title">خارطة طريق احتراف Linux (مرحلة سطر الأوامر وأدوات Bash)</span>
+            </a>
+          </div>
+
+          <!-- Article Footer Action -->
+          <div class="article-footer-cta">
+            <div class="article-footer-cta-text">
+              <h3>رائع جداً! أنهيت قراءة واستيعاب الدرس الثاني 🎉</h3>
+              <p>أصبحت الآن مستعداً للانطلاق في التطبيقات العملية والسيطرة على سطر الأوامر.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="linux-roadmap.html" class="btn btn-primary btn-lg">استعراض خارطة طريق Linux ←</a>
+              <a href="what-is-linux.html" class="btn btn-secondary btn-lg">العودة للدرس الأول</a>
+              <a href="index.html" class="btn btn-outline btn-lg">الصفحة الرئيسية</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">🐧 Learn With Me</span>
+          <p>منصة تعليمية متخصصة في هندسة النظم، لينكس، وتقنيات السحابة والـ DevOps.</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
+          <li><a href="what-is-linux.html">الدرس الأول: فهم ماهية Linux</a></li>
+          <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف Linux</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Learn With Me</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle & Smooth Scroll Script -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
