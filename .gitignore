@@ -1,0 +1,7 @@
+# Exclude raw text file
+text
+
+# OS / Editor files
+.DS_Store
+*.swp
+*.swo

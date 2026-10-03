@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟ | Learn With Me</title>
+  <meta name="description" content="دليل شامل وعميق لفهم نظام تشغيل لينكس: النواة، إدارة العمليات، الذاكرة، الصلاحيات، الشبكات، الخدمات، والسحابة.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">🐧</div>
+        <div class="brand-text">Learn <span>With Me</span></div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="linux-roadmap.html" class="nav-link active">خارطة طريق Linux</a></li>
+        <li><a href="#toc" class="nav-link">فهرس المقال</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="مسار التنقل">
+      <a href="index.html">الرئيسية</a>
+      <span class="separator">/</span>
+      <a href="linux-roadmap.html">خارطة طريق Linux</a>
+      <span class="separator">/</span>
+      <span class="current">فهم ماهية Linux</span>
+    </nav>
+
+    <div class="article-layout">
+      <!-- Table of Contents Sidebar -->
+      <aside class="article-sidebar" id="toc">
+        <div class="sidebar-title">
+          <span>📑</span> فهرس المحتويات
+        </div>
+        <ul class="toc-list">
+          <li><a href="#intro">مقدمة: ما هو Linux؟</a></li>
+          <li><a href="#what-is-os">ما هو نظام التشغيل؟</a></li>
+          <li><a href="#sec-1">1. اكتشاف العتاد وتجهيزه</a></li>
+          <li><a href="#sec-2">2. إدارة العمليات Processes</a></li>
+          <li><a href="#sec-3">3. إدارة الذاكرة Memory</a></li>
+          <li><a href="#sec-4">4. توفير واجهات المستخدم</a></li>
+          <li><a href="#sec-5">5. إدارة أنظمة الملفات</a></li>
+          <li><a href="#sec-6">6. المستخدمون والمصادقة</a></li>
+          <li><a href="#sec-7">7. المستخدم العادي و Root</a></li>
+          <li><a href="#sec-8">8. الأدوات الإدارية</a></li>
+          <li><a href="#sec-9">9. الخدمات والـ Daemons</a></li>
+          <li><a href="#sec-10">10. أدوات البرمجة</a></li>
+          <li><a href="#sec-11">11. لماذا يجب تعلم الـ Shell؟</a></li>
+          <li><a href="#sec-12">12. تجاوز أنظمة UNIX الأولى</a></li>
+          <li><a href="#sec-13">13. التجميع Clustering</a></li>
+          <li><a href="#sec-14">14. المحاكاة الافتراضية</a></li>
+          <li><a href="#sec-15">15. الحوسبة السحابية Cloud</a></li>
+          <li><a href="#sec-16">16. Real-Time Computing</a></li>
+          <li><a href="#sec-17">17. التخزين المتخصص Storage</a></li>
+          <li><a href="#sec-18">18. Linux ليس مجرد Terminal</a></li>
+          <li><a href="#sec-19">19. كيف تجتمع كل هذه الوظائف؟</a></li>
+          <li><a href="#sec-20">20. أهمية Linux في الخوادم</a></li>
+          <li><a href="#sec-21">21. متعدد المستخدمين والمهام</a></li>
+          <li><a href="#sec-22">22. قابلية التوسع Scalability</a></li>
+          <li><a href="#sec-23">23. ما يجب أن يتعلمه المسؤول</a></li>
+          <li><a href="#conclusion">الخلاصة</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Article Content -->
+      <article class="article-main">
+        <header class="article-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <span class="badge badge-primary">المرحلة الأولى: الأساسيات والمعمارية</span>
+            <span class="badge badge-accent">مقال تأسيسي شامل</span>
+          </div>
+          <h1 id="intro">فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</h1>
+          <div class="article-header-meta">
+            <span class="article-meta-item">⏱️ وقت القراءة: 15 دقيقة</span>
+            <span class="article-meta-item">🎯 الفئة المستهدفة: مطورون، مهندسو DevOps، ومسؤولو نظم</span>
+            <span class="article-meta-item">📂 المسار: <a href="linux-roadmap.html">خارطة طريق Linux</a></span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>
+            عندما نسمع كلمة <strong>Linux</strong>، قد يتبادر إلى أذهاننا مباشرةً سطر الأوامر، أو شاشة سوداء مليئة بالأوامر، أو ربما توزيعات مثل Ubuntu و Debian و Fedora. لكن Linux في الحقيقة أكبر بكثير من مجرد واجهة أو مجموعة أوامر.
+          </p>
+
+          <p>
+            لينكس هو <strong>نظام تشغيل (Operating System)</strong>، أي مجموعة من البرمجيات التي تعمل كحلقة وصل بين <strong>عتاد الحاسوب (Hardware)</strong> والبرامج التي يستخدمها الإنسان. فهو المسؤول عن إدارة المعالج والذاكرة والملفات والأجهزة والمستخدمين والعمليات والخدمات، كما يوفر الأدوات التي تسمح للمستخدم أو مسؤول النظام بالتحكم في الحاسوب.
+          </p>
+
+          <p>
+            ولفهم Linux بصورة صحيحة، من المفيد أولًا أن نفهم ما الذي يفعله نظام التشغيل عمومًا.
+          </p>
+
+          <hr>
+
+          <!-- ما هو نظام التشغيل؟ -->
+          <h2 id="what-is-os">ما هو نظام التشغيل؟</h2>
+          <p>
+            نظام التشغيل هو البرنامج الأساسي الذي يدير موارد الحاسوب ويتيح للبرامج الأخرى العمل.
+          </p>
+          <p>
+            فعندما تفتح متصفحًا مثل Firefox أو Chrome، أو تشغل محرر نصوص، أو تحفظ ملفًا، أو تتصل بالإنترنت، فهذه العمليات لا تحدث بصورة مباشرة بين البرنامج وقطع الحاسوب في معظم الحالات؛ بل يتدخل نظام التشغيل لإدارة هذه الموارد.
+          </p>
+          <p>يمكن تصور الأمر بهذا الشكل:</p>
+
+          <div class="diagram-box">
+المستخدم
+   ↓
+التطبيقات
+   ↓
+نظام التشغيل
+   ↓
+العتاد Hardware
+          </div>
+
+          <p>
+            فالتطبيق لا يحتاج عادةً إلى معرفة التفاصيل الدقيقة لكيفية إرسال البيانات إلى القرص الصلب أو كيفية التعامل مع بطاقة الشبكة. نظام التشغيل يوفر له الواجهات والخدمات اللازمة.
+          </p>
+
+          <p>وفي Linux توجد مجموعة كبيرة من الوظائف التي يقوم بها النظام، من أهمها:</p>
+
+          <ul>
+            <li>اكتشاف وتجهيز العتاد.</li>
+            <li>إدارة العمليات.</li>
+            <li>إدارة الذاكرة.</li>
+            <li>توفير واجهات المستخدم.</li>
+            <li>إدارة أنظمة الملفات.</li>
+            <li>إدارة المستخدمين والمصادقة.</li>
+            <li>توفير أدوات الإدارة.</li>
+            <li>تشغيل الخدمات في الخلفية.</li>
+            <li>توفير أدوات البرمجة.</li>
+            <li>دعم الخوادم والشبكات.</li>
+            <li>تشغيل الأنظمة الافتراضية.</li>
+            <li>دعم الحوسبة السحابية.</li>
+            <li>دعم التجميع Clustering.</li>
+            <li>توفير تقنيات تخزين متقدمة.</li>
+            <li>إمكانية استخدامه في الأنظمة ذات الزمن الحقيقي.</li>
+          </ul>
+
+          <p>دعونا نفهم كل واحدة منها بالتفصيل.</p>
+
+          <hr>
+
+          <!-- 1. اكتشاف العتاد وتجهيزه -->
+          <h1 id="sec-1">1. اكتشاف العتاد وتجهيزه</h1>
+          <p>
+            أول شيء يجب أن يفعله نظام التشغيل بعد تشغيل الحاسوب هو <strong>التعرف على مكونات الجهاز وتجهيزها للاستخدام</strong>.
+          </p>
+          <p>عندما تضغط زر تشغيل الحاسوب، توجد مكونات كثيرة يجب أن يتعامل معها Linux، مثل:</p>
+          <ul>
+            <li>وحدة المعالجة المركزية CPU.</li>
+            <li>الذاكرة RAM.</li>
+            <li>الأقراص HDD أو SSD.</li>
+            <li>بطاقة الشبكة.</li>
+            <li>بطاقة الصوت.</li>
+            <li>لوحة المفاتيح والفأرة ومنافذ USB.</li>
+            <li>وحدات التخزين الخارجية.</li>
+            <li>بطاقات الرسوميات GPU، وغيرها.</li>
+          </ul>
+          <p>لكن معرفة وجود الجهاز ليست كافية؛ يحتاج نظام التشغيل إلى معرفة <strong>كيفية التواصل مع هذا الجهاز</strong>.</p>
+          <p>وهنا تظهر أهمية <strong>Drivers</strong> و <strong>Kernel Modules</strong>.</p>
+
+          <h3>ما هو Driver؟</h3>
+          <p>الـ Driver هو برنامج يسمح لنظام التشغيل بالتعامل مع قطعة معينة من العتاد. على سبيل المثال، إذا كان لديك كرت شبكة، فإن Linux يحتاج إلى برنامج مناسب يستطيع من خلاله التواصل مع كرت الشبكة.</p>
+          <p>يمكن تبسيط العلاقة هكذا:</p>
+
+          <div class="diagram-box">
+Application
+     ↓
+   Linux
+     ↓
+   Driver
+     ↓
+  Hardware
+          </div>
+
+          <p>
+            فعندما يطلب برنامج ما إرسال بيانات عبر الشبكة، لا يتعامل البرنامج عادةً مع الدوائر الإلكترونية في بطاقة الشبكة مباشرة. Linux يتولى ذلك من خلال الطبقات المناسبة.
+          </p>
+
+          <h3>ماذا يحدث أثناء الإقلاع؟</h3>
+          <p>
+            عند بدء تشغيل Linux، يبدأ النظام في اكتشاف مكونات الجهاز وتحميل ما يلزم من Drivers و Modules للتعامل معها. وهذا أحد الأسباب التي تجعل <strong>Kernel</strong> جزءًا أساسيًا جدًا من Linux.
+          </p>
+
+          <hr>
+
+          <!-- 2. إدارة العمليات Processes -->
+          <h1 id="sec-2">2. إدارة العمليات Processes</h1>
+          <p>
+            من أهم مسؤوليات نظام التشغيل إدارة البرامج والعمليات التي تعمل في الوقت نفسه.
+          </p>
+          <p>تخيل أنك تستخدم الحاسوب وقمت في نفس الوقت بـ: تشغيل Firefox، تشغيل Terminal، تشغيل محرر نصوص، تشغيل Music Player، نسخ ملفات، وتحميل ملف من الإنترنت. كل هذه البرامج تحتاج إلى موارد المعالج.</p>
+          <p>لكن المعالج لا يستطيع إعطاء كل عملية كامل قدرته في اللحظة نفسها على نواة واحدة؛ لذلك يجب على نظام التشغيل أن يقرر:</p>
+
+          <blockquote>
+            أي عملية تستخدم CPU الآن؟ وكم من الوقت تحصل عليه؟ ومتى تنتقل الأولوية إلى عملية أخرى؟
+          </blockquote>
+
+          <p>هذه المهمة تسمى <strong>Process Scheduling</strong>.</p>
+
+          <h2>ما هي العملية Process؟</h2>
+          <p>الـ Process هي نسخة قيد التنفيذ من برنامج:</p>
+
+          <div class="diagram-box">
+Program
+   ↓
+Execution
+   ↓
+Process
+          </div>
+
+          <p>عندما تقوم بتشغيل برنامج، ينشئ النظام عملية مرتبطة به ويخصص لها الموارد المطلوبة. يستطيع Linux:</p>
+          <ul>
+            <li>إنشاء وإيقاف وإنهاء الـ Processes.</li>
+            <li>تغيير أولويتها ومراقبتها.</li>
+            <li>إرسال إشارات Signals إليها.</li>
+            <li>إدارة العمليات التي تعمل في الخلفية.</li>
+          </ul>
+
+          <p>ومن الأدوات الشهيرة لمراقبة العمليات:</p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash"># عرض العمليات الحالية
+ps
+
+# مراقبة العمليات واستهلاك الموارد بشكل حي
+top
+
+# أداة تفاعلية متقدمة لمراقبة النظام
+htop</code></pre>
+          </div>
+
+          <hr>
+
+          <!-- 3. إدارة الذاكرة Memory Management -->
+          <h1 id="sec-3">3. إدارة الذاكرة Memory Management</h1>
+          <p>
+            الذاكرة RAM مورد أساسي جدًا. عندما تشغل برنامجًا، يحتاج البرنامج إلى مساحة في الذاكرة لكي يحتفظ بالكود والبيانات التي يعمل عليها.
+          </p>
+          <p>لكن ماذا يحدث عندما تعمل عدة برامج في الوقت نفسه؟ هنا يتدخل نظام التشغيل لـ:</p>
+          <ul>
+            <li>تخصيص الذاكرة للعمليات وتحريرها عند الانتهاء.</li>
+            <li>منع العمليات من الوصول غير المصرح به إلى ذاكرة عمليات أخرى.</li>
+            <li>إدارة الذاكرة الافتراضية، واستخدام Swap عند الحاجة.</li>
+          </ul>
+
+          <h2>RAM و Swap</h2>
+          <p>
+            <strong>RAM</strong> هي الذاكرة الفعلية الموجودة في الجهاز، أما <strong>Swap</strong> فهي مساحة على التخزين يمكن لنظام Linux استخدامها كامتداد للذاكرة في بعض الحالات.
+          </p>
+
+          <div class="diagram-box">
+          Memory Management
+                 │
+        ┌────────┴────────┐
+        ↓                 ↓
+       RAM              Swap
+   Physical Memory   Disk-based space
+          </div>
+
+          <p>
+            عندما يحتاج النظام إلى إدارة الذاكرة بكفاءة، يمكنه نقل بعض البيانات من RAM إلى Swap وفقًا للحاجة وسياسات إدارة الذاكرة. لكن Swap ليست بديلًا مساويًا لـ RAM من حيث السرعة؛ فهي تعتمد على جهاز التخزين، ولذلك فإن الاعتماد الشديد عليها قد يؤدي إلى انخفاض الأداء.
+          </p>
+
+          <hr>
+
+          <!-- 4. توفير واجهات المستخدم -->
+          <h1 id="sec-4">4. توفير واجهات المستخدم</h1>
+          <p>لكي يستطيع الإنسان استخدام نظام التشغيل، يجب أن يوفر النظام طريقة للتفاعل معه. Linux يوفر أكثر من نوع من الواجهات، أشهرها:</p>
+          <ol>
+            <li><strong>Command Line Interface — CLI</strong></li>
+            <li><strong>Graphical User Interface — GUI</strong></li>
+          </ol>
+
+          <h2>سطر الأوامر Shell</h2>
+          <p>
+            من أهم أجزاء بيئة Linux بالنسبة لمسؤولي الأنظمة هو <strong>Shell</strong>. الـ Shell هو برنامج يوفر واجهة نصية تسمح للمستخدم بإدخال الأوامر والتفاعل مع النظام.
+          </p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash"># لعرض الملفات
+ls
+
+# للانتقال إلى مجلد
+cd /home
+
+# لإنشاء مجلد
+mkdir projects
+
+# لنسخ ملف
+cp file.txt backup.txt</code></pre>
+          </div>
+
+          <h2>لماذا يعتبر Shell مهمًا؟</h2>
+          <p>
+            رغم أن Linux الحديث يوفر بيئات رسومية متقدمة جدًا، فإن فهم سطر الأوامر لا يزال مهارة أساسية لمسؤول Linux. والسبب أن الـ Shell يسمح لك بتنفيذ العديد من المهام بسرعة ودقة، كما يسمح بإنشاء Scripts لأتمتة العمليات.
+          </p>
+          <p>
+            بدلًا من تنفيذ عشرات الأوامر يدويًا، يمكن كتابة Bash Script يقوم بتنفيذها تلقائيًا. وهذا يجعل الـ Shell ليس مجرد وسيلة لإدخال الأوامر، بل <strong>بيئة قوية لإدارة النظام والأتمتة</strong>.
+          </p>
+
+          <hr>
+
+          <!-- 5. إدارة أنظمة الملفات Filesystems -->
+          <h1 id="sec-5">5. إدارة أنظمة الملفات Filesystems</h1>
+          <p>
+            البيانات الموجودة على جهازك تحتاج إلى تنظيم؛ لذلك يستخدم Linux مفهوم <strong>Filesystem</strong> لتنظيم الملفات والمجلدات والوصول إليها. في Linux ستجد بنية شجرية تبدأ من <code>/</code> (Root Directory):
+          </p>
+
+          <div class="diagram-box">
+/
+├── bin
+├── boot
+├── dev
+├── etc
+├── home
+├── lib
+├── media
+├── mnt
+├── opt
+├── proc
+├── root
+├── run
+├── srv
+├── tmp
+├── usr
+└── var
+          </div>
+
+          <h2>الصلاحيات والملكية</h2>
+          <p>Linux لا يتعامل مع الملفات باعتبارها مجرد بيانات، بل يطبق أيضًا مفهوم <strong>Ownership</strong> و <strong>Permissions</strong>. يمكن أن يكون للملف:</p>
+          <ul>
+            <li>User Owner و Group Owner.</li>
+            <li>Permissions للمالك، وللمجموعة، ولبقية المستخدمين.</li>
+          </ul>
+
+          <div class="diagram-box">
+-rw-r--r--
+          </div>
+
+          <p>هذه الصلاحيات تحدد من يستطيع: قراءة الملف، تعديل الملف، وتنفيذه. وهذا جزء أساسي من نموذج الأمان في Linux.</p>
+
+          <hr>
+
+          <!-- 6. المستخدمون والمصادقة Authentication -->
+          <h1 id="sec-6">6. المستخدمون والمصادقة Authentication</h1>
+          <p>
+            Linux نظام متعدد المستخدمين <strong>Multi-user Operating System</strong>، أي أن أكثر من مستخدم يمكن أن يكون لديهم حسابات منفصلة على النظام. كل مستخدم يمكن أن يمتلك اسم مستخدم، Home Directory، ملفات خاصة، وصلاحيات معينة.
+          </p>
+
+          <div class="diagram-box">
+Users
+ ├── jalal
+ ├── ali
+ └── ahmed
+
+Groups
+ ├── developers
+ ├── admins
+ └── users
+          </div>
+
+          <p>ويمكن تحديد ما يستطيع كل مستخدم أو مجموعة الوصول إليه بدقة فائقة.</p>
+
+          <hr>
+
+          <!-- 7. المستخدم العادي و Root -->
+          <h1 id="sec-7">7. المستخدم العادي و Root</h1>
+          <p>
+            من المفاهيم المهمة في Linux وجود مستخدم يتمتع بصلاحيات إدارية كاملة يسمى: <code>root</code>.
+          </p>
+          <p>
+            المستخدم العادي لا يستطيع تنفيذ كل العمليات على النظام لأسباب أمنية؛ فتثبيت البرامج أو تعديل ملفات النظام الحساسة يحتاج إلى صلاحيات إدارية. في توزيعات Linux الحديثة يستخدم الأمر <code>sudo</code> لتنفيذ أمر بصلاحيات إدارية:
+          </p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash">sudo apt update</code></pre>
+          </div>
+
+          <p>وهذا النموذج يقلل من احتمالية ارتكاب أخطاء كارثية قد تؤثر على سلامة النظام.</p>
+
+          <hr>
+
+          <!-- 8. الأدوات الإدارية Administrative Utilities -->
+          <h1 id="sec-8">8. الأدوات الإدارية Administrative Utilities</h1>
+          <p>Linux يأتي مع عدد ضخم من الأدوات الإدارية لإدارة المستخدمين، الأقراص، الذاكرة، العمليات، الشبكة، وتثبيت وتحديث البرامج:</p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash"># للتعامل مع إعدادات الشبكة
+ip
+
+# لمعرفة استخدام وسعة أنظمة الملفات
+df
+
+# لعرض استهلاك وتوفر الذاكرة
+free
+
+# لإدارة الخدمات في الأنظمة التي تستخدم systemd
+systemctl</code></pre>
+          </div>
+
+          <hr>
+
+          <!-- 9. الخدمات والـ Daemons -->
+          <h1 id="sec-9">9. الخدمات والـ Daemons</h1>
+          <p>
+            ليس كل شيء في Linux يحتاج إلى تفاعل مباشر من المستخدم. هناك برامج تعمل في الخلفية وتنتظر طلبات أو تؤدي مهامًا باستمرار، وتعرف باسم <strong>Daemons</strong>.
+          </p>
+
+          <h2>Linux كخادم Server</h2>
+          <p>يمكن لـ Linux تشغيل مختلف أنواع الخوادم: Web Server، Mail Server، Database Server، File Server، DNS Server، DHCP Server، Print Server.</p>
+
+          <div class="diagram-box">
+Users
+   ↓
+Network
+   ↓
+Linux Server
+   ├── Web Server (Nginx / Apache)
+   ├── Database (PostgreSQL / MySQL)
+   ├── DNS
+   └── File Server
+          </div>
+
+          <hr>
+
+          <!-- 10. أدوات البرمجة Programming Tools -->
+          <h1 id="sec-10">10. أدوات البرمجة Programming Tools</h1>
+          <p>Linux بيئة تطوير برمجيات متكاملة ومثالية للمبرمجين:</p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash"># لترجمة برامج لغة C
+gcc
+
+# لتشغيل برامج Python
+python
+
+# لترجمة وتشغيل Java
+javac
+
+# أدوات البناء وتتبع الإصدارات والتصحيح
+git
+make
+cmake
+gdb</code></pre>
+          </div>
+
+          <hr>
+
+          <!-- 11. لماذا يجب على مسؤول Linux تعلم الـ Shell؟ -->
+          <h1 id="sec-11">11. لماذا يجب على مسؤول Linux تعلم الـ Shell؟</h1>
+          <blockquote>
+            إذا كان Linux يحتوي على واجهة رسومية، فلماذا أتعلم الأوامر؟
+          </blockquote>
+          <p>
+            لأن إدارة خوادم Linux تعتمد كلياً على سطر الأوامر: تنفيذ المهام بسرعة، إدارة الخوادم عن بعد عبر <code>SSH</code>، أتمتة المهام عبر Scripts، تحليل السجلات ومراقبة النظام.
+          </p>
+
+          <div class="code-wrapper">
+            <div class="code-header">
+              <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+              <span>bash</span>
+            </div>
+            <pre><code class="language-bash">ssh user@server</code></pre>
+          </div>
+
+          <hr>
+
+          <!-- 12. Linux يتجاوز أنظمة UNIX الأولى -->
+          <h1 id="sec-12">12. Linux يتجاوز أنظمة UNIX الأولى</h1>
+          <p>
+            على مدار العقود، تطور Linux بصورة هائلة وأصبح قادرًا على التعامل مع بيئات ضخمة ومعقدة، شملت:
+          </p>
+          <ul>
+            <li>Clustering (التجميع والتوافر العالي).</li>
+            <li>Virtualization (المحاكاة الافتراضية).</li>
+            <li>Cloud Computing (الحوسبة السحابية).</li>
+            <li>Real-Time Computing (أنظمة الزمن الحقيقي).</li>
+            <li>Specialized Storage (التخزين المتخصص والموزع).</li>
+          </ul>
+
+          <hr>
+
+          <!-- 13. Clustering — التجميع -->
+          <h1 id="sec-13">13. Clustering — التجميع</h1>
+          <p>
+            الـ <strong>Cluster</strong> هو مجموعة من الأنظمة تعمل معًا لتوفير خدمة موحدة بكفاءة وتوافر عالٍ (High Availability):
+          </p>
+
+          <div class="diagram-box">
+       Cluster
+          │
+   ┌──────┼──────┐
+   ↓      ↓      ↓
+Node 1  Node 2  Node 3
+          </div>
+
+          <p>يساعد التجميع على زيادة القدرة، وتوزيع الأحمال، وتقليل أثر تعطل أي خادم مفرد.</p>
+
+          <hr>
+
+          <!-- 14. Virtualization — المحاكاة الافتراضية -->
+          <h1 id="sec-14">14. Virtualization — المحاكاة الافتراضية</h1>
+          <p>
+            بدلًا من تشغيل نظام تشغيل واحد مباشرة على جهاز فعلي، يمكن لخادم لينكس أن يعمل كمضيف <strong>Virtualization Host</strong> يشغل عدة أجهزة افتراضية (VMs):
+          </p>
+
+          <div class="diagram-box">
+Physical Server
+       │
+   Linux Host
+       │
+ ┌─────┼──────────┐
+ ↓     ↓          ↓
+Linux Windows    BSD
+VM      VM        VM
+          </div>
+
+          <h2>KVM و Xen</h2>
+          <p>من أشهر تقنيات المحاكاة الافتراضية في لينكس: <strong>KVM</strong> و <strong>Xen</strong>، والتي أصبحت أساسًا لمراكز البيانات الحديثة.</p>
+
+          <hr>
+
+          <!-- 15. Cloud Computing — الحوسبة السحابية -->
+          <h1 id="sec-15">15. Cloud Computing — الحوسبة السحابية</h1>
+          <p>
+            عندما تجمع بين المحاكاة الافتراضية، والشبكات المعرفة برمجيًا، والتخزين الموزع، والأتمتة، ينتج لديك <strong>Cloud Computing</strong>. من أشهر المنصات السحابية مفتوحة المصدر المبنية على لينكس: <strong>OpenStack</strong>.
+          </p>
+
+          <hr>
+
+          <!-- 16. Real-Time Computing -->
+          <h1 id="sec-16">16. Real-Time Computing</h1>
+          <p>
+            في بعض التطبيقات الحرجة (كالمصانع أو الأنظمة الطبية)، يجب أن تنفذ المهمة خلال زمن محدد ودقيق يمكن التنبؤ به. يمكن تهيئة نواة لينكس (RT-Preempt) لدعم متطلبات الزمن الحقيقي بدقة متناهية.
+          </p>
+
+          <hr>
+
+          <!-- 17. التخزين المتخصص Specialized Storage -->
+          <h1 id="sec-17">17. التخزين المتخصص Specialized Storage</h1>
+          <p>يدعم لينكس بروتوكولات تخزين متقدمة مثل <strong>iSCSI</strong> و <strong>Fibre Channel</strong> و <strong>InfiniBand</strong>، وأنظمة التخزين الموزع الحديثة مثل <strong>Ceph</strong> و <strong>GlusterFS</strong>.</p>
+
+          <div class="diagram-box">
+             Storage System
+                   │
+        ┌──────────┼──────────┐
+        ↓          ↓          ↓
+     Server 1   Server 2   Server 3
+        │          │          │
+       Disk       Disk       Disk
+          </div>
+
+          <hr>
+
+          <!-- 18. Linux ليس مجرد Terminal -->
+          <h1 id="sec-18">18. Linux ليس مجرد Terminal</h1>
+          <p>من الأخطاء الشائعة اختزال Linux في صورة شاشة سوداء وأوامر. لينكس مرن للغاية ويمكن أن يعمل كـ:</p>
+          <ul>
+            <li>حاسوب مكتبي متكامل بواجهات رسومية عصرية (Desktop Computer).</li>
+            <li>خادم ويب، أو خادم قواعد بيانات.</li>
+            <li>مضيف سحابي (Cloud Host) أو مضيف محاكاة (Virtualization Host).</li>
+            <li>عنقود تخزين (Storage Cluster).</li>
+            <li>أنظمة مضمنة (Embedded Systems) وأجهزة ذكية وسيارات وسفن فضاء!</li>
+          </ul>
+
+          <hr>
+
+          <!-- 19. كيف تجتمع كل هذه الوظائف معًا؟ -->
+          <h1 id="sec-19">19. كيف تجتمع كل هذه الوظائف معًا؟</h1>
+          <p>يمكن النظر إلى Linux كنظام طبقات متكامل:</p>
+
+          <div class="diagram-box">
+┌─────────────────────────────┐
+│          Users              │
+├─────────────────────────────┤
+│ Applications / Services     │
+├─────────────────────────────┤
+│ Shell / GUI / System Tools  │
+├─────────────────────────────┤
+│ Linux Kernel                │
+├─────────────────────────────┤
+│ Drivers / Hardware Support  │
+├─────────────────────────────┤
+│ Hardware                    │
+└─────────────────────────────┘
+          </div>
+
+          <p>الـ <strong>Kernel</strong> هو القلب النابض الذي يدير الموارد والعتاد، بينما الأدوات والبرمجيات المحيطة به تجعل النظام قابلاً للاستخدام البشري والبرمجي.</p>
+
+          <hr>
+
+          <!-- 20. لماذا Linux مهم جدًا في عالم الخوادم؟ -->
+          <h1 id="sec-20">20. لماذا Linux مهم جدًا في عالم الخوادم؟</h1>
+          <p>
+            تكمن قوة لينكس في مزيجه الفريد: <strong>الاستقرار + الأمان + كفاءة الشبكات + إدارة العمليات + الصلاحيات الصارمة + الأتمتة + المرونة الهائلة</strong>.
+          </p>
+
+          <div class="diagram-box">
+Linux Server
+│
+├── Nginx (Web Server)
+├── PostgreSQL (Database)
+├── Redis (Cache)
+├── SSH (Remote Management)
+├── Docker (Containers)
+├── DNS (Name Resolution)
+└── Application Services
+          </div>
+
+          <hr>
+
+          <!-- 21. Linux كنظام متعدد المستخدمين ومتعدد المهام -->
+          <h1 id="sec-21">21. Linux كنظام متعدد المستخدمين ومتعدد المهام</h1>
+          <p><strong>Multi-user:</strong> يدعم عدة مستخدمين مع فصل تام للصلاحيات والملفات.</p>
+          <p><strong>Multitasking:</strong> يدير مئات العمليات المتزامنة بكفاءة وبدون تداخل غير مصرح به.</p>
+
+          <div class="diagram-box">
+                 Linux
+                   │
+       ┌───────────┼───────────┐
+       ↓           ↓           ↓
+     User A      User B      User C
+       │           │           │
+    Process      Process     Process
+       │           │           │
+       └───────────┼───────────┘
+                   ↓
+                Kernel
+                   ↓
+              Hardware
+          </div>
+
+          <hr>
+
+          <!-- 22. Linux كنظام قابل للتوسع -->
+          <h1 id="sec-22">22. Linux كنظام قابل للتوسع</h1>
+          <p>ما تتعلمه على جهازك الشخصي ينتقل معك بسلاسة إلى أضخم مراكز البيانات:</p>
+
+          <div class="diagram-box">
+جهاز شخصي → خادم صغير → خادم مؤسسة → مجموعة خوادم → بنية Cloud → مراكز بيانات عملاقة
+          </div>
+
+          <hr>
+
+          <!-- 23. ما الذي يجب أن يتعلمه مسؤول Linux؟ -->
+          <h1 id="sec-23">23. ما الذي يجب أن يتعلمه مسؤول Linux؟</h1>
+          <p>
+            لإدارة Linux باحتراف، يجب أن تفهم <strong>المفاهيم التي تقف وراء الأوامر</strong>:
+          </p>
+
+          <div class="grid grid-2" style="margin: 1.5rem 0;">
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">📁 إدارة الملفات</h4>
+              <code>ls, cd, cp, mv, rm, mkdir, find</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">🔐 الصلاحيات والملكية</h4>
+              <code>chmod, chown, chgrp</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">⚡ العمليات والمهام</h4>
+              <code>ps, top, kill, nice</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">⚙️ إدارة الخدمات</h4>
+              <code>systemctl, journalctl</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">🌐 الشبكات</h4>
+              <code>ip, ss, ping, traceroute</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">💾 التخزين</h4>
+              <code>df, du, mount, fdisk</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">👥 إدارة المستخدمين</h4>
+              <code>useradd, usermod, passwd</code>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <h4 style="color: var(--primary);">🤖 الأتمتة والـ Scripting</h4>
+              <code>bash, cron, scripts</code>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- الخلاصة -->
+          <h1 id="conclusion">الخلاصة</h1>
+          <p>
+            Linux ليس مجرد نظام تشغيل يستخدم الأوامر في Terminal، وليس مجرد بديل لأنظمة تشغيل أخرى؛ إنه <strong>منظومة متكاملة لإدارة موارد الحاسوب وتشغيل التطبيقات والخدمات والمستخدمين</strong>.
+          </p>
+          <p>
+            يقوم Linux بإدارة العتاد، وجدولة العمليات، وإدارة الذاكرة، وتنظيم الملفات، وتطبيق الصلاحيات، وإدارة المستخدمين، وتشغيل الخدمات، وتوفير أدوات الإدارة والبرمجة. ومع تطوره، أصبح الأساس المتين للـ <strong>Clustering، والـ Virtualization، والحوسبة السحابية (Cloud Computing)، وأنظمة الزمن الحقيقي، والتخزين الموزع</strong>.
+          </p>
+
+          <blockquote>
+            <strong>Linux هو بيئة متكاملة لإدارة موارد الحاسوب وتشغيل البرامج والخدمات، والـ Shell ليس Linux نفسه، لكنه أحد أقوى الأدوات التي تمكنك من التحكم في Linux وإدارته.</strong>
+          </blockquote>
+
+          <p>
+            وبالنسبة لمن يريد العمل في <strong>System Administration أو DevOps أو Cloud أو Cybersecurity أو Backend Engineering</strong>، فإن فهم هذه الأساسيات يمثل قاعدة مهمة جدًا للانتقال إلى الموضوعات الأكثر تقدمًا.
+          </p>
+
+          <!-- Article Footer Action -->
+          <div class="article-footer-cta">
+            <div class="article-footer-cta-text">
+              <h3>أحسنت! أتممت قراءة المقال التأسيسي 🎉</h3>
+              <p>الخطوة التالية هي متابعة المراحل العملية والتطبيقية في خارطة طريق لينكس.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="linux-roadmap.html" class="btn btn-primary btn-lg">العودة إلى خارطة طريق Linux ←</a>
+              <a href="index.html" class="btn btn-secondary btn-lg">الصفحة الرئيسية</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">🐧 Learn With Me</span>
+          <p>منصة تعليمية متخصصة في هندسة النظم، لينكس، وتقنيات السحابة والـ DevOps.</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
+          <li><a href="what-is-linux.html">فهم ماهية Linux</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Learn With Me</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle & Smooth Scroll Script -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>
