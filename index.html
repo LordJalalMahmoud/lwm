@@ -22,6 +22,7 @@
         <li><a href="what-is-linux.html" class="nav-link">الدرس الأول</a></li>
         <li><a href="linux-vs-other-os.html" class="nav-link">الدرس الثاني</a></li>
         <li><a href="history-of-linux.html" class="nav-link">الدرس الثالث</a></li>
+        <li><a href="unix-philosophy.html" class="nav-link">الدرس الرابع</a></li>
       </ul>
       <div class="nav-actions">
         <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
@@ -104,17 +105,17 @@
             <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">3. تاريخ لينكس</strong>
             <span style="font-size: 0.85rem; color: var(--accent); font-weight: 600;">الدرس 3 • متاح بالفيديو والمقال</span>
           </a>
+          <a href="unix-philosophy.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
+            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">4. ثقافة وفلسفة UNIX</strong>
+            <span style="font-size: 0.85rem; color: var(--accent); font-weight: 600;">الدرس 4 • متاح بالفيديو والمقال</span>
+          </a>
           <a href="linux-roadmap.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
-            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">4. سطر الأوامر (CLI)</strong>
+            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">5. سطر الأوامر (CLI)</strong>
             <span style="font-size: 0.85rem; color: var(--text-secondary);">التنقل والتعامل مع الملفات</span>
           </a>
           <a href="linux-roadmap.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
-            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">5. الصلاحيات والمستخدمون</strong>
+            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">6. الصلاحيات والمستخدمون</strong>
             <span style="font-size: 0.85rem; color: var(--text-secondary);">نموذج الأمان و Root و sudo</span>
-          </a>
-          <a href="linux-roadmap.html" class="card" style="padding: 1rem; background: var(--bg-surface-alt); text-decoration: none;">
-            <strong style="color: var(--primary); display: block; margin-bottom: 0.25rem;">6. العمليات والخدمات</strong>
-            <span style="font-size: 0.85rem; color: var(--text-secondary);">systemd و Daemons والذاكرة</span>
           </a>
         </div>
       </div>
@@ -127,7 +128,7 @@
       <p class="section-subtitle">شروحات علمية مفصلة مدعومة بالفيديوهات التوضيحية والأوامر والرسوم البيانية.</p>
     </div>
 
-    <div class="grid grid-3">
+    <div class="grid grid-2">
       <!-- Article 1 Card -->
       <div class="card">
         <div class="card-header">
@@ -175,7 +176,7 @@
         <div class="card-header">
           <div class="card-icon" style="background-color: var(--accent-orange-light); color: var(--accent-orange);">📜</div>
           <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <span class="badge badge-accent">الدرس الثالث (جديد)</span>
+            <span class="badge badge-accent">الدرس الثالث</span>
             <span class="badge badge-warning" style="background-color: var(--accent-orange-light); color: var(--accent-orange);">تاريخ النظم</span>
           </div>
           <h3 class="card-title">
@@ -187,7 +188,28 @@
         </div>
         <div class="card-footer">
           <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 20 دقيقة • فيديو مصاحب</span>
-          <a href="history-of-linux.html" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, var(--accent-orange), #ea580c);">اقرأ الدرس 3 ←</a>
+          <a href="history-of-linux.html" class="btn btn-outline btn-sm">اقرأ الدرس 3 ←</a>
+        </div>
+      </div>
+
+      <!-- Article 4 Card -->
+      <div class="card" style="border-color: var(--primary);">
+        <div class="card-header">
+          <div class="card-icon" style="background-color: var(--primary-light); color: var(--primary);">💡</div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span class="badge badge-accent">الدرس الرابع (جديد)</span>
+            <span class="badge badge-primary">ثقافة وفلسفة</span>
+          </div>
+          <h3 class="card-title">
+            <a href="unix-philosophy.html">ثقافة وفلسفة UNIX في Bell Labs: المبادئ التي شكلت عالم البرمجيات</a>
+          </h3>
+        </div>
+        <div class="card-body">
+          استكشف كيف صنعت مختبرات بيل مفهوم الأدوات الصغيرة، الأنابيب (Pipes)، التراكبية Modularity، ولغة C، وكيف امتدت لتشكل الحوسبة السحابية الحديثة.
+        </div>
+        <div class="card-footer">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 25 دقيقة • فيديو مصاحب</span>
+          <a href="unix-philosophy.html" class="btn btn-primary btn-sm">اقرأ الدرس 4 ←</a>
         </div>
       </div>
     </div>
@@ -245,6 +267,7 @@
           <li><a href="what-is-linux.html">الدرس الأول: فهم ماهية Linux</a></li>
           <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف Linux</a></li>
           <li><a href="history-of-linux.html">الدرس الثالث: استكشاف تاريخ Linux</a></li>
+          <li><a href="unix-philosophy.html">الدرس الرابع: ثقافة وفلسفة UNIX</a></li>
         </ul>
       </div>
       <div class="footer-bottom">
