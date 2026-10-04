@@ -121,6 +121,21 @@ def update_nav_and_footer_in_file(filepath, is_article=False):
         flags=re.DOTALL
     )
 
+    # Replace nav-actions to include search trigger button
+    nav_actions_pattern = r'(<div class="nav-actions">)(.*?)(</div>)'
+    new_nav_actions = '''        <button id="searchTriggerBtn" class="search-trigger-btn" type="button" aria-label="بحث سريع في المنصة (Ctrl+K)">
+          <span class="search-icon">🔍</span>
+          <span class="search-btn-text">بحث...</span>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>'''
+    content = re.sub(
+        nav_actions_pattern,
+        lambda m: f'{m.group(1)}\n{new_nav_actions}\n      {m.group(3)}',
+        content,
+        flags=re.DOTALL
+    )
+
     # Replace footer-links
     footer_pattern = r'(<ul class="footer-links">)(.*?)(</ul>)'
     content = re.sub(
@@ -397,9 +412,7 @@ def sync_roadmap_page():
         </div>
       </div>'''
 
-    if 'id="roadmapProgressCard"' in content:
-        content = re.sub(r'<!-- Personal Learning Progress Dashboard -->.*?</div>\s*</div>\s*</div>', dashboard_card_html, content, flags=re.DOTALL)
-    else:
+    if 'id="roadmapProgressCard"' not in content:
         content = content.replace('<div class="roadmap-container">', f'{dashboard_card_html}\n\n      <div class="roadmap-container">')
     
     # Replace roadmap-container
@@ -833,6 +846,68 @@ def build_lesson_page(lesson_meta, all_lessons):
     return True
 
 
+def generate_search_index():
+    """Generates search-index.json containing all lessons, sections, headings, and tags."""
+    lessons = load_lessons()
+    index_items = []
+
+    # 1. Homepage & Roadmap entries
+    index_items.append({
+        "type": "page",
+        "lessonId": 0,
+        "lessonTitle": "الرئيسية",
+        "title": "الصفحة الرئيسية | منصة Learn With Me",
+        "url": "index.html",
+        "desc": "منصة تعليمية متخصصة تقدم خرائط طريق ومقالات تقنية شاملة لاحتراف لينكس وهندسة الأنظمة والـ DevOps.",
+        "tags": ["الرئيسية", "Learn With Me", "دورات", "مسارات"]
+    })
+    index_items.append({
+        "type": "page",
+        "lessonId": 0,
+        "lessonTitle": "خارطة الطريق",
+        "title": "خارطة طريق ومسار تعلم Linux المنهجي",
+        "url": "linux-roadmap.html",
+        "desc": "خارطة طريق تفاعلية متكاملة لتعلم واحتراف نظام التشغيل لينكس خطوة بخطوة مع متتبع إنجاز شخصي.",
+        "tags": ["Roadmap", "خارطة طريق", "مسار لينكس", "تتبع التقدم"]
+    })
+
+    # 2. Lessons & sections
+    for l in lessons:
+        index_items.append({
+            "type": "lesson",
+            "lessonId": l["id"],
+            "lessonTitle": l["nav_title"],
+            "title": f"{l['nav_title']}: {l['title']}",
+            "url": l["filename"],
+            "desc": l.get("description", ""),
+            "tags": l.get("tags", [])
+        })
+
+        hf = BASE_DIR / l["filename"]
+        if hf.exists():
+            html_content = hf.read_text(encoding="utf-8")
+            toc_match = re.search(r'<ul class="toc-list">(.*?)</ul>', html_content, re.DOTALL)
+            if toc_match:
+                links = re.findall(r'<a href="(#[^"]+)">(.*?)</a>', toc_match.group(1))
+                for anchor, text in links:
+                    if anchor not in ["#intro", "#video-section"]:
+                        clean_text = re.sub(r'<.*?>', '', text).strip()
+                        index_items.append({
+                            "type": "section",
+                            "lessonId": l["id"],
+                            "lessonTitle": l["nav_title"],
+                            "title": clean_text,
+                            "url": f"{l['filename']}{anchor}",
+                            "desc": f"{l['nav_title']} • {clean_text}",
+                            "tags": l.get("tags", [])
+                        })
+
+    out_file = BASE_DIR / "search-index.json"
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(index_items, f, ensure_ascii=False, indent=2)
+    print(f"Generated search-index.json with {len(index_items)} searchable targets.")
+
+
 def build_all(compile_all=False, compile_ids=None):
     """Main build process."""
     print("=" * 60)
@@ -869,9 +944,10 @@ def build_all(compile_all=False, compile_ids=None):
     sync_index_page()
     sync_roadmap_page()
 
-    # 4. Generate sitemap.xml and robots.txt
+    # 4. Generate sitemap.xml, robots.txt, and search-index.json
     generate_sitemap()
     generate_robots()
+    generate_search_index()
 
     print("=" * 60)
     print("✨ Site build completed successfully in fractions of a second!")

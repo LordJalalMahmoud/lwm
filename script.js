@@ -12,6 +12,7 @@
 function initAll() {
   initThemeToggle();
   initNavDropdown();
+  initSearchModal();
   initReadingProgressBar();
   initBackToTop();
   initTableOfContentsScrollspy();
@@ -552,4 +553,326 @@ function initProgressTracker() {
   // 4. Initial UI render
   updateProgressUI();
 }
+
+/* ==========================================================================
+   8. Command Palette & Instant Search (Ctrl + K)
+   ========================================================================== */
+let searchIndexData = null;
+let searchActiveIndex = -1;
+
+function normalizeSearchText(text) {
+  if (!text) return '';
+  return text
+    .toLowerCase()
+    .replace(/[\u064B-\u065F\u0670]/g, '') // remove tashkeel
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ة/g, 'ه')
+    .replace(/ى/g, 'ي')
+    .trim();
+}
+
+async function loadSearchIndex() {
+  if (searchIndexData) return searchIndexData;
+  try {
+    const res = await fetch('search-index.json');
+    if (res.ok) {
+      searchIndexData = await res.json();
+      return searchIndexData;
+    }
+  } catch (e) {
+    console.warn('Could not load search-index.json via fetch, using fallback', e);
+  }
+
+  // Fallback index if fetch fails
+  searchIndexData = [
+    { type: 'page', title: 'الرئيسية | Learn With Me', url: 'index.html', desc: 'منصة تعلم التقنية وخوارط الطريق', tags: ['الرئيسية'] },
+    { type: 'page', title: 'خارطة طريق Linux', url: 'linux-roadmap.html', desc: 'مسار تعلم واحتراف لينكس من الصفر', tags: ['خارطة طريق'] },
+    { type: 'lesson', title: 'الدرس الأول: فهم ماهية Linux', url: 'what-is-linux.html', desc: 'النواة، إدارة العمليات والذاكرة والملفات', tags: ['نواة', 'Kernel'] },
+    { type: 'lesson', title: 'الدرس الثاني: كيف يختلف Linux عن الأنظمة الأخرى', url: 'linux-vs-other-os.html', desc: 'مقارنة بين لينكس وويندوز وماك والمصدر المفتوح', tags: ['ويندوز', 'مفتوح المصدر'] },
+    { type: 'lesson', title: 'الدرس الثالث: تاريخ Linux من UNIX وMINIX', url: 'history-of-linux.html', desc: 'نشأة UNIX ومشروع GNU ورسالة لينوس تورفالدس', tags: ['UNIX', 'GNU', 'Torvalds'] },
+    { type: 'lesson', title: 'الدرس الرابع: ثقافة وفلسفة UNIX في Bell Labs', url: 'unix-philosophy.html', desc: 'فلسفة الأدوات الصغيرة، الأنابيب Pipes، ولغة C', tags: ['Pipes', 'أنابيب', 'Bell Labs'] },
+    { type: 'lesson', title: 'الدرس الخامس: تجارية UNIX', url: 'unix-commercialization.html', desc: 'تحول UNIX لنظام تجاري وتفكيك احتكار AT&T', tags: ['AT&T', 'تجارية'] },
+    { type: 'lesson', title: 'الدرس السادس: وصول BSD وانقسام UNIX', url: 'berkeley-software-distribution.html', desc: 'ولادة BSD ودور TCP/IP في بناء الإنترنت', tags: ['BSD', 'TCP/IP', 'Berkeley'] }
+  ];
+  return searchIndexData;
+}
+
+function initSearchModal() {
+  // 1. Build and inject Search Modal DOM if not present
+  let modal = document.getElementById('searchModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'searchModal';
+    modal.className = 'search-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+
+    modal.innerHTML = `
+      <div class="search-modal-backdrop" id="searchBackdrop"></div>
+      <div class="search-modal-container">
+        <div class="search-input-wrap">
+          <span class="search-input-icon">🔍</span>
+          <input type="search" id="searchInput" class="search-input" placeholder="ابحث عن درس، موضوع، أو مفهوم تقني... (مثل: Kernel, Pipes, BSD, ذاكرة)" autocomplete="off" spellcheck="false">
+          <button id="searchClearBtn" class="search-clear-btn" type="button" aria-label="مسح">✕</button>
+        </div>
+        <div class="search-results-wrap" id="searchResults"></div>
+        <div class="search-modal-footer">
+          <span>للتنقل: <kbd>↑</kbd> <kbd>↓</kbd></span>
+          <span>للاختيار: <kbd>Enter</kbd></span>
+          <span>للإغلاق: <kbd>Esc</kbd></span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  const input = document.getElementById('searchInput');
+  const resultsContainer = document.getElementById('searchResults');
+  const clearBtn = document.getElementById('searchClearBtn');
+  const backdrop = document.getElementById('searchBackdrop');
+  const triggerBtn = document.getElementById('searchTriggerBtn');
+
+  // Pre-fetch search index in background
+  loadSearchIndex();
+
+  const openModal = async () => {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    await loadSearchIndex();
+    input.value = '';
+    clearBtn.classList.remove('visible');
+    searchActiveIndex = -1;
+    renderDefaultSuggestions();
+    setTimeout(() => input.focus(), 50);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    searchActiveIndex = -1;
+  };
+
+  // Event Listeners
+  if (triggerBtn) {
+    triggerBtn.addEventListener('click', openModal);
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeModal);
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.classList.remove('visible');
+      searchActiveIndex = -1;
+      renderDefaultSuggestions();
+      input.focus();
+    });
+  }
+
+  // Keyboard Shortcuts: Ctrl+K / Cmd+K / Slash key / Esc
+  document.addEventListener('keydown', (e) => {
+    // Open on Ctrl+K or Cmd+K
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      if (modal.classList.contains('open')) {
+        closeModal();
+      } else {
+        openModal();
+      }
+      return;
+    }
+
+    // Open on Slash key when not typing in an input
+    if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      openModal();
+      return;
+    }
+
+    // Modal navigation when open
+    if (modal.classList.contains('open')) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        navigateResults(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateResults(-1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        selectActiveResult();
+      }
+    }
+  });
+
+  // Input typing listener
+  input.addEventListener('input', () => {
+    const query = input.value.trim();
+    if (query) {
+      clearBtn.classList.add('visible');
+      performSearch(query);
+    } else {
+      clearBtn.classList.remove('visible');
+      searchActiveIndex = -1;
+      renderDefaultSuggestions();
+    }
+  });
+
+  function renderDefaultSuggestions() {
+    if (!searchIndexData) return;
+    const lessons = searchIndexData.filter(x => x.type === 'lesson');
+    let html = `<div class="search-result-group-title">دروس مسار Linux السريعة:</div>`;
+
+    lessons.forEach((l, idx) => {
+      html += `
+        <a href="${l.url}" class="search-result-item" data-index="${idx}">
+          <div class="search-result-main">
+            <span class="search-result-icon">📖</span>
+            <div class="search-result-details">
+              <span class="search-result-title">${l.title}</span>
+              <span class="search-result-sub">${l.desc || 'شرح تفصيلي وفيديو تعليمي'}</span>
+            </div>
+          </div>
+          <span class="search-result-badge">${l.lessonTitle || 'درس'}</span>
+        </a>
+      `;
+    });
+
+    resultsContainer.innerHTML = html;
+  }
+
+  function performSearch(query) {
+    if (!searchIndexData) return;
+
+    const normQuery = normalizeSearchText(query);
+    const tokens = normQuery.split(/\s+/).filter(Boolean);
+
+    const matches = [];
+
+    searchIndexData.forEach(item => {
+      const normTitle = normalizeSearchText(item.title);
+      const normDesc = normalizeSearchText(item.desc);
+      const normTags = (item.tags || []).map(t => normalizeSearchText(t)).join(' ');
+
+      let score = 0;
+
+      // Exact title match
+      if (normTitle === normQuery) {
+        score += 100;
+      } else if (normTitle.includes(normQuery)) {
+        score += 50;
+      }
+
+      // Token matches
+      let allTokensMatch = true;
+      tokens.forEach(tok => {
+        if (normTitle.includes(tok)) {
+          score += 25;
+        } else if (normTags.includes(tok)) {
+          score += 20;
+        } else if (normDesc.includes(tok)) {
+          score += 10;
+        } else {
+          allTokensMatch = false;
+        }
+      });
+
+      if (score > 0 || allTokensMatch) {
+        matches.push({ item, score });
+      }
+    });
+
+    matches.sort((a, b) => b.score - a.score);
+    const topMatches = matches.slice(0, 15);
+
+    if (topMatches.length === 0) {
+      resultsContainer.innerHTML = `
+        <div class="search-empty-state">
+          <span class="search-empty-icon">🔍</span>
+          <p>لم نجد نتائج مطابقة لـ "<strong>${escapeHtml(query)}</strong>"</p>
+          <p style="font-size: 0.85rem; margin-top: 0.5rem;">جرب كتابة مصطلحات مثل: <code>Kernel</code>, <code>Pipes</code>, <code>BSD</code>, <code>ذاكرة</code>, <code>1991</code></p>
+        </div>
+      `;
+      searchActiveIndex = -1;
+      return;
+    }
+
+    let html = `<div class="search-result-group-title">نتائج البحث (${topMatches.length}):</div>`;
+    topMatches.forEach((m, idx) => {
+      const it = m.item;
+      const icon = it.type === 'lesson' ? '📖' : (it.type === 'page' ? '🌐' : '📑');
+      html += `
+        <a href="${it.url}" class="search-result-item" data-index="${idx}">
+          <div class="search-result-main">
+            <span class="search-result-icon">${icon}</span>
+            <div class="search-result-details">
+              <span class="search-result-title">${highlightMatch(it.title, query)}</span>
+              <span class="search-result-sub">${it.desc || ''}</span>
+            </div>
+          </div>
+          <span class="search-result-badge">${it.lessonTitle || 'قسم'}</span>
+        </a>
+      `;
+    });
+
+    resultsContainer.innerHTML = html;
+    searchActiveIndex = 0;
+    highlightItem(0);
+  }
+
+  function highlightMatch(text, query) {
+    if (!query) return escapeHtml(text);
+    const escaped = escapeHtml(text);
+    const reg = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return escaped.replace(reg, '<mark style="background: rgba(37,99,235,0.25); color: inherit; padding: 0 2px; border-radius: 2px;">$1</mark>');
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag));
+  }
+
+  function navigateResults(delta) {
+    const items = resultsContainer.querySelectorAll('.search-result-item');
+    if (!items.length) return;
+
+    searchActiveIndex += delta;
+    if (searchActiveIndex < 0) searchActiveIndex = items.length - 1;
+    if (searchActiveIndex >= items.length) searchActiveIndex = 0;
+
+    highlightItem(searchActiveIndex);
+  }
+
+  function highlightItem(index) {
+    const items = resultsContainer.querySelectorAll('.search-result-item');
+    items.forEach((it, idx) => {
+      if (idx === index) {
+        it.classList.add('selected');
+        it.scrollIntoView({ block: 'nearest' });
+      } else {
+        it.classList.remove('selected');
+      }
+    });
+  }
+
+  function selectActiveResult() {
+    const items = resultsContainer.querySelectorAll('.search-result-item');
+    if (searchActiveIndex >= 0 && searchActiveIndex < items.length) {
+      items[searchActiveIndex].click();
+    }
+  }
+}
+
 
