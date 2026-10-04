@@ -101,6 +101,17 @@ def update_nav_and_footer_in_file(filepath, is_article=False):
         flags=re.DOTALL
     )
 
+    # Replace old inline theme toggle script with external script.js
+    inline_script_pattern = r'(?:<!-- Theme Toggle.*?-->\s*)?<script>\s*const themeToggle = document\.getElementById\(\'themeToggle\'\);.*?</script>'
+    new_script_tag = '<!-- Interactive Enhancements & Theme Script -->\n  <script src="script.js"></script>'
+    if re.search(inline_script_pattern, content, flags=re.DOTALL):
+        content = re.sub(inline_script_pattern, new_script_tag, content, flags=re.DOTALL)
+    elif '<script src="script.js"></script>' not in content:
+        content = content.replace('</body>', f'  {new_script_tag}\n</body>')
+
+    # Clean up any leftover duplicate theme comments
+    content = content.replace('  <!-- Theme Toggle & Smooth Scroll Script -->\n', '')
+
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(content)
         
