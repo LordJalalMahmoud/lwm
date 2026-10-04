@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags & SEO Optimization -->
+  <title>الدرس السادس: وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين | Learn With Me</title>
+  <meta name="title" content="الدرس السادس: وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين | Learn With Me">
+  <meta name="description" content="الدرس السادس في سلسلة دروس لينكس: قصة وصول Berkeley Software Distribution (BSD) بجامعة بيركلي، دور بيل جوي، إدخال TCP/IP والشبكات، انقسام UNIX إلى مسار أكاديمي ومسار تجاري، والفروق الجوهرية مع Linux.">
+  <meta name="keywords" content="BSD, Berkeley Software Distribution, UNIX, Bill Joy, TCP/IP, FreeBSD, OpenBSD, NetBSD, AT&T, System V, لينكس, تاريخ يونكس, تاريخ لينكس, بيركلي, أنظمة التشغيل, Learn With Me, هندسة النظم, Fast File System, Berkeley Sockets">
+  <meta name="author" content="Jalal Mahmoud - Learn With Me">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://learn.jalalmahmoud.online/berkeley-software-distribution.html">
+  
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="Learn With Me">
+  <meta property="og:url" content="https://learn.jalalmahmoud.online/berkeley-software-distribution.html">
+  <meta property="og:title" content="الدرس السادس: وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين">
+  <meta property="og:description" content="شرح معماري وتاريخي متكامل لظهور BSD في جامعة بيركلي، إدخال TCP/IP، الانقسام بين الثقافة الأكاديمية والتجارية، وعلاقة عائلة BSD بلينكس ونظم التشغيل الحديثة.">
+  <meta property="og:image" content="https://learn.jalalmahmoud.online/icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Learn With Me - منصة تعلم التقنية وخوارط الطريق">
+  <meta property="article:published_time" content="2026-10-04T08:00:00+00:00">
+  <meta property="article:modified_time" content="2026-10-04T08:00:00+00:00">
+  <meta property="article:section" content="نظم التشغيل وهندسة النظم">
+  <meta property="article:tag" content="BSD">
+  <meta property="article:tag" content="UNIX">
+  <meta property="article:tag" content="Linux">
+  <meta property="article:tag" content="TCP/IP">
+  <meta property="article:tag" content="FreeBSD">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://learn.jalalmahmoud.online/berkeley-software-distribution.html">
+  <meta name="twitter:title" content="الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام طريق UNIX">
+  <meta name="twitter:description" content="شرح تفصيلي لتاريخ وظهور BSD، إدخال TCP/IP، وانقسام UNIX بين الثقافة الأكاديمية والتجارية، وعلاقة BSD بلينكس.">
+  <meta name="twitter:image" content="https://learn.jalalmahmoud.online/icon.png">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://learn.jalalmahmoud.online/#website",
+        "url": "https://learn.jalalmahmoud.online/",
+        "name": "Learn With Me",
+        "description": "منصة تعليمية متخصصة تقدم خرائط طريق ومقالات تقنية شاملة لاحتراف لينكس وهندسة الأنظمة والـ DevOps.",
+        "inLanguage": "ar"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "الرئيسية",
+            "item": "https://learn.jalalmahmoud.online/index.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "خارطة طريق Linux",
+            "item": "https://learn.jalalmahmoud.online/linux-roadmap.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "الدرس السادس: وصول Berkeley Software Distribution (BSD)",
+            "item": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html"
+          }
+        ]
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html#article",
+        "isPartOf": {
+          "@id": "https://learn.jalalmahmoud.online/#website"
+        },
+        "headline": "الدرس السادس: وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين",
+        "description": "شرح معماري وتاريخي متكامل لظهور BSD في جامعة بيركلي، إدخال TCP/IP، الانقسام بين الثقافة الأكاديمية والتجارية، وعلاقة عائلة BSD بلينكس ونظم التشغيل الحديثة.",
+        "inLanguage": "ar",
+        "mainEntityOfPage": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html",
+        "datePublished": "2026-10-04T08:00:00+00:00",
+        "dateModified": "2026-10-04T08:00:00+00:00",
+        "author": {
+          "@type": "Person",
+          "name": "Jalal Mahmoud"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Learn With Me",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://learn.jalalmahmoud.online/brand-icon.png"
+          }
+        },
+        "image": "https://learn.jalalmahmoud.online/icon.png",
+        "video": {
+          "@id": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html#video"
+        }
+      },
+      {
+        "@type": "VideoObject",
+        "@id": "https://learn.jalalmahmoud.online/berkeley-software-distribution.html#video",
+        "name": "الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام طريق UNIX",
+        "description": "شرح فيديو مصاحب للدرس السادس يتناول قصة ظهور BSD في جامعة كاليفورنيا بيركلي، دور بيل جوي، إدخال TCP/IP والشبكات، وانقسام UNIX بين الثقافة الأكاديمية والتجارية.",
+        "thumbnailUrl": [
+          "https://img.youtube.com/vi/T7cdhddZ6r0/hqdefault.jpg",
+          "https://img.youtube.com/vi/T7cdhddZ6r0/maxresdefault.jpg"
+        ],
+        "uploadDate": "2026-10-04T08:00:00+00:00",
+        "contentUrl": "https://www.youtube.com/watch?v=T7cdhddZ6r0",
+        "embedUrl": "https://www.youtube.com/embed/T7cdhddZ6r0",
+        "inLanguage": "ar"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">
+          <img src="brand-icon.png" alt="Learn With Me Logo" width="42" height="42">
+        </div>
+        <div class="brand-text">Learn <span>With Me</span></div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="linux-roadmap.html" class="nav-link">خارطة طريق Linux</a></li>
+        <li><a href="what-is-linux.html" class="nav-link">الدرس الأول</a></li>
+        <li><a href="linux-vs-other-os.html" class="nav-link">الدرس الثاني</a></li>
+        <li><a href="history-of-linux.html" class="nav-link">الدرس الثالث</a></li>
+        <li><a href="unix-philosophy.html" class="nav-link">الدرس الرابع</a></li>
+        <li><a href="unix-commercialization.html" class="nav-link">الدرس الخامس</a></li>
+        <li><a href="berkeley-software-distribution.html" class="nav-link active">الدرس السادس</a></li>
+        <li><a href="#toc" class="nav-link">فهرس المقال</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="مسار التنقل">
+      <a href="index.html">الرئيسية</a>
+      <span class="separator">/</span>
+      <a href="linux-roadmap.html">خارطة طريق Linux</a>
+      <span class="separator">/</span>
+      <span class="current">الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام UNIX</span>
+    </nav>
+
+    <div class="article-layout">
+      <!-- Table of Contents Sidebar -->
+      <aside class="article-sidebar" id="toc">
+        <div class="sidebar-title">
+          <span>📑</span> فهرس محتويات الدرس
+        </div>
+        <ul class="toc-list">
+          <li><a href="#intro">مقدمة: قصة انقسام طريق UNIX</a></li>
+          <li><a href="#video-section">📺 الفيديو التعليمي المصاحب</a></li>
+          <li><a href="#sec-1">1. قبل BSD: كيف خرج UNIX من Bell Labs؟</a></li>
+          <li><a href="#sec-2">2. UNIX V6 يخرج إلى العالم (1975)</a></li>
+          <li><a href="#sec-3">3. وصول UNIX إلى جامعة Berkeley</a></li>
+          <li><a href="#sec-4">4. ما معنى كلمة Distribution؟</a></li>
+          <li><a href="#sec-5">5. الإصدار الأول من BSD وسلسلة الإصدارات</a></li>
+          <li><a href="#sec-6">6. طريقان مختلفان لـ UNIX: الأكاديمي والتجاري</a></li>
+          <li><a href="#sec-7">7. ثقافة Berkeley: شارك الكود</a></li>
+          <li><a href="#sec-8">8. في المقابل: AT&amp;T تبدأ التفكير تجاريًا</a></li>
+          <li><a href="#sec-9">9. إنشاء UNIX Laboratory ومراحله</a></li>
+          <li><a href="#sec-10">10. BSD لا يتوقف عن التطور: الميزات والابتكارات</a></li>
+          <li><a href="#sec-11">11. 4BSD وظهور BSD كقوة حقيقية</a></li>
+          <li><a href="#sec-12">12. TCP/IP وBSD: وضع حجر الأساس للإنترنت</a></li>
+          <li><a href="#sec-13">13. لماذا كان Berkeley مختلفًا؟ المقارنة الفلسفية</a></li>
+          <li><a href="#sec-14">14. لماذا كانت الجامعات مهمة جدًا في تاريخ النظم؟</a></li>
+          <li><a href="#sec-15">15. BSD لم يكن مجرد نظام تشغيل</a></li>
+          <li><a href="#sec-16">16. ظهور آثار BSD في الأنظمة الحديثة (macOS وعائلة BSD)</a></li>
+          <li><a href="#sec-17">17. BSD وFree Software: التمييز التاريخي للتراخيص</a></li>
+          <li><a href="#sec-18">18. UNIX ينقسم إلى عائلة ضخمة (شجرة التفرع)</a></li>
+          <li><a href="#sec-19">19. 1984: نقطة التحول الكبرى وتفكيك AT&amp;T</a></li>
+          <li><a href="#sec-20">20. UNIX يصبح منتجًا تجاريًا: System III و System V</a></li>
+          <li><a href="#sec-21">21. لماذا تعتبر هذه المرحلة مهمة في تاريخ Linux؟</a></li>
+          <li><a href="#sec-22">22. BSD وLinux ليسا الشيء نفسه: تصحيح المفهوم</a></li>
+          <li><a href="#sec-23">23. الفرق الجوهري بين فلسفة تطوير Linux وفلسفة BSD</a></li>
+          <li><a href="#sec-24">24. الإرث الحقيقي الخالد لـ BSD</a></li>
+          <li><a href="#sec-25">25. الدرس الأكبر المستفاد من قصة BSD</a></li>
+          <li><a href="#conclusion">26. الخلاصة: الرؤية الشاملة لمستقبل أنظمة التشغيل</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Article Content -->
+      <article class="article-main">
+        <header class="article-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="badge badge-accent">الدرس السادس في السلسلة 🚀</span>
+            <span class="badge badge-primary">تاريخ وتطور النظم</span>
+            <span class="badge badge-warning" style="background-color: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">UC Berkeley &amp; BSD</span>
+          </div>
+          <h1 id="intro">وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين</h1>
+          <div class="article-header-meta">
+            <span class="article-meta-item">⏱️ وقت القراءة: 25 دقيقة</span>
+            <span class="article-meta-item">🎯 الفئة: مهندسو برمجيات، معماريو نظم، ومحبو تاريخ وتطور الحوسبة والشبكات</span>
+            <span class="article-meta-item">📂 المسار: <a href="linux-roadmap.html">خارطة طريق Linux</a></span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>
+            يُعد تاريخ <strong>UNIX</strong> من أهم القصص في تاريخ أنظمة التشغيل؛ لأنه لا يحكي فقط كيف ظهر نظام تشغيل قوي، بل يوضح أيضًا كيف يمكن لفكرة تقنية صغيرة داخل مختبر بحثي أن تؤدي إلى ظهور عائلة كاملة من الأنظمة التي أثرت لاحقًا في Linux وmacOS وFreeBSD وNetBSD وOpenBSD وغيرها.
+          </p>
+
+          <p>
+            ومن أهم المحطات في هذه القصة ظهور <strong>Berkeley Software Distribution — BSD</strong> في جامعة كاليفورنيا، بيركلي. فقد بدأت BSD من كود UNIX الأصلي الذي خرج من مختبرات Bell Labs، لكنها مع مرور الوقت أصبحت أكثر من مجرد مجموعة إضافات؛ إذ تطورت إلى أحد أهم فروع UNIX وأكثرها تأثيرًا في تاريخ هندسة النظم الحديثة وشبكة الإنترنت.
+          </p>
+
+          <!-- Embedded YouTube Video Section -->
+          <div class="video-wrapper" id="video-section">
+            <div class="video-container">
+              <iframe 
+                src="https://www.youtube.com/embed/T7cdhddZ6r0" 
+                title="الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام طريق UNIX" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                loading="lazy"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <p class="video-caption">
+              <span>📺</span> <strong>فيديو الدرس السادس:</strong> شاهد الشرح المرئي لقصة ولادة Berkeley Software Distribution (BSD) في جامعة كاليفورنيا بيركلي، كيف انقسم طريق UNIX بين الثقافة الأكاديمية والتجارية، دور Bill Joy، وكيف أدى دمج بروتوكول TCP/IP في 4.2BSD إلى بناء شبكة الإنترنت الحديثة وتشكيل ملامح النظم المعاصرة.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 1 -->
+          <h2 id="sec-1">1. قبل BSD: كيف خرج UNIX من Bell Labs؟</h2>
+          <p>
+            لفهم ظهور BSD، يجب أن نعود قليلًا إلى بدايات UNIX الأولى.
+          </p>
+          <p>
+            ظهر UNIX في أواخر الستينيات داخل <strong>Bell Laboratories</strong>، على يد مجموعة استثنائية من الباحثين كان من أبرزهم:
+          </p>
+          <ul>
+            <li><strong>Ken Thompson:</strong> مبتكر لغة B والنواة الأولى لـ UNIX.</li>
+            <li><strong>Dennis Ritchie:</strong> مبتكر لغة البرمجة الأسطورية C والمشارك الرئيسي في تطوير النواة.</li>
+            <li><strong>Brian Kernighan:</strong> مؤلف أدوات ومحررات UNIX وصاحب مصطلح UNIX نفسه.</li>
+            <li>وغيرهم من الباحثين والمهندسين العباقرة في مختبرات بيل.</li>
+          </ul>
+
+          <p>
+            كان الهدف الأساسي في البداية ليس إنشاء منتج تجاري ضخم يُباع في الأسواق، وإنما بناء بيئة عمل مريحة وممتعة تساعد الباحثين والمبرمجين على تطوير البرامج بسهولة وحل المشكلات الهندسية اليومية.
+          </p>
+
+          <p>
+            ومن أهم الأفكار التي ميزت UNIX منذ البداية:
+          </p>
+          <ul>
+            <li><strong>البساطة (Simplicity):</strong> تصميم النظام بعيدًا عن التعقيد الزائد وتجنب التضخم البرمجي.</li>
+            <li><strong>قابلية نقل النظام بين الأجهزة (Portability):</strong> القدرة على تشغيل النواة والبرامج على حواسيب مختلفة دون إعادة كتابتها من الصفر.</li>
+            <li><strong>وجود أدوات صغيرة تؤدي وظائف محددة:</strong> كتابة برامج متخصصة تتقن مهمة واحدة فقط.</li>
+            <li><strong>إمكانية دمج الأدوات معًا:</strong> توصيل مخارج البرامج بمدخلات برامج أخرى عبر الأنابيب (Pipes).</li>
+            <li><strong>الاعتماد على الملفات كواجهة موحدة:</strong> التعامل مع موارد النظام وأجهزته وسواقاته على أنها ملفات (Everything is a file).</li>
+            <li><strong>بيئة صدفة (Shell) قوية:</strong> لغة أوامر تفاعلية قابلة للبرمجة والأتمتة المتقدمة.</li>
+            <li><strong>مشاركة المعرفة والكود بين المطورين:</strong> تداول الحلول البرمجية ومناقشة الأفكار التقنية بحرية.</li>
+          </ul>
+
+          <div class="callout-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">💡 أثر الثقافة التأسيسية:</h4>
+            <p style="margin-bottom: 0;">
+              هذه الثقافة التعاونية المفتوحة داخل مختبرات بيل لم تكن مجرد سلوك إداري عابر، بل كانت الفتيل الذي أشعل شرارة التطوير في الجامعات لاحقًا، وبخاصة في جامعة كاليفورنيا، بيركلي.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 2 -->
+          <h2 id="sec-2">2. UNIX V6 يخرج إلى العالم (1975)</h2>
+          <p>
+            في عام <strong>1975</strong> أصبح <strong>UNIX Version 6 (V6)</strong> أول إصدار من UNIX يتاح على نطاق واسع خارج مختبرات Bell Laboratories.
+          </p>
+          <p>
+            كانت هذه لحظة فارقة ومفصلية في تاريخ الحوسبة.
+          </p>
+          <p>
+            قبل ذلك التاريخ، كان UNIX مرتبطًا بشكل أساسي بالبيئة البحثية الداخلية في Bell Labs وبعض المؤسسات التي حصلت عليه في نطاقات محدودة وتجريبية.
+          </p>
+          <p>
+            لكن إتاحة UNIX V6 للجامعات ومؤسسات الأبحاث بتكاليف رمزية جعلت من الممكن للأساتذة والباحثين والطلاب الحصول على <strong>كود UNIX المصدري كاملاً</strong>، ودراسته وتجريبه سطرًا بسطر، والبناء فوقه وتطويره بحرية تامة.
+          </p>
+
+          <p>
+            وهنا ظهرت نتيجة تاريخية كبرى:
+          </p>
+
+          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
+            «عندما تعطي مجتمعًا من الباحثين والطلاب نظامًا قابلًا للتعديل مع إمكانية دراسة كوده المصدري بحرية، فمن الطبيعي والتلقائي أن يبدأ الناس في تطويره وتحسينه بطرق مختلفة.»
+          </blockquote>
+
+          <p>
+            وهذا بالضبط ما حدث داخل قاعات ومختبرات جامعة كاليفورنيا، بيركلي.
+          </p>
+
+          <hr>
+
+          <!-- Section 3 -->
+          <h2 id="sec-3">3. وصول UNIX إلى جامعة Berkeley</h2>
+          <p>
+            في جامعة <strong>University of California, Berkeley (UC Berkeley)</strong> بدأ الباحثون والطلاب باستخدام UNIX على أجهزة الحواسيب الخاصة بالجامعة (مثل PDP-11).
+          </p>
+          <p>
+            وسرعان ما تحولت الجامعة إلى واحدة من أهم مراكز تطوير وهندسة UNIX خارج مختبرات Bell Labs.
+          </p>
+          <p>
+            لم يكن مجتمع بيركلي يريد ببساطة استخدام UNIX كنظام تشغيل جاهز كما جاءهم من مختبرات بيل، بل بدأ الباحثون والطلاب في إضافة أدوات جديدة، وبرامج مساعدة، وتحسينات برمجية عميقة إلى النواة ومحيطها تلبي احتياجاتهم الحقيقية في البحث العلمي والتعليم.
+          </p>
+          <p>
+            في البداية كانت هذه الإضافات عبارة عن مجموعة متفرقة من البرامج والتعديلات التي يتبادلها المستخدمون فيما بينهم على أشرطة مغناطيسية.
+          </p>
+          <p>
+            ومع مرور الوقت وتراكم هذه البرمجيات، أصبحت هذه المجموعة ضخمة ومهمة ومطلوبة للغاية من قبل الجامعات الأخرى، لدرجة أنها بدأت تُوزع رسميًا كحزمة برمجية مستقلة.
+          </p>
+
+          <p>
+            وهنا وُلد الاسم التاريخي الشهير:
+          </p>
+
+          <div style="text-align: center; margin: 2rem 0; padding: 1.5rem; background: var(--bg-surface-alt); border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+            <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">الاسم والمصطلح الرسمي</span>
+            <h3 style="font-size: 2rem; color: var(--primary); margin: 0.5rem 0;">Berkeley Software Distribution</h3>
+            <p style="font-size: 1.25rem; font-weight: 700; color: var(--accent); margin: 0;">واختصارها الذائع عالميًا: <strong>BSD</strong></p>
+          </div>
+
+          <hr>
+
+          <!-- Section 4 -->
+          <h2 id="sec-4">4. ما معنى كلمة Distribution؟</h2>
+          <p>
+            كلمة <strong>Distribution</strong> (توزيعة أو حزمة توزيع) هنا تحمل أهمية قصوى لفهم طبيعة هذا المشروع.
+          </p>
+          <p>
+            عندما نقول: <strong>Berkeley Software Distribution</strong>، فنحن <em>لا نتحدث في البداية عن نظام تشغيل مستقل تمامًا ومبني من الصفر</em> بالمعنى الحديث الذي نطلقه اليوم على أنظمة التشغيل المستقلة.
+          </p>
+          <p>
+            بل كان المقصود بها: <strong>مجموعة متكاملة من البرمجيات والأدوات والتعديلات والإضافات التي صُممت لتعمل وتُوزع بالاشتراك مع نظام UNIX الأصلي</strong>.
+          </p>
+          <p>
+            كانت جامعة بيركلي تأخذ نظام UNIX الأساسي وتضيف إليه حزمة واسعة من الابتكارات:
+          </p>
+          <ul>
+            <li><strong>برامج وأوامر جديدة:</strong> كتابة أدوات متطورة لسطر الأوامر لمعالجة النصوص وإدارة الحسابات.</li>
+            <li><strong>أدوات للمستخدمين:</strong> محررات نصوص حديثة ومريحة للمبرمجين.</li>
+            <li><strong>تحسينات وإصلاحات:</strong> معالجة ثغرات وأخطاء في كود النواة الأساسي.</li>
+            <li><strong>أدوات للشبكات:</strong> بروتوكولات وتطبيقات تتيح للحواسيب التخاطب فيما بينها.</li>
+            <li><strong>أدوات للمطورين:</strong> مترجمات لغات ومصححات أخطاء (Debuggers).</li>
+            <li><strong>تعديلات جوهرية على النواة:</strong> تحسين إدارة الذاكرة وجدولة العمليات ونظام الملفات.</li>
+          </ul>
+
+          <p>
+            ثم يتم حزم هذه التعديلات وتوزيعها على أشرطة مغناطيسية على الجامعات والمراكز البحثية الأخرى التي تمتلك بالفعل ترخيصًا من AT&amp;T. ومع مرور الوقت والسنوات، نما هذا المشروع وأصبح BSD قويًا ومميزًا لدرجة أن الناس في مجتمع الحوسبة بدأوا ينظرون إليه باعتباره <strong>فرعًا رئيسيًا ومستقلاً بذاته من فروع UNIX</strong>.
+          </p>
+
+          <hr>
+
+          <!-- Section 5 -->
+          <h2 id="sec-5">5. الإصدار الأول من BSD (1BSD عام 1977)</h2>
+          <p>
+            ظهر أول إصدار رسمي معروف باسم <strong>1BSD</strong> في أواخر عام <strong>1977</strong>.
+          </p>
+          <p>
+            وكان هذا الإصدار مرتبطًا بشكل وثيق وحاسم بجهود باحث وطالب دراسات عليا شاب في جامعة بيركلي يُدعى <strong>Bill Joy (بيل جوي)</strong>.
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--accent);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">👨‍💻 بيل جوي (Bill Joy): مهندس ثورة BSD</h4>
+            <p style="margin-bottom: 0;">
+              أصبح Bill Joy لاحقًا واحدًا من أعظم الشخصيات في تاريخ الحوسبة البرمجية؛ حيث شارك في تأسيس شركة <strong>Sun Microsystems</strong>، وقاد تصميم بنية معالجات SPARC ونظام Solaris، وشارك في ابتكار لغة <strong>Java</strong>. لكنه في هذه المرحلة التأسيسية كان باحثًا في بيركلي قام بكتابة محرر النصوص الأسطوري <strong>vi</strong>، ومحرر <strong>ex</strong>، وصدفة <strong>C Shell (csh)</strong>، ومترجم لغة Pascal، وتولى بنفسه تجميع وتجهيز ونسخ أشرطة 1BSD البرمجية وإرسالها بالبريد للجامعات الأخرى!
+            </p>
+          </div>
+
+          <p>
+            كانت تلك البداية الرسمية لسلسلة إصدارات BSD المتلاحقة، والتي شهدت قفزات تطويرية مذهلة:
+          </p>
+
+          <ul>
+            <li><strong>1BSD (1977):</strong> تضمن محرر vi الأولي، ومترجم Pascal، والصدفة المحسنة على أجهزة PDP-11.</li>
+            <li><strong>2BSD (1978):</strong> تحديثات وإضافات لأجهزة PDP-11 متضمنة محرر vi الشهير و csh رسمياً.</li>
+            <li><strong>3BSD (1979):</strong> نقل النظام إلى معمارية <strong>VAX</strong> من شركة DEC، وإضافة دعم متطور للذاكرة الافتراضية (Virtual Memory Paging).</li>
+            <li><strong>4BSD (1980):</strong> تحسينات ضخمة لأجهزة VAX، ودعم تمويل وكالة داربا (DARPA).</li>
+            <li><strong>4.1BSD (1981):</strong> تحسينات استثنائية في الأداء وضبط استهلاك المعالج.</li>
+            <li><strong>4.2BSD (1983):</strong> إدخال حزمة <strong>TCP/IP</strong> المدمجة ونظام الملفات السريع (FFS) وواجهة Berkeley Sockets، وهو الإصدار الذي أطلق ثورة الإنترنت.</li>
+            <li><strong>4.3BSD (1986):</strong> تحسين هائل في كود بروتوكولات الشبكات والأداء العام ليصبح المعيار الأكاديمي لعالم الحوسبة.</li>
+          </ul>
+
+          <p>
+            وبهذا التحول المستمر أصبحت جامعة بيركلي واحدة من أهم المؤسسات على وجه الأرض التي تقود عجلة التطوير التقني لنظام UNIX.
+          </p>
+
+          <hr>
+
+          <!-- Section 6 -->
+          <h2 id="sec-6">6. طريقان مختلفان لـ UNIX: الأكاديمي والتجاري</h2>
+          <p>
+            هنا تبدأ واحدة من أعمق وأهم المراحل في تاريخ أنظمة التشغيل، والتي لا تزال تؤثر في واقعنا التقني حتى اليوم.
+          </p>
+          <p>
+            خلال أواخر السبعينيات ومطلع الثمانينيات، بدأ <strong>UNIX يتطور في اتجاهين ومسارين مختلفين تمامًا</strong>:
+          </p>
+
+          <div class="flow-compare-grid">
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🎓</span> المسار الأول: Berkeley / BSD
+              </div>
+              <p style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-secondary);">
+                بيئة أكاديمية تشاركية مفتوحة تهدف إلى دفع حدود العلم والابتكار الهندسي:
+              </p>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span>البحث العلمي والتجريب التقني الحر</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span>مشاركة الأكواد البرمجية بين الباحثين</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span>التعاون المفتوح وتصحيح الأخطاء السريع</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span>ابتكار الميزات الثورية (الشبكات والذاكرة)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">5</span>
+                  <span>توزيع البرمجيات مجانًا أو برسوم أشرطة رمزية</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🏢</span> المسار الثاني: Bell Labs / AT&amp;T
+              </div>
+              <p style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-secondary);">
+                بيئة تجارية ومؤسسية تتجه تدريجيًا نحو تحويل النظام إلى منتج سوقي رسمي:
+              </p>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span>إدارة أكثر مركزية وتنظيمًا ورسمية</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span>تطوير UNIX كمنتج تجاري استثماري</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span>التحكم الصارم في الإصدارات والمعايير</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span>فرض تراخيص وشروط استخدام قانونية معقدة</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">5</span>
+                  <span>الاستغلال التجاري لبيع النظام لشركات الحواسيب</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            وهكذا نشأ شرخ فلسفي وتنظيمي متزايد بين بيئة الأبحاث الجامعية وبيئة الشركات العملاقة.
+          </p>
+
+          <hr>
+
+          <!-- Section 7 -->
+          <h2 id="sec-7">7. ثقافة Berkeley: شارك الكود (Share the Code)</h2>
+          <p>
+            كانت بيركلي امتدادًا طبيعيًا ومثاليًا للروح التأسيسية التي نشأت في مختبرات بيل في سنواتها الأولى.
+          </p>
+          <p>
+            وكان المبدأ غير المكتوب الذي يسود المجتمع هو:
+          </p>
+          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--accent); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
+            «إذا قمت بكتابة شيء مفيد أو أداة برمجية ذكية، فشاركها فورًا مع الآخرين ليستفيدوا منها.»
+          </blockquote>
+
+          <p>
+            وكان هذا التصرف طبيعيًا وبديهيًا في الأوساط الأكاديمية:
+          </p>
+          <ul>
+            <li>إذا كتب طالب أداة برمجية جديدة تسهل كتابة المقالات أو تصريف الأكواد، استخدمها زملاؤه ومعلموه.</li>
+            <li>إذا احتاج مهندس أو باحث إلى ميزة جديدة أو زيادة في كفاءة النظام، فتح الكود وعدله بنفسه.</li>
+            <li>وإذا اكتشف أحد عيبًا برمجيًا (Bug)، قام بإصلاحه وأرسل التعديل (Patch) إلى زملائه أو إلى فريق بيركلي ليُدمج في الإصدار التالي.</li>
+          </ul>
+          <p>
+            هذه الثقافة التعاونية غير المشروطة خلقت بيئة خصبة أدت إلى انفجار هائل في كمية البرمجيات وجودتها وسرعة تطورها حول UNIX.
+          </p>
+
+          <hr>
+
+          <!-- Section 8 -->
+          <h2 id="sec-8">8. في المقابل: AT&amp;T تبدأ التفكير تجاريًا</h2>
+          <p>
+            في الجهة المقابلة، كانت الأمور تتغير بسرعة لدى الشركة الأم <strong>AT&amp;T</strong>.
+          </p>
+          <p>
+            كانت AT&amp;T شركة اتصالات احتكارية عملاقة خاضعة لقيود قانونية وتنظيمية فيدرالية صارمة (بموجب اتفاقية 1956)، ولم يكن مسموحًا لها قانونيًا ببيع برامج الحواسيب كمنتجات تجارية عادية في السوق التنافسي.
+          </p>
+          <p>
+            لكن مع مطلع الثمانينيات والتحولات الاقتصادية والقانونية الوشيكة، بدأت قيادة AT&amp;T تدرك بوضوح أن UNIX ليس مجرد بحث أكاديمي جميل، بل هو أصل برمجي واستثماري هائل تبلغ قيمته السوقية مليارات الدولارات!
+          </p>
+          <p>
+            وهنا بدأ التحول التاريخي نحو <strong>التسويق التجاري (Commercialization)</strong>:
+          </p>
+          <p>
+            أي تحويل UNIX من نظام تشغيل يوزع كشيفرة مصدرية لأغراض الدراسة والبحث في الجامعات، إلى <strong>منتج تجاري مغلق أو مقيد بتراخيص تجارية باهظة</strong> يُباع لشركات صناعة الحواسيب ومؤسسات الأعمال.
+          </p>
+
+          <hr>
+
+          <!-- Section 9 -->
+          <h2 id="sec-9">9. إنشاء UNIX Laboratory</h2>
+          <p>
+            مع تعاظم المكانة الاستراتيجية لـ UNIX داخل AT&amp;T، قررت الإدارة تأسيس وحدة تنظيمية ومختبر منفصل تمامًا ومخصص للعمل حصريًا على تطوير وتسويق UNIX.
+          </p>
+          <p>
+            كان هذا الكيان هو <strong>UNIX Laboratory</strong> (الذي تحول لاحقًا إلى شركتي UNIX System Laboratories - USL):
+          </p>
+          <ul>
+            <li>بدأ المختبر عمله في موقع Bell Labs الشهير في <strong>Murray Hill, New Jersey</strong>.</li>
+            <li>ثم انتقل مقره وفريقه لاحقًا إلى <strong>Summit, New Jersey</strong>.</li>
+          </ul>
+
+          <div class="callout-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">🏛️ دلالة تأسيس مختبر مخصص:</h4>
+            <p style="margin-bottom: 0;">
+              كان لهذا الحدث رسالة واضحة لا لبس فيها: UNIX لم يعد مجرد هواية أو تجربة تقنية يقوم بها عدد قليل من الباحثين في وقت فراغهم، بل أصبح مشروعًا مؤسسيًا ضخمًا له موظفون متفرغون، ومديرو منتجات، وخطط تسويق، وميزانيات استثمارية كبرى تهدف إلى الهيمنة على سوق أنظمة التشغيل التجاري.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 10 -->
+          <h2 id="sec-10">10. BSD لا يتوقف عن التطور: الميزات والابتكارات</h2>
+          <p>
+            بينما كانت AT&amp;T مشغولة بالجوانب القانونية والتنظيمية وإعادة ترتيب هيكلتها، كان مبرمجو جامعة بيركلي يعملون ليل نهار على ابتكار ميزات تقنية نقلت النظام إلى مصاف أعظم الأنظمة في العالم:
+          </p>
+
+          <div class="grid grid-2" style="margin: 2rem 0; gap: 1.5rem;">
+            <div class="card" style="padding: 1.5rem; border-color: var(--primary);">
+              <h3 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 0.75rem;">🌐 تقنيات الشبكات (Networking)</h3>
+              <p style="font-size: 0.95rem; margin: 0;">
+                كانت بيركلي البيئة الأساسية التي تبنت وطورت بروتوكول <strong>TCP/IP</strong> وواجهة <strong>Sockets</strong>، مما جعل UNIX النظام الأول في العالم القادر على الربط الشبكي بسلاسة تامة، ليصبح حجر الزاوية لولادة الإنترنت.
+              </p>
+            </div>
+
+            <div class="card" style="padding: 1.5rem; border-color: var(--accent);">
+              <h3 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">🛠️ أدوات المطورين المتطورة</h3>
+              <p style="font-size: 0.95rem; margin: 0;">
+                ابتكار محرر النصوص الشهير <strong>vi</strong> الذي لا يزال رفيق كل مهندس حتى اليوم، ومحرر <strong>ex</strong>، ومكتبة <strong>curses</strong> لواجهات الشاشة، وصدفة <strong>C shell (csh)</strong> بمزايا حفظ تاريخ الأوامر (History) وإكمال الكلمات.
+              </p>
+            </div>
+
+            <div class="card" style="padding: 1.5rem; border-color: var(--accent-orange);">
+              <h3 style="font-size: 1.25rem; color: var(--accent-orange); margin-bottom: 0.75rem;">📁 نظام الملفات السريع (FFS)</h3>
+              <p style="font-size: 0.95rem; margin: 0;">
+                إدخال <strong>Berkeley Fast File System (FFS)</strong> الذي رفع سرعة قراءة وكتابة البيانات أضعافًا مضاعفة عبر تقسيم الأقراص إلى مجموعات أسطوانات (Cylinder Groups) وتقليل زمن تحرك رؤوس القراءة الميكانيكية.
+              </p>
+            </div>
+
+            <div class="card" style="padding: 1.5rem; border-color: var(--accent-purple);">
+              <h3 style="font-size: 1.25rem; color: var(--accent-purple); margin-bottom: 0.75rem;">🧠 الذاكرة الافتراضية (Virtual Memory)</h3>
+              <p style="font-size: 0.95rem; margin: 0;">
+                تطوير دعم كامل لإدارة الذاكرة عبر تقنية تقسيم الصفحات واستبدالها (<strong>Paging</strong>)، مما سمح بتشغيل برامج ضخمة تفوق حجم الذاكرة الفيزيائية العشوائية المتوفرة في الحاسوب.
+              </p>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Section 11 -->
+          <h2 id="sec-11">11. 4BSD وظهور BSD كقوة حقيقية</h2>
+          <p>
+            تُعتبر عائلة <strong>4BSD</strong> أعظم قفزة نوعية في مسيرة المشروع؛ حيث لم تعد بيركلي مجرد جامعة تعدل على نظام غيرها، بل أصبحت هي المرجع الهندسي الأبرز الذي يُقتدى به.
+          </p>
+          <p>
+            كان الإصداران <strong>4.2BSD (عام 1983)</strong> و <strong>4.3BSD (عام 1986)</strong> بمثابة إعصار في مجتمع الحواسيب:
+          </p>
+          <ul>
+            <li>حصل مشروع 4.2BSD على دعم وتمويل مباشر من وكالة أبحاث مشاريع الدفاع المتقدمة <strong>DARPA</strong> بهدف توحيد بروتوكولات الاتصال بين الجامعات ومراكز الأبحاث العسكرية.</li>
+            <li>قامت شركات عتاد حديثة وناشئة، وفي مقدمتها <strong>Sun Microsystems</strong>، ببناء أنظمة تشغيل أجهزتها وخوادمها الأولى (مثل <strong>SunOS</strong>) بالاعتماد المباشر والكامل على 4.2BSD.</li>
+          </ul>
+
+          <p>
+            وهنا تحول BSD نهائيًا من مجرد:
+          </p>
+          <blockquote style="margin: 1rem 0; padding: 1rem 1.5rem; border-right: 4px solid var(--text-muted); background: var(--bg-surface-alt); font-style: italic;">
+            «UNIX مع بعض التحسينات البرمجية من جامعة بيركلي»
+          </blockquote>
+          <p>
+            إلى حقيقة كبرى ومستقرة:
+          </p>
+          <blockquote style="margin: 1rem 0; padding: 1rem 1.5rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); font-weight: 700; color: var(--primary);">
+            «فرع كامل، مستقل، ومؤثر للغاية في عالم أنظمة التشغيل، يحمل فلسفة بيركلي المبتكرة ويقود تطور الحوسبة العالمية.»
+          </blockquote>
+
+          <hr>
+
+          <!-- Section 12 -->
+          <h2 id="sec-12">12. TCP/IP وBSD: وضع حجر الأساس لشبكة الإنترنت</h2>
+          <p>
+            من بين كل الإسهامات التي قدمتها جامعة بيركلي، تظل مساهمتها في هندسة الشبكات وبروتوكول <strong>TCP/IP</strong> هي الإنجاز التاريخي الأعظم الذي غير وجه كوكب الأرض.
+          </p>
+          <p>
+            فقد أصبحت Berkeley الحاضنة الأولى لتطوير واختبار ودعم حزمة بروتوكولات <strong>TCP/IP</strong> ضمن نواة نظام التشغيل، وابتكر مهندسوها واجهة برمجة المقابس الشهيرة <strong>Berkeley Sockets API</strong>، وهي نفس الواجهة البرمجية التي تستخدمها جميع لغات البرمجة وأنظمة التشغيل اليوم لكتابة برامج الاتصال بالشبكة!
+          </p>
+
+          <p>
+            تأمل هذا المخطط الهيكلي لتأثير BSD في نشأة الإنترنت:
+          </p>
+
+          <div class="diagram-box">
+UNIX
+  │
+  └── BSD (University of California, Berkeley)
+       │
+       ├── Networking Innovations (Sockets API, ifconfig, netstat)
+       │
+       ├── TCP/IP Protocol Stack Integration (4.2BSD &amp; DARPA)
+       │
+       └── Internet Development &amp; Global Connectivity
+          </div>
+
+          <p>
+            لذلك، عندما تتصفح الويب اليوم أو ترسل رسالة عبر تطبيق تواصل، فأنت تستخدم بشكل غير مباشر أحفاد التقنيات التي صممها طلاب وباحثو بيركلي في مطلع الثمانينيات.
+          </p>
+          <p>
+            فـ BSD لم يكن مجرد نظام تشغيل يستطيع الاتصال بالشبكة؛ بل كان هو البيئة الرائدة التي جعلت تقنيات الشبكات ركنًا طبيعيًا وأساسيًا من صلب كل نظام تشغيل حديث.
+          </p>
+
+          <hr>
+
+          <!-- Section 13 -->
+          <h2 id="sec-13">13. لماذا كان Berkeley مختلفًا؟ المقارنة الفلسفية</h2>
+          <p>
+            الاختلاف بين الطرفين لم يكن مجرد اختلاف في أرقام الإصدارات أو تفاصيل كتابة الأكواد؛ بل كان اختلافًا عميقًا في <strong>الفلسفة والرؤية والمقاصد</strong>.
+          </p>
+          <p>
+            يمكن تلخيص هذا التباين الفلسفي من خلال جدول المقارنة التالي:
+          </p>
+
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>وجه المقارنة</th>
+                  <th>Berkeley / BSD</th>
+                  <th>AT&amp;T / UNIX</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>البيئة الحاضنة</strong></td>
+                  <td>بيئة أكاديمية، بحثية، جامعية حرة</td>
+                  <td>بيئة شركات ومؤسسات كبرى ذات طابع تجاري متزايد</td>
+                </tr>
+                <tr>
+                  <td><strong>التعامل مع الشيفرة</strong></td>
+                  <td>مشاركة الكود بين الجميع، تعاون مفتوح، ونشر النتائج</td>
+                  <td>التحكم المركزي في التوزيع، حماية الأسرار، واتفاقيات عدم إفصاح</td>
+                </tr>
+                <tr>
+                  <td><strong>أسلوب التطوير</strong></td>
+                  <td>التجريب السريع، والجرأة في إعادة كتابة الأجزاء البطيئة</td>
+                  <td>تطوير رسمي منظم، محافظ، ويخضع للجان مراجعة مطولة</td>
+                </tr>
+                <tr>
+                  <td><strong>الهدف الاستراتيجي</strong></td>
+                  <td>البحث العلمي، وتوسيع حدود المعرفة، وخدمة المجتمع التقني</td>
+                  <td>تحويل البرمجيات إلى أصول ومنتجات تجارية تحقق الأرباح للشركة</td>
+                </tr>
+                <tr>
+                  <td><strong>التعديلات والابتكارات</strong></td>
+                  <td>مفتوحة ومتاحة لجميع الجامعات للمساهمة والتعديل الفوري</td>
+                  <td>محصورة داخل فرق الشركة وتتطلب تراخيص رسمية مكلفة</td>
+                </tr>
+                <tr>
+                  <td><strong>محرك التطور</strong></td>
+                  <td>مجتمع عالمي من الطلاب، الأساتذة، والباحثين المتطوعين</td>
+                  <td>إدارة المنتجات، مدراء التسويق، واستراتيجيات مبيعات الشركات</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">⚠️ تنبيه تاريخي مهم:</h4>
+            <p style="margin-bottom: 0;">
+              يجب الحذر من تبسيط المشهد التاريخي باختزاله في "أشرار تجاريين ضد أبطال جامعيين". فـ بيركلي في تلك المرحلة كانت لا تزال تعتمد قانونيًا على كود UNIX الأصلي المملوك لـ AT&amp;T، ولذلك كان مستخدمو BSD بحاجة إلى رخصة من AT&amp;T للحصول على أشرطة بيركلي! والتحول لدى AT&amp;T كان ناتجًا عن ظروف قانونية وتفكيك احتكاري معقد فرضته الحكومة الأمريكية.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 14 -->
+          <h2 id="sec-14">14. لماذا كانت الجامعات مهمة جدًا في تاريخ النظم؟</h2>
+          <p>
+            من الأسباب الكبرى والجوهرية لانتشار UNIX وسيطرته الفكرية أن <strong>الجامعات كانت البيئة الحاضنة الأكثر خصوبة واشتعالًا بالابتكار</strong>:
+          </p>
+          <ul>
+            <li><strong>تجمع الكفاءات العقول الشابة:</strong> آلاف الطلاب الأذكياء والباحثين الطموحين الذين لا ينامون ليلًا وهم يقرؤون ويفحصون سطور الكود.</li>
+            <li><strong>تنوع الأجهزة والمعامل:</strong> أجهزة حاسوب من ماركات متنوعة تحتاج إلى برامج مشتركة لإدارتها وتشغيلها.</li>
+            <li><strong>انعدام الحواجز البيروقراطية:</strong> إذا اكتشف طالب حلاً لأزمة في الذاكرة، قام بتطبيقه فورًا ومناقشته مع أستاذه في نفس القاعة.</li>
+            <li><strong>التأثير التراكمي للأجيال:</strong> الطالب الذي يتعلم على نظام ما، يدمن استخدامه، ويصبح عندما يتخرج مهندسًا يطالب شركته بشراء واستخدام نفس هذا النظام!</li>
+          </ul>
+          <p>
+            وهكذا أصبح النظام نفسه بيئة عمل تعاونية حية، وهذه الحاضنة الأكاديمية كانت أقوى ترسانة تسويقية لم يستطع أي نظام منافس أن يضاهيها.
+          </p>
+
+          <hr>
+
+          <!-- Section 15 -->
+          <h2 id="sec-15">15. BSD لم يكن مجرد نظام تشغيل</h2>
+          <p>
+            هذه نقطة فلسفية بالغة الأهمية: عندما تسمع اليوم كلمة <strong>BSD</strong>، فلا تظن أنها مجرد ملف تثبيت أو نظام تشغيل كأي نظام آخر.
+          </p>
+          <p>
+            فـ BSD في جوهره كان يمثل:
+          </p>
+          <ul>
+            <li><strong>مجتمعًا إنسانيًا:</strong> شبكة مترابطة من المهندسين والمفكرين الذين جمعهم حب البرمجة.</li>
+            <li><strong>حزمة أدوات متكاملة:</strong> ولدت منها محررات، وبروتوكولات، وأدوات أصبحت معايير عالمية (POSIX).</li>
+            <li><strong>فلسفة تطوير متكاملة:</strong> تجمع بين نقاء الكود، توثيقه المتقن، وسهولة تتبعه.</li>
+            <li><strong>تقنيات شبكات رائدة:</strong> مهدت لشبكة الويب العالمية والاتصالات الرقمية.</li>
+            <li><strong>شفرة مصدرية حية:</strong> ألهمت حركة البرمجيات الحرة ومفتوحة المصدر برمتها.</li>
+          </ul>
+          <p>
+            ولهذا السبب ظل تأثير إرث BSD باقيًا وحيًا حتى بعد أن اختفت أسماء بعض أجهزته القديمة من الأسواق.
+          </p>
+
+          <hr>
+
+          <!-- Section 16 -->
+          <h2 id="sec-16">16. ظهور آثار BSD في الأنظمة الحديثة (macOS وعائلة BSD)</h2>
+          <p>
+            قد يتبادر إلى ذهنك تساؤل مشروع: <em>«لماذا ندرس قصة BSD ونحن اليوم في القرن الحادي والعشرين نستخدم Linux و Windows و macOS وهواتف Android و iPhone؟»</em>
+          </p>
+          <p>
+            الإجابة المفاجئة لكثير من المستخدمين هي أن <strong>كود وبصمات BSD تسري في شرايين معظم الأجهزة التي تستخدمها كل دقيقة!</strong>
+          </p>
+
+          <div class="card card-featured" style="padding: 2rem; margin: 1.5rem 0;">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">🍎 نظام macOS وهواتف iPhone: جذور بيركلي في قلب Apple</h3>
+            <p>
+              نظام التشغيل <strong>macOS</strong> (وكذلك iOS و iPadOS و watchOS) مبني على نواة ونظام مفتوح يُسمى <strong>Darwin</strong>. هذا النظام مأخوذ مباشرة من نظام <strong>NeXTSTEP</strong> (الذي أسسه ستيف جوبز خارج آبل في أواخر الثمانينيات)، ونواة NeXTSTEP تجمع بين نواة <strong>Mach</strong> وكود واسع النطاق من <strong>BSD</strong> وأدواته وواجهاته الشبكية! وحتى اليوم، عندما تفتح الطرفية (Terminal) على جهاز Mac وتكتب أوامر النظام، فأنت تستخدم أوامر موروثة مباشرة من BSD.
+            </p>
+          </div>
+
+          <p>
+            بالإضافة إلى ذلك، هناك عائلة كاملة من أنظمة التشغيل المستقلة والمباشرة لـ BSD، والتي تتميز بالصلابة الهندسية والأمن الفائق:
+          </p>
+
+          <div class="grid grid-3" style="gap: 1rem; margin: 1.5rem 0;">
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: #c026d3; display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">FreeBSD</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+                نظام تشغيل الخوادم العملاقة والشبكات؛ يدير أضخم منصات البث مثل <strong>Netflix</strong>، ويشكل نظام تشغيل أجهزة ألعاب <strong>PlayStation</strong> (أوربيس OS)!
+              </p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: #e11d48; display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">OpenBSD</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+                النظام الأكثر هوسًا بالأمان البرمجي وتدقيق الكود عالميًا؛ ومبتكر مشروع <strong>OpenSSH</strong> الذي يستخدمه مئات الملايين يوميًا للاتصال الآمن بالسيرفرات.
+              </p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: #2563eb; display: block; font-size: 1.1rem; margin-bottom: 0.5rem;">NetBSD</strong>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+                النظام الأكثر قابلية للنقل في التاريخ؛ وشعاره الشهير <em>«Of course it runs NetBSD»</em> حيث يعمل على كل شيء من السيرفرات الضخمة وحتى محمصة الخبز!
+              </p>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Section 17 -->
+          <h2 id="sec-17">17. BSD وFree Software والبرمجيات الحرة: التمييز التاريخي</h2>
+          <p>
+            من الأخطاء التاريخية والمفاهيمية الشائعة الخلط بين هذه المصطلحات الثلاثة:
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0;">
+            <span class="badge badge-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">1. BSD</span>
+            <span class="badge badge-accent" style="font-size: 1rem; padding: 0.5rem 1rem;">2. Free Software (البرمجيات الحرة)</span>
+            <span class="badge badge-warning" style="font-size: 1rem; padding: 0.5rem 1rem;">3. Open Source (المصدر المفتوح)</span>
+          </div>
+
+          <p>
+            هذه المصطلحات لا تعني الشيء نفسه، وكل مصطلح منها نشأ في سياق فلسفي وقانوني مختلف:
+          </p>
+
+          <ul>
+            <li><strong>BSD والبيئة الأكاديمية:</strong> نشأ في بيئة جامعية قائمة على مشاركة البرمجيات بحرية تامة وبلا قيود فلسفية أو شروط سياسية؛ رخصة BSD تقول لك ببساطة: <em>«خذ الكود، افعل به ما تشاء، عدله، استخدمه في منتجات تجارية مغلقة، بشرط واحد فقط: أن تحتفظ باسمنا وحقوقنا الفكرية الأصلية»</em> (Permissive License).</li>
+            <li><strong>Free Software (حركة البرمجيات الحرة):</strong> حركة فكرية وفلسفية أسسها <strong>Richard Stallman</strong> في معهد MIT عام 1983 مع إطلاق مشروع <strong>GNU</strong>، وتركز على الحريات الأخلاقية الأربع للمستخدم، واستحدثت رخصة <strong>GPL (Copyleft)</strong> الصارمة التي تلزم أي مطور يطور الكود بأن يجعله مفتوحًا ومتاحًا للجميع دائمًا.</li>
+            <li><strong>Open Source (المصدر المفتوح):</strong> مصطلح تسويقي برجماتي تم إطلاقه عام 1998 لجعل البرمجيات التعاونية مقبولة وجذابة لشركات الأعمال الكبرى ووادي السيليكون دون التركيز على النزعة الفلسفية والأخلاقية الصارمة.</li>
+          </ul>
+
+          <p>
+            لذلك، من الخطأ الفادح اعتبار BSD مجرد "نسخة مبكرة من لينكس". فـ BSD يمتلك هوية فلسفية ورخصة تاريخية مختلفة تمامًا.
+          </p>
+
+          <hr>
+
+          <!-- Section 18 -->
+          <h2 id="sec-18">18. UNIX ينقسم إلى عائلة ضخمة (شجرة التفرع)</h2>
+          <p>
+            مع تعاقب السنين، تحول UNIX من شجرة صغيرة إلى غابة كثيفة من الفروع المتشابكة.
+          </p>
+          <p>
+            يمكن تصور جذور هذا الانقسام التاريخي الأول بهذا الرسم التوضيحي:
+          </p>
+
+          <div class="diagram-box">
+                     UNIX (Bell Labs Roots)
+                               │
+          ┌────────────────────┴────────────────────┐
+          │                                         │
+      Bell Labs                                  Berkeley
+          │                                         │
+      AT&amp;T UNIX                                 BSD UNIX
+          │                                         │
+    ┌─────┴─────┐                         ┌─────────┼─────────┐
+    │           │                         │         │         │
+ System III  System V                  FreeBSD   OpenBSD   NetBSD
+          </div>
+
+          <p>
+            على الرغم من أن الواقع التاريخي الفعلي كان يحوي تفاعلات وتبادلات أكواد معقدة ونزاعات قانونية شهيرة (قضية USL ضد BSDi)، إلا أن المبدأ الأساسي راسخ:
+          </p>
+          <p>
+            <strong>UNIX لم يبقَ نظامًا واحدًا تحت سيطرة جهة واحدة، بل انشطر إلى مسارين حضاريين غيرا مستقبل الحوسبة.</strong>
+          </p>
+
+          <hr>
+
+          <!-- Section 19 -->
+          <h2 id="sec-19">19. 1984: نقطة التحول الكبرى وتفكيك احتكار AT&amp;T</h2>
+          <p>
+            ثم أشرق عام <strong>1984</strong>؛ وكان عام الزلزال التشريعي والاقتصادي الأكبر في تاريخ التكنولوجيا الأمريكية.
+          </p>
+          <p>
+            في هذا العام تم رسميًا تنفيذ التسوية القضائية التاريخية لتفكيك احتكار AT&amp;T والمعروفة باسم <strong>AT&amp;T Divestiture</strong>:
+          </p>
+          <ul>
+            <li>تم فصل منظومة الهاتف المحلية عن AT&amp;T وتقسيمها إلى 7 شركات إقليمية مستقلة عُرفت باسم <strong>Baby Bells</strong>.</li>
+            <li>في المقابل، تم إلغاء القيود الفيدرالية الصارمة التي كانت تمنع AT&amp;T لعقود من المنافسة التجارية في سوق الحواسيب والبرمجيات التجارية!</li>
+          </ul>
+
+          <div class="callout-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">⚡ النتائج المباشرة لعام 1984:</h4>
+            <p style="margin-bottom: 0;">
+              أصبحت AT&amp;T شركة حرة في بيع الحواسيب وبرمجياتها دون قيود قانونية. وكان نظام التشغيل الجاهز والمبهر بين يديها هو <strong>UNIX</strong>. ومن هنا أغلقت AT&amp;T حقبة المشاركة الأكاديمية المجانية، وانطلقت بكامل قوتها لتحويل UNIX إلى سلعة تجارية باهظة التكاليف وصارمة التراخيص.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 20 -->
+          <h2 id="sec-20">20. UNIX يصبح منتجًا تجاريًا: System III و System V</h2>
+          <p>
+            بعد تفكيك الاحتكار، أطلقت AT&amp;T إصداراتها التجارية الرسمية الكبرى:
+          </p>
+          <ul>
+            <li><strong>UNIX System III (1982):</strong> أول إصدار يجمع التطورات التجارية ويُباع للمؤسسات.</li>
+            <li><strong>UNIX System V (1983):</strong> الإصدار التجاري الأضخم والأشهر الذي أعلنت فيه AT&amp;T معاييرها القياسية لـ UNIX، وشهد إطلاق Release 2 و Release 3 و Release 4 (SVR4).</li>
+          </ul>
+
+          <p>
+            وتسابقت كبرى شركات الحواسيب في الثمانينيات لشراء تراخيص System V ودمجها مع تقنيات بيركلي BSD لبناء أنظمتها التجارية الخاصة:
+          </p>
+
+          <div class="diagram-box">
+                                UNIX
+                                  │
+          ┌───────────────────────┴───────────────────────┐
+          │                                               │
+      BSD Family                                     AT&amp;T System V
+   (Academic &amp; Open)                              (Commercial Vendors)
+          │                                               │
+    ┌─────┼─────┐                           ┌─────────────┼─────────────┐
+    │     │     │                           │             │             │
+ FreeBSD OpenBSD NetBSD                    IBM AIX      HP-UX      Sun Solaris
+          </div>
+
+          <p>
+            وبذلك انقسم العالم التقني بين معسكرين عملاقين: معسكر <strong>BSD</strong> بمزاياه الشبكية وحريته الأكاديمية، ومعسكر <strong>System V</strong> بمعاييره المؤسسية ودعمه التجاري الصارم، وهي البيئة المشحونة التي مهدت لما عُرف لاحقًا باسم <strong>حروب يونكس (UNIX Wars)</strong>.
+          </p>
+
+          <hr>
+
+          <!-- Section 21 -->
+          <h2 id="sec-21">21. لماذا تعتبر هذه المرحلة مهمة في تاريخ Linux؟</h2>
+          <p>
+            قد يتبادر إلى ذهنك هذا السؤال المحوري:
+          </p>
+          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--accent); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
+            «إذا كانت القصة تدور حول BSD و AT&amp;T في السبعينيات والثمانينيات، فما علاقة كل هذا بظهور نظام Linux؟»
+          </blockquote>
+
+          <p>
+            العلاقة وثيقة ومصيرية للغاية!
+          </p>
+          <p>
+            عندما ظهر Linux على يد الشاب الفنلندي <strong>Linus Torvalds</strong> في عام <strong>1991</strong>، لم يظهر في فراغ معزول؛ بل كان العالم التقني محاطًا بالأنظمة التالية:
+          </p>
+          <ul>
+            <li>أنظمة <strong>UNIX التجارية</strong> (باذخة الثمن وتعمل على أجهزة مخصصة باهظة).</li>
+            <li>أنظمة <strong>BSD</strong> (التي كانت غارقة في نزاعات قضائية مع AT&amp;T حول الأكواد القديمة، مما أعاق انتشارها على معالجات x86 في تلك اللحظة الحرجة).</li>
+            <li>مشروع <strong>GNU</strong> بقيادة ريتشارد ستولمان (الذي كتب كافة أدوات النظام ومترجماته ومكتباته، لكنه كان يفتقر إلى نواة Kernel مكتملة).</li>
+            <li>نظام <strong>MINIX</strong> التعليمي لأندرو تانينباوم (المحدود والمخصص للشرح الأكاديمي).</li>
+          </ul>
+
+          <p>
+            ولم يكن لينوس يحاول ابتكار فلسفة جديدة لأنظمة التشغيل؛ بل كان عاشقًا لفلسفة UNIX ويريد بناء نواة تعمل بنمط UNIX وبكفاءة عالية على الحواسيب الشخصية المنزلية PC (Intel 386).
+          </p>
+          <p>
+            ولهذا، فإن فهم قصة BSD وUNIX يمنحك المفتاح الحقيقي لفهم البيئة والتربة الخصبة التي ولد فيها Linux ونما ليصبح عملاق العصر الحديث!
+          </p>
+
+          <hr>
+
+          <!-- Section 22 -->
+          <h2 id="sec-22">22. BSD وLinux ليسا الشيء نفسه: تصحيح المفهوم الشائع</h2>
+          <p>
+            من الأخطاء الكلاسيكية الشائعة بين المبتدئين وحتى بعض المبرمجين القول بأن:
+          </p>
+          <blockquote style="margin: 1rem 0; padding: 1rem 1.5rem; border-right: 4px solid var(--accent-orange); background: var(--bg-surface-alt); color: var(--accent-orange); font-weight: 700;">
+            «Linux هو مجرد توزيعة أو نسخة مأخوذة من BSD.»
+          </blockquote>
+
+          <p>
+            هذا زعم غير صحيح تمامًا تاريخيًا وتقنيًا وقانونيًا! فـ Linux و BSD ينتميان إلى شجرتين مختلفتين ولهما أصلان منفصلان:
+          </p>
+
+          <div class="flow-compare-grid">
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🐧</span> مشروع Linux
+              </div>
+              <ul>
+                <li><strong>البداية:</strong> عام 1991 على يد Linus Torvalds.</li>
+                <li><strong>الأصل البرمجي:</strong> كود جديد كليًا كُتب من الصفر (Clean Room Implementation) دون استخدام أسطر كود AT&amp;T.</li>
+                <li><strong>المكونات:</strong> Linux هو <em>نواة فقط (Kernel)</em>، اتحدت مع أدوات مشروع GNU، مترجم GCC، ومكتبة C لتشكيل توزيعات Linux.</li>
+                <li><strong>الترخيص:</strong> مرخص برخصة GNU GPL العامة.</li>
+              </ul>
+            </div>
+
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>😈</span> عائلة BSD
+              </div>
+              <ul>
+                <li><strong>البداية:</strong> عام 1977 في جامعة كاليفورنيا، بيركلي.</li>
+                <li><strong>الأصل البرمجي:</strong> بدأ مباشرة من كود UNIX المصدري الأصلي الصادر من مختبرات Bell Labs، ثم أُعيدت كتابته تدريجيًا.</li>
+                <li><strong>المكونات:</strong> نظام تشغيل كامل متكامل يطور كنواة وأدوات وتوثيق ضمن مشروع واحد متناسق.</li>
+                <li><strong>الترخيص:</strong> مرخص برخص BSD التحررية (Permissive).</li>
+              </ul>
+            </div>
+          </div>
+
+          <p>
+            يمكن تمثيل هذا التباين الشجري بهذا المخطط البسيط:
+          </p>
+
+          <div class="diagram-box">
+UNIX (Bell Labs)
+ ├── Berkeley → BSD Series
+ │               ├── FreeBSD
+ │               ├── OpenBSD
+ │               └── NetBSD
+ │
+ └── (Unix Ideas Inspiration)
+       ↓
+  Linux Ecosystem (1991)
+       └── Linux Kernel + GNU Tools + Packages = Linux Distributions
+          </div>
+
+          <hr>
+
+          <!-- Section 23 -->
+          <h2 id="sec-23">23. الفرق الجوهري بين فلسفة تطوير Linux وفلسفة BSD</h2>
+          <p>
+            هناك فارق معماري وهندسي جوهري يميز فلسفة بناء أنظمة BSD عن فلسفة توزيعات Linux:
+          </p>
+
+          <div class="diagram-box">
+نموذج BSD (النظام المتكامل الواحد - All-in-One):
+FreeBSD System
+├── Kernel (نواة النظام الموحدة)
+├── Userland (أدوات وبرمجيات المستخدم الأساسية)
+├── System Utilities (أدوات النظام وخدماته)
+├── Base Libraries (المكتبات المعيارية المعتمدة)
+├── Documentation (التوثيق الرسمي المركزي)
+└── Development Infrastructure (البنية البرمجية المتجانسة)
+          </div>
+
+          <p>
+            في عالم BSD (مثل FreeBSD)، يقوم فريق التطوير المركزي ببناء وإصدار <strong>النظام بأكمله كوحدة واحدة متجانسة ومتسقة للغاية</strong>. النواة والأوامر الأساسية مثل <code>ls</code> و <code>ps</code> ومترجم النظام يتم فحصها وتوثيقها وإصدارها معًا تحت رقم إصدار واحد.
+          </p>
+
+          <p>
+            أما في عالم Linux، فالمشهد مختلف وتجميعي تراكبي:
+          </p>
+
+          <div class="diagram-box">
+نموذج Linux (التوزيعات التراكبية التجميعية):
+Linux Kernel (من لينوس تورفالدس وفريقه)
+      +
+GNU System Tools &amp; Shell (من مؤسسة البرمجيات الحرة FSF)
+      +
+C Library (glibc أو musl)
+      +
+System Init (systemd أو OpenRC)
+      +
+Desktop Environment (GNOME أو KDE)
+      +
+Package Manager (APT أو DNF أو Pacman)
+      +
+Third-Party Applications
+      ↓
+Complete Linux Distribution (Ubuntu / Fedora / Debian / Arch)
+          </div>
+
+          <p>
+            هذا الاختلاف البنيوي يفسر لماذا تبدو أنظمة BSD متجانسة ومتناسقة للغاية في أدواتها وتوثيقها الداخلي، بينما يتميز Linux بمرونة هائلة وقدرة فائقة على الانتشار والتكيف في مختلف الأجهزة من الساعات الذكية وحتى أضخم الحواسيب الفائقة (Supercomputers).
+          </p>
+
+          <hr>
+
+          <!-- Section 24 -->
+          <h2 id="sec-24">24. الإرث الحقيقي الخالد لـ BSD</h2>
+          <p>
+            ربما يكون أروع وأعظم ما في قصة BSD هو أن بصماته لم تكن محصورة في مجرد أنظمة تشغيل تحمل اسمه.
+          </p>
+          <p>
+            بل قدم BSD للبشرية الأفكار والتقنيات التي أصبحت اليوم جزءًا لا يتجزأ من طبيعة التكنولوجيا:
+          </p>
+
+          <div class="grid grid-2" style="margin: 1.5rem 0; gap: 1rem;">
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--primary);">🌐 بروتوكولات الإنترنت TCP/IP:</strong>
+              <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">التي جعلت تواصل الحواسيب عبر العالم ممكنًا وبدونها لم يكن ليولد الإنترنت.</p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--accent);">🔌 مقابس بيركلي (Berkeley Sockets API):</strong>
+              <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">المعيار البرمجي الموحد لتطبيقات الشبكات في جميع أنظمة التشغيل بلا استثناء.</p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--accent-orange);">📝 محرر النصوص vi:</strong>
+              <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">المحرر التأسيسي الذي تطور إلى Vim و Neovim ويعتمده ملايين المهندسين يوميًا.</p>
+            </div>
+            <div class="card" style="padding: 1.25rem;">
+              <strong style="color: var(--accent-purple);">💾 نظام الملفات السريع Fast File System:</strong>
+              <p style="margin: 0.5rem 0 0; font-size: 0.95rem;">الذي ألهم معمارية أنظمة ملفات لينكس الحديثة مثل ext2 و ext3 و ext4.</p>
+            </div>
+          </div>
+
+          <p>
+            ولهذا السبب، فإن دراسة تاريخ BSD ليست قراءة في "أرشيف نظام تشغيل قديم عفا عليه الزمن"، بل هي رحلة استكشاف للأساسات العميقة التي تقوم عليها هندسة الحوسبة الحديثة اليوم.
+          </p>
+
+          <hr>
+
+          <!-- Section 25 -->
+          <h2 id="sec-25">25. الدرس الأكبر المستفاد من قصة BSD</h2>
+          <p>
+            هناك حكمة هندسية واستراتيجية بالغة الأهمية وراء قصة BSD وانقسام مسار UNIX:
+          </p>
+          <p>
+            تأمل كيف تحولت تجربة بحثية صغيرة إلى محرك عالمي عبر هذين المسارين المتوازيين:
+          </p>
+
+          <div class="flow-compare-grid">
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>🎓</span> مسار الابتكار الأكاديمي المفتوح
+              </div>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span>أبحاث مختبرات بيل (Bell Labs Research)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span>مشاركة الكود المصدري مع الجامعات (Source Code Sharing)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span>الجامعات والمراكز البحثية (UC Berkeley)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span>ولادة حزمة Berkeley Software Distribution (BSD)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">5</span>
+                  <span>ابتكار TCP/IP، الذاكرة، والأدوات</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">6</span>
+                  <span>عائلة الأنظمة الحديثة: FreeBSD, OpenBSD, macOS Darwin</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-card">
+              <div class="flow-card-title">
+                <span>💼</span> مسار التسويق والتطوير المؤسسي
+              </div>
+              <div class="flow-steps">
+                <div class="flow-step-item">
+                  <span class="flow-step-num">1</span>
+                  <span>نظام UNIX التأسيسي في مختبرات بيل</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">2</span>
+                  <span>الشركة الأم العملاقة AT&amp;T</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">3</span>
+                  <span>التوجه نحو التسويق التجاري (Commercialization)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">4</span>
+                  <span>إصدارات UNIX الرسمية: System III و System V</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">5</span>
+                  <span>شركات عتاد السيرفرات التجارية (IBM, HP, Sun)</span>
+                </div>
+                <div class="flow-step-item">
+                  <span class="flow-step-num">6</span>
+                  <span>اندلاع حروب يونكس والمعايير القياسية (POSIX)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            ومن تلاقي واحتكاك هذين المسارين تشكلت كل معالم أنظمة التشغيل، والسحابة، وشبكات الحوسبة التي نعيش في ظلها اليوم.
+          </p>
+
+          <hr>
+
+          <!-- Section 26 -->
+          <h2 id="conclusion">26. الخلاصة: الرؤية الشاملة لما بعد انقسام UNIX</h2>
+          <p>
+            ظهور <strong>Berkeley Software Distribution (BSD)</strong> كان نقطة تحول تاريخية كبرى ومصيرية في قصة UNIX.
+          </p>
+          <p>
+            فبعد أن أصبح كود UNIX V6 متاحًا للجامعات في عام 1975، تلقفه الباحثون والطلاب المبدعون في جامعة كاليفورنيا، بيركلي، وسرعان ما أضافوا إليه مئات الأدوات والتحسينات المعمارية حتى أصبح يُوزع في هيئة حزمة برمجية متكاملة تحت اسم <strong>Berkeley Software Distribution</strong>.
+          </p>
+          <p>
+            ومع توالي الإصدارات بقيادة مهندسين بارعين مثل Bill Joy، اتخذ BSD طريقًا وفلسفة مختلفة جذريًا عن مسار شركة AT&amp;T:
+          </p>
+          <ul>
+            <li><strong>بيركلي (Berkeley):</strong> حافظت على البيئة الأكاديمية والتعاونية التي تشجع مشاركة الأكواد البرمجية والتجريب الحر، وقدمت للبشرية إنجازات خالدة مثل TCP/IP ومحرر vi ونظام FFS.</li>
+            <li><strong>شركة AT&amp;T:</strong> قادت UNIX نحو التنظيم الإداري الصارم، والتراخيص التجارية المقيدة، وبناء منتج تجاري موجه لقطاع الأعمال عبر إصدارات System III و System V.</li>
+          </ul>
+
+          <div class="diagram-box">
+                                UNIX
+                                  │
+                      ┌───────────┴───────────┐
+                      │                       │
+                 Berkeley                    AT&amp;T
+                      │                       │
+                     BSD                 Commercial UNIX
+                      │                       │
+               ┌──────┼──────┐          System III / V
+               │      │      │
+          FreeBSD OpenBSD NetBSD
+          </div>
+
+          <p>
+            ولم يكن هذا الانقسام مجرد تنوع في الإصدارات، بل كان <strong>اختلافًا جذريًا في الفلسفة، وأسلوب التطوير، وطريقة توزيع البرمجيات، وطبيعة العلاقة بين المبرمج والمجتمع والسوق التجاري</strong>.
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--accent);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">🎯 جوهر الدرس السادس:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>قصة BSD تثبت أن أعظم القفزات التقنية في التاريخ لا تنشأ فقط داخل الشركات الكبرى ذات الميزانيات المليارية؛ بل تولد في قاعات الجامعات عندما تمنح الباحثين والطلاب حرية الوصول إلى الشفرة المصدرية والمشاركة والتعاون والابتكار دون قيود.</strong><br>
+              وهذا الفهم العميق لقصة BSD يضع في يدك حجر الأساس لفهم الدروس القادمة: حروب يونكس (UNIX Wars)، ولادة مشروع GNU ومولد Linux، وثورة الحوسبة السحابية المفتوحة!
+            </p>
+          </div>
+
+          <!-- Previous and Next Lesson Navigation -->
+          <div class="lesson-navigation">
+            <a href="unix-commercialization.html" class="lesson-nav-card prev">
+              <span class="lesson-nav-label">← الدرس السابق (الدرس 5)</span>
+              <span class="lesson-nav-title">الدرس الخامس: تجارية UNIX: كيف تحولت من مشروع بحثي إلى نظام تجاري</span>
+            </a>
+            <a href="linux-roadmap.html" class="lesson-nav-card next">
+              <span class="lesson-nav-label">خارطة الطريق ←</span>
+              <span class="lesson-nav-title">استعراض كافة الدروس في خارطة طريق Linux</span>
+            </a>
+          </div>
+
+          <!-- Article Footer Action -->
+          <div class="article-footer-cta">
+            <div class="article-footer-cta-text">
+              <h3>رائع ومذهل! أتممت بنجاح قراءة واستيعاب الدرس السادس 🎉</h3>
+              <p>أنت الآن تفهم بعمق قصة ولادة BSD، ودور TCP/IP في بناء الإنترنت، وكيف انقسم تاريخ UNIX ليصنع عالم الأنظمة المعاصرة!</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="linux-roadmap.html" class="btn btn-primary btn-lg">استعراض خارطة طريق Linux ←</a>
+              <a href="unix-commercialization.html" class="btn btn-secondary btn-lg">العودة للدرس الخامس</a>
+              <a href="index.html" class="btn btn-outline btn-lg">الصفحة الرئيسية</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">
+            <img src="brand-icon.png" alt="Learn With Me Logo" width="32" height="32">
+            <span>Learn With Me</span>
+          </span>
+          <p>منصة تعليمية متخصصة في هندسة النظم، لينكس، وتقنيات السحابة والـ DevOps.</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
+          <li><a href="what-is-linux.html">الدرس الأول: فهم ماهية Linux</a></li>
+          <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف Linux</a></li>
+          <li><a href="history-of-linux.html">الدرس الثالث: استكشاف تاريخ Linux</a></li>
+          <li><a href="unix-philosophy.html">الدرس الرابع: ثقافة وفلسفة UNIX</a></li>
+          <li><a href="unix-commercialization.html">الدرس الخامس: تجارية UNIX وتحولها لنظام تجاري</a></li>
+          <li><a href="berkeley-software-distribution.html">الدرس السادس: وصول BSD وانقسام طريق UNIX</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Learn With Me</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle & Smooth Scroll Script -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
+</body>
+</html>

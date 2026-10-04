@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://learn.jalalmahmoud.online/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Linux Roadmap -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/linux-roadmap.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Lesson 1 -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/what-is-linux.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lesson 2 -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/linux-vs-other-os.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lesson 3 -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/history-of-linux.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lesson 4 -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/unix-philosophy.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lesson 5 -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/unix-commercialization.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Lesson 6: Berkeley Software Distribution (BSD) -->
+  <url>
+    <loc>https://learn.jalalmahmoud.online/berkeley-software-distribution.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/T7cdhddZ6r0/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام طريق UNIX</video:title>
+      <video:description>شرح فيديو مصاحب للدرس السادس يتناول قصة ظهور BSD في جامعة كاليفورنيا بيركلي، دور بيل جوي، إدخال TCP/IP والشبكات، وانقسام UNIX بين الثقافة الأكاديمية والتجارية.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/T7cdhddZ6r0</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+
+</urlset>
