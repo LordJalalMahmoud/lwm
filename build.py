@@ -34,26 +34,54 @@ def load_lessons():
 
 
 def render_nav_links(current_filename, is_article=False):
-    """Renders navbar <li> items, marking the active link."""
+    """Renders navbar <li> items with clean dropdown menu for lessons."""
     lessons = load_lessons()
     lines = []
     
-    # Home
+    # 1. Home Link
     is_home_active = (current_filename == "index.html")
     lines.append(f'        <li><a href="index.html" class="nav-link{" active" if is_home_active else ""}">الرئيسية</a></li>')
     
-    # Roadmap
+    # 2. Roadmap Link
     is_roadmap_active = (current_filename == "linux-roadmap.html")
     lines.append(f'        <li><a href="linux-roadmap.html" class="nav-link{" active" if is_roadmap_active else ""}">خارطة طريق Linux</a></li>')
     
-    # Lessons
-    for lesson in lessons:
-        is_active = (current_filename == lesson["filename"])
-        lines.append(f'        <li><a href="{lesson["filename"]}" class="nav-link{" active" if is_active else ""}">{lesson["nav_title"]}</a></li>')
+    # 3. Linux Lessons Dropdown Menu
+    is_any_lesson_active = any(current_filename == l["filename"] for l in lessons)
+    
+    dropdown_lines = [
+        '        <li class="nav-dropdown">',
+        f'          <button class="nav-link dropdown-toggle{" active" if is_any_lesson_active else ""}" type="button" aria-expanded="false" aria-haspopup="true">',
+        '            <span>دروس لينكس</span>',
+        '            <span class="dropdown-arrow">▾</span>',
+        '          </button>',
+        '          <div class="dropdown-menu">',
+        f'            <div class="dropdown-header">سلسلة مدخل إلى Linux ({len(lessons)} دروس)</div>'
+    ]
+    
+    for l in lessons:
+        is_active = (current_filename == l["filename"])
+        short = l.get("short_title", l["title"])
+        dropdown_lines.append(f'            <a href="{l["filename"]}" class="dropdown-item{" active" if is_active else ""}">')
+        dropdown_lines.append(f'              <span class="dropdown-item-num">{l["id"]:02d}</span>')
+        dropdown_lines.append(f'              <div class="dropdown-item-text">')
+        dropdown_lines.append(f'                <span class="dropdown-item-title">{l["nav_title"]}</span>')
+        dropdown_lines.append(f'                <span class="dropdown-item-sub">{short}</span>')
+        dropdown_lines.append(f'              </div>')
+        dropdown_lines.append(f'            </a>')
         
-    # Article TOC shortcut
+    dropdown_lines.append('            <div class="dropdown-divider"></div>')
+    dropdown_lines.append('            <a href="linux-roadmap.html" class="dropdown-footer-link">')
+    dropdown_lines.append('              <span>استعراض كافة الدروس في خارطة الطريق ←</span>')
+    dropdown_lines.append('            </a>')
+    dropdown_lines.append('          </div>')
+    dropdown_lines.append('        </li>')
+    
+    lines.append("\n".join(dropdown_lines))
+        
+    # 4. Article TOC shortcut
     if is_article:
-        lines.append('        <li><a href="#toc" class="nav-link">فهرس المقال</a></li>')
+        lines.append('        <li><a href="#toc" class="nav-link">📑 فهرس المقال</a></li>')
         
     return "\n".join(lines)
 

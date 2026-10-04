@@ -11,6 +11,7 @@
 
 function initAll() {
   initThemeToggle();
+  initNavDropdown();
   initReadingProgressBar();
   initBackToTop();
   initTableOfContentsScrollspy();
@@ -275,5 +276,54 @@ function initCopyCodeButtons() {
         }, 2000);
       }
     });
+  });
+}
+
+/* ==========================================================================
+   6. Navigation Dropdown Menu
+   ========================================================================== */
+function initNavDropdown() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.dropdown-toggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains('open');
+
+      // Close all dropdowns
+      dropdowns.forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      dropdowns.forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dropdowns.forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    }
   });
 }
