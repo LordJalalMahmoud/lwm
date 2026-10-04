@@ -62,12 +62,13 @@ def render_nav_links(current_filename, is_article=False):
     for l in lessons:
         is_active = (current_filename == l["filename"])
         short = l.get("short_title", l["title"])
-        dropdown_lines.append(f'            <a href="{l["filename"]}" class="dropdown-item{" active" if is_active else ""}">')
+        dropdown_lines.append(f'            <a href="{l["filename"]}" class="dropdown-item{" active" if is_active else ""}" data-lesson-id="{l["id"]}">')
         dropdown_lines.append(f'              <span class="dropdown-item-num">{l["id"]:02d}</span>')
         dropdown_lines.append(f'              <div class="dropdown-item-text">')
         dropdown_lines.append(f'                <span class="dropdown-item-title">{l["nav_title"]}</span>')
         dropdown_lines.append(f'                <span class="dropdown-item-sub">{short}</span>')
         dropdown_lines.append(f'              </div>')
+        dropdown_lines.append(f'              <span class="dropdown-item-check" title="مكتمل">✓</span>')
         dropdown_lines.append(f'            </a>')
         
     dropdown_lines.append('            <div class="dropdown-divider"></div>')
@@ -139,6 +140,20 @@ def update_nav_and_footer_in_file(filepath, is_article=False):
 
     # Clean up any leftover duplicate theme comments
     content = content.replace('  <!-- Theme Toggle & Smooth Scroll Script -->\n', '')
+
+    # Ensure article completion button exists in article pages
+    if is_article:
+        lesson_match = next((l for l in load_lessons() if l["filename"] == filename), None)
+        if lesson_match and 'lesson-complete-toggle-btn' not in content:
+            lid = lesson_match["id"]
+            btn_markup = f'''            <div class="article-completion-action">
+              <button class="lesson-complete-toggle-btn" data-lesson-id="{lid}" type="button">
+                <span class="btn-check-icon">○</span>
+                <span class="btn-check-text">تحديد هذا الدرس كمكتمل في مسارك التعليمي ✅</span>
+              </button>
+            </div>'''
+            cta_inner_pat = r'(<div class="article-footer-cta">.*?</div>\s*)(<div style="display: flex;)'
+            content = re.sub(cta_inner_pat, rf'\1{btn_markup}\n            \2', content, flags=re.DOTALL)
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(content)
@@ -311,7 +326,7 @@ def sync_roadmap_page():
     for l in lessons:
         tags_html = "\n".join([f'              <span class="roadmap-topic-tag">{t}</span>' for t in l.get("tags", [])])
         steps_html.append(f'''        <!-- Step {l['id']}: {l['nav_title']} -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="{l['id']}">
           <div class="roadmap-marker">{l['id']}</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -319,7 +334,13 @@ def sync_roadmap_page():
                 <span class="badge badge-accent">{l.get('badge_accent', f"{l['nav_title']} • متاح الآن 🚀")}</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">{l['title']}</h3>
               </div>
-              <span class="badge badge-primary">المستوى: {l.get('level', 'متوسط')}</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: {l.get('level', 'متوسط')}</span>
+                <button class="roadmap-complete-btn" data-lesson-id="{l['id']}" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               {l.get('roadmap_desc', l.get('description', ''))}
@@ -351,6 +372,35 @@ def sync_roadmap_page():
         </div>''')
 
     steps_full_html = "\n\n".join(steps_html)
+
+    # 3. Personal Learning Progress Dashboard Card
+    dashboard_card_html = f'''      <!-- Personal Learning Progress Dashboard -->
+      <div class="progress-dashboard-card" id="roadmapProgressCard">
+        <div class="progress-dashboard-top">
+          <div class="progress-dashboard-info">
+            <span class="progress-icon">🎯</span>
+            <div>
+              <h3 class="progress-dashboard-title">لوحة تتبع تقدمك في مسار Linux</h3>
+              <p class="progress-dashboard-subtitle" id="progressStatusText">أكملت 0 من {count} دروس (0%) بنجاح</p>
+            </div>
+          </div>
+          <div class="progress-badge-wrap">
+            <span class="progress-motivation-badge" id="progressMotivationBadge">🌱 خطوتك الأولى تبدأ الآن</span>
+            <button class="progress-reset-btn" id="progressResetBtn" type="button" title="إعادة تعيين التقدم">↺</button>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="roadmapProgressFill" style="width: 0%;"></div>
+          </div>
+          <span class="progress-percentage-label" id="progressPercentageLabel">0%</span>
+        </div>
+      </div>'''
+
+    if 'id="roadmapProgressCard"' in content:
+        content = re.sub(r'<!-- Personal Learning Progress Dashboard -->.*?</div>\s*</div>\s*</div>', dashboard_card_html, content, flags=re.DOTALL)
+    else:
+        content = content.replace('<div class="roadmap-container">', f'{dashboard_card_html}\n\n      <div class="roadmap-container">')
     
     # Replace roadmap-container
     steps_pattern = r'(<div class="roadmap-container">)(.*?)(</div>\s*</section>\s*<!-- Call to Action Banner -->)'
@@ -673,6 +723,12 @@ def build_lesson_page(lesson_meta, all_lessons):
             <div class="article-footer-cta-text">
               <h3>رائع ومذهل! أتممت بنجاح قراءة واستيعاب {lesson_meta['nav_title']} 🎉</h3>
               <p>واصل تقدمك في المسار واكتشف المزيد من أسرار أنظمة التشغيل وهندسة النظم عبر خارطة الطريق!</p>
+            </div>
+            <div class="article-completion-action">
+              <button class="lesson-complete-toggle-btn" data-lesson-id="{lesson_meta['id']}" type="button">
+                <span class="btn-check-icon">○</span>
+                <span class="btn-check-text">تحديد هذا الدرس كمكتمل في مسارك التعليمي ✅</span>
+              </button>
             </div>
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
               <a href="linux-roadmap.html" class="btn btn-primary btn-lg">استعراض خارطة طريق Linux ←</a>

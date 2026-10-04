@@ -33,47 +33,53 @@
           </button>
           <div class="dropdown-menu">
             <div class="dropdown-header">سلسلة مدخل إلى Linux (6 دروس)</div>
-            <a href="what-is-linux.html" class="dropdown-item">
+            <a href="what-is-linux.html" class="dropdown-item" data-lesson-id="1">
               <span class="dropdown-item-num">01</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس الأول</span>
                 <span class="dropdown-item-sub">ما هو لينكس؟</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
-            <a href="linux-vs-other-os.html" class="dropdown-item">
+            <a href="linux-vs-other-os.html" class="dropdown-item" data-lesson-id="2">
               <span class="dropdown-item-num">02</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس الثاني</span>
                 <span class="dropdown-item-sub">كيف يختلف لينكس؟</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
-            <a href="history-of-linux.html" class="dropdown-item">
+            <a href="history-of-linux.html" class="dropdown-item" data-lesson-id="3">
               <span class="dropdown-item-num">03</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس الثالث</span>
                 <span class="dropdown-item-sub">تاريخ لينكس</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
-            <a href="unix-philosophy.html" class="dropdown-item">
+            <a href="unix-philosophy.html" class="dropdown-item" data-lesson-id="4">
               <span class="dropdown-item-num">04</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس الرابع</span>
                 <span class="dropdown-item-sub">ثقافة وفلسفة UNIX</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
-            <a href="unix-commercialization.html" class="dropdown-item">
+            <a href="unix-commercialization.html" class="dropdown-item" data-lesson-id="5">
               <span class="dropdown-item-num">05</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس الخامس</span>
                 <span class="dropdown-item-sub">تجارية UNIX</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
-            <a href="berkeley-software-distribution.html" class="dropdown-item">
+            <a href="berkeley-software-distribution.html" class="dropdown-item" data-lesson-id="6">
               <span class="dropdown-item-num">06</span>
               <div class="dropdown-item-text">
                 <span class="dropdown-item-title">الدرس السادس</span>
                 <span class="dropdown-item-sub">وصول BSD وانقسام UNIX</span>
               </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="linux-roadmap.html" class="dropdown-footer-link">
@@ -139,10 +145,33 @@
         </p>
       </div>
 
+            <!-- Personal Learning Progress Dashboard -->
+      <div class="progress-dashboard-card" id="roadmapProgressCard">
+        <div class="progress-dashboard-top">
+          <div class="progress-dashboard-info">
+            <span class="progress-icon">🎯</span>
+            <div>
+              <h3 class="progress-dashboard-title">لوحة تتبع تقدمك في مسار Linux</h3>
+              <p class="progress-dashboard-subtitle" id="progressStatusText">أكملت 0 من 6 دروس (0%) بنجاح</p>
+            </div>
+          </div>
+          <div class="progress-badge-wrap">
+            <span class="progress-motivation-badge" id="progressMotivationBadge">🌱 خطوتك الأولى تبدأ الآن</span>
+            <button class="progress-reset-btn" id="progressResetBtn" type="button" title="إعادة تعيين التقدم">↺</button>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="roadmapProgressFill" style="width: 0%;"></div>
+          </div>
+          <span class="progress-percentage-label" id="progressPercentageLabel">0%</span>
+        </div>
+      </div>
+
       <div class="roadmap-container">
 
         <!-- Step 1: الدرس الأول -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="1">
           <div class="roadmap-marker">1</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -150,7 +179,13 @@
                 <span class="badge badge-accent">الدرس الأول • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</h3>
               </div>
-              <span class="badge badge-primary">المستوى: مبتدئ</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: مبتدئ</span>
+                <button class="roadmap-complete-btn" data-lesson-id="1" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               دليل تأسيسي موسع يشرح كيف يتواصل نظام التشغيل مع العتاد، دور تعريفات العتاد (Drivers)، كيفية جدولة العمليات في المعالج (CPU)، إدارة الذاكرة الافتراضية ومساحة Swap، معمارية أنظمة الملفات، الصلاحيات، ولماذا Linux ليس مجرد سطر أوامر بل هو أساس السحابة ومراكز البيانات.
@@ -187,7 +222,7 @@
         </div>
 
         <!-- Step 2: الدرس الثاني -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="2">
           <div class="roadmap-marker">2</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -195,7 +230,13 @@
                 <span class="badge badge-accent">الدرس الثاني • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى (ويندوز وماك)</h3>
               </div>
-              <span class="badge badge-primary">المستوى: مبتدئ</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: مبتدئ</span>
+                <button class="roadmap-complete-btn" data-lesson-id="2" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               مقارنة فلسفية ومعمارية عميقة: ما هو مفهوم البرمجيات الاحتكارية المغلقة (Windows و macOS)؟ ما هو المصدر المفتوح وحريات FOSS؟ لماذا الكود المفتوح لا يعني مجرد "مجاني"؟ جدول المقارنة الشامل من 9 جوانب، وتأثير فلسفة لينكس في تغيير صناعة التكنولوجيا والذكاء الاصطناعي.
@@ -234,7 +275,7 @@
         </div>
 
         <!-- Step 3: الدرس الثالث -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="3">
           <div class="roadmap-marker">3</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -242,7 +283,13 @@
                 <span class="badge badge-accent">الدرس الثالث • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">استكشاف تاريخ Linux: من UNIX وMINIX إلى ميلاد نظام غيّر عالم البرمجيات</h3>
               </div>
-              <span class="badge badge-primary">المستوى: متوسط</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: متوسط</span>
+                <button class="roadmap-complete-btn" data-lesson-id="3" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               رحلة استكشافية توثيقية: كيف نشأ UNIX عام 1969؟ دور ريتشارد ستولمان ومشروع GNU عام 1983، لغز نظام MINIX لأندرو تانينباوم، رسالة لينوس تورفالدس الشهيرة في أغسطس 1991، وتوزيعات لينكس الأولى.
@@ -280,7 +327,7 @@
         </div>
 
         <!-- Step 4: الدرس الرابع -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="4">
           <div class="roadmap-marker">4</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -288,7 +335,13 @@
                 <span class="badge badge-accent">الدرس الرابع • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">ثقافة وفلسفة UNIX في Bell Labs: المبادئ التي شكلت عالم البرمجيات</h3>
               </div>
-              <span class="badge badge-primary">المستوى: متوسط ومتعمق</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: متوسط ومتعمق</span>
+                <button class="roadmap-complete-btn" data-lesson-id="4" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               غوص عميق في البيئة الإبداعية لمختبرات بيل: كيف ولدت أفكار تومسون وريتشي، فلسفة الأدوات الصغيرة المركبة، السحر الرياضي للأنابيب (Pipes)، قاعدة "كل شيء ملف"، ولماذا كُتب UNIX بلغة C.
@@ -326,7 +379,7 @@
         </div>
 
         <!-- Step 5: الدرس الخامس -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="5">
           <div class="roadmap-marker">5</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -334,7 +387,13 @@
                 <span class="badge badge-accent">الدرس الخامس • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">تجارية UNIX: كيف تحولت من مشروع بحثي داخل Bell Labs إلى نظام تشغيل تجاري غيّر صناعة الحوسبة</h3>
               </div>
-              <span class="badge badge-primary">المستوى: متوسط ومتعمق</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: متوسط ومتعمق</span>
+                <button class="roadmap-complete-btn" data-lesson-id="5" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               تحليل تاريخي واقتصادي متعمق: كيف أسهم الوضع الاحتكاري لشركة AT&amp;T في توزيع UNIX بشيفرته المصدرية للجامعات، أثر تفكيك الاحتكار عام 1984، ولادة System III و System V، وانطلاق السوق التجاري الضخم.
@@ -373,7 +432,7 @@
         </div>
 
         <!-- Step 6: الدرس السادس -->
-        <div class="roadmap-step">
+        <div class="roadmap-step" data-lesson-id="6">
           <div class="roadmap-marker">6</div>
           <div class="roadmap-content">
             <div class="roadmap-header">
@@ -381,7 +440,13 @@
                 <span class="badge badge-accent">الدرس السادس • متاح الآن 🚀</span>
                 <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين</h3>
               </div>
-              <span class="badge badge-primary">المستوى: متقدم ومتعمق</span>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: متقدم ومتعمق</span>
+                <button class="roadmap-complete-btn" data-lesson-id="6" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
             </div>
             <p>
               قصة وصول كود UNIX V6 إلى جامعة بيركلي وولادة Berkeley Software Distribution (BSD)، دور بيل جوي ومحرر vi، إدخال بروتوكول TCP/IP والشبكات لتأسيس الإنترنت، انقسام UNIX بين الثقافة الأكاديمية التشاركية والتجارية الرسمية، انبثاق أنظمة FreeBSD و OpenBSD و NetBSD و macOS Darwin، ولماذا لا يعتبر Linux نسخة من BSD.

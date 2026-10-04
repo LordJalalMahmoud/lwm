@@ -16,6 +16,7 @@ function initAll() {
   initBackToTop();
   initTableOfContentsScrollspy();
   initCopyCodeButtons();
+  initProgressTracker();
 }
 
 if (document.readyState === 'loading') {
@@ -327,3 +328,228 @@ function initNavDropdown() {
     }
   });
 }
+
+/* ==========================================================================
+   7. Personal Learning Progress Tracker
+   ========================================================================== */
+const STORAGE_KEY_PROGRESS = 'lwm_completed_lessons';
+
+const LESSON_ROUTES = {
+  'what-is-linux.html': 1,
+  'linux-vs-other-os.html': 2,
+  'history-of-linux.html': 3,
+  'unix-philosophy.html': 4,
+  'unix-commercialization.html': 5,
+  'berkeley-software-distribution.html': 6
+};
+
+const TOTAL_LESSONS_COUNT = 6;
+
+function getCompletedLessons() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_PROGRESS);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(Number) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function setCompletedLessons(ids) {
+  try {
+    const unique = Array.from(new Set(ids.map(Number))).filter(Boolean);
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(unique));
+  } catch (e) {
+    console.error('Failed to save progress', e);
+  }
+}
+
+function isLessonCompleted(id) {
+  return getCompletedLessons().includes(Number(id));
+}
+
+function toggleLessonCompleted(id) {
+  const numId = Number(id);
+  const current = getCompletedLessons();
+  let updated;
+  let nowCompleted = false;
+
+  if (current.includes(numId)) {
+    updated = current.filter(x => x !== numId);
+    nowCompleted = false;
+  } else {
+    updated = [...current, numId];
+    nowCompleted = true;
+  }
+
+  setCompletedLessons(updated);
+  updateProgressUI();
+
+  // Show Toast
+  if (nowCompleted) {
+    showToast(`🎉 أحسنت! تم تحديد الدرس كمكتمل في مسارك التعليمي (${updated.length} من ${TOTAL_LESSONS_COUNT})`);
+  } else {
+    showToast(`ℹ️ تم إلغاء تحديد الدرس من قائمتك المكتملة`);
+  }
+}
+
+function resetProgress() {
+  if (confirm('هل أنت متأكد من رغبتك في إعادة تعيين تقدمك في مسار التعلم؟')) {
+    setCompletedLessons([]);
+    updateProgressUI();
+    showToast('🔄 تم إعادة تعيين تقدمك بنجاح');
+  }
+}
+
+function showToast(message) {
+  let toast = document.getElementById('lwmToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'lwmToast';
+    toast.className = 'toast-notification';
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  if (window.toastTimeout) clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3200);
+}
+
+function updateProgressUI() {
+  const completed = getCompletedLessons();
+  const count = completed.length;
+  const percent = Math.round((count / TOTAL_LESSONS_COUNT) * 100);
+
+  // 1. Update Roadmap Dashboard (if on linux-roadmap.html)
+  const progressFill = document.getElementById('roadmapProgressFill');
+  const percentLabel = document.getElementById('progressPercentageLabel');
+  const statusText = document.getElementById('progressStatusText');
+  const motivationBadge = document.getElementById('progressMotivationBadge');
+
+  if (progressFill && percentLabel) {
+    progressFill.style.width = `${percent}%`;
+    percentLabel.textContent = `${percent}%`;
+  }
+
+  if (statusText) {
+    statusText.textContent = `أكملت ${count} من ${TOTAL_LESSONS_COUNT} دروس (${percent}%) بنجاح`;
+  }
+
+  if (motivationBadge) {
+    if (count === 0) {
+      motivationBadge.textContent = '🌱 خطوتك الأولى تبدأ الآن';
+      motivationBadge.classList.remove('completed');
+    } else if (count < TOTAL_LESSONS_COUNT) {
+      motivationBadge.textContent = `🚀 أحسنت! قطعت ${percent}% من المسار`;
+      motivationBadge.classList.remove('completed');
+    } else {
+      motivationBadge.textContent = '🏆 تهانينا! أتممت المسار كاملاً بنجاح!';
+      motivationBadge.classList.add('completed');
+    }
+  }
+
+  // 2. Update Roadmap Steps
+  document.querySelectorAll('.roadmap-step').forEach(step => {
+    const id = Number(step.getAttribute('data-lesson-id'));
+    const isDone = completed.includes(id);
+
+    if (isDone) {
+      step.classList.add('is-completed');
+    } else {
+      step.classList.remove('is-completed');
+    }
+
+    const btn = step.querySelector('.roadmap-complete-btn');
+    if (btn) {
+      if (isDone) {
+        btn.classList.add('is-completed');
+        btn.innerHTML = '<span class="btn-check-icon">✓</span> <span class="btn-check-text">مكتمل</span>';
+      } else {
+        btn.classList.remove('is-completed');
+        btn.innerHTML = '<span class="btn-check-icon">○</span> <span class="btn-check-text">تحديد كمكتمل</span>';
+      }
+    }
+  });
+
+  // 3. Update Article Page Completion Buttons
+  document.querySelectorAll('.lesson-complete-toggle-btn').forEach(btn => {
+    const id = Number(btn.getAttribute('data-lesson-id'));
+    const isDone = completed.includes(id);
+
+    if (isDone) {
+      btn.classList.add('is-completed');
+      btn.innerHTML = '<span class="btn-check-icon">✓</span> <span class="btn-check-text">تم إكمال الدرس بنجاح! 🎉 (اضغط للإلغاء)</span>';
+    } else {
+      btn.classList.remove('is-completed');
+      btn.innerHTML = '<span class="btn-check-icon">○</span> <span class="btn-check-text">تحديد هذا الدرس كمكتمل في مسارك التعليمي ✅</span>';
+    }
+  });
+
+  // 4. Update Navbar Dropdown Checkmarks
+  document.querySelectorAll('.dropdown-item[data-lesson-id]').forEach(item => {
+    const id = Number(item.getAttribute('data-lesson-id'));
+    const isDone = completed.includes(id);
+    if (isDone) {
+      item.classList.add('is-completed');
+    } else {
+      item.classList.remove('is-completed');
+    }
+  });
+}
+
+function initProgressTracker() {
+  // 1. Identify current page
+  const currentPath = window.location.pathname;
+  const currentFilename = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
+  const lessonId = LESSON_ROUTES[currentFilename];
+
+  // 2. If on a lesson page, ensure the completion button exists in article footer
+  if (lessonId) {
+    const footerCta = document.querySelector('.article-footer-cta');
+    if (footerCta && !footerCta.querySelector('.lesson-complete-toggle-btn')) {
+      const actionWrap = document.createElement('div');
+      actionWrap.className = 'article-completion-action';
+      actionWrap.innerHTML = `
+        <button class="lesson-complete-toggle-btn" data-lesson-id="${lessonId}" type="button">
+          <span class="btn-check-icon">○</span>
+          <span class="btn-check-text">تحديد هذا الدرس كمكتمل في مسارك التعليمي ✅</span>
+        </button>
+      `;
+      const textDiv = footerCta.querySelector('.article-footer-cta-text');
+      if (textDiv && textDiv.nextSibling) {
+        footerCta.insertBefore(actionWrap, textDiv.nextSibling);
+      } else {
+        footerCta.appendChild(actionWrap);
+      }
+    }
+  }
+
+  // 3. Bind click events for all completion buttons
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.lesson-complete-toggle-btn, .roadmap-complete-btn');
+    if (btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = btn.getAttribute('data-lesson-id');
+      if (id) {
+        toggleLessonCompleted(id);
+      }
+      return;
+    }
+
+    const resetBtn = e.target.closest('#progressResetBtn');
+    if (resetBtn) {
+      e.preventDefault();
+      resetProgress();
+    }
+  });
+
+  // 4. Initial UI render
+  updateProgressUI();
+}
+
