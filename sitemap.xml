@@ -9,14 +9,13 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://learn.jalalmahmoud.online/index.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
+  
   <!-- Linux Roadmap -->
   <url>
     <loc>https://learn.jalalmahmoud.online/linux-roadmap.html</loc>
@@ -24,61 +23,101 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Lesson 1 -->
+  
+  <!-- الدرس الأول -->
   <url>
     <loc>https://learn.jalalmahmoud.online/what-is-linux.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/hX2YySECa88/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>فهم ماهية Linux: ما هو لينكس؟ وكيف يعمل كنظام تشغيل؟</video:title>
+      <video:description>دليل شامل وعميق لفهم نظام تشغيل لينكس: النواة، إدارة العمليات، الذاكرة، الصلاحيات، الشبكات، الخدمات، والسحابة.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/hX2YySECa88</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
-
-  <!-- Lesson 2 -->
+  
+  <!-- الدرس الثاني -->
   <url>
     <loc>https://learn.jalalmahmoud.online/linux-vs-other-os.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/0EKHPkXOkPs/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>فهم كيف يختلف Linux عن أنظمة التشغيل الأخرى (ويندوز وماك)</video:title>
+      <video:description>الدرس الثاني في سلسلة دروس لينكس: مقارنة تفصيلية بين لينكس والأنظمة الاحتكارية (ويندوز وماك)، فلسفة المصدر المفتوح وحرية التعديل، ولماذا غير لينكس قواعد التكنولوجيا.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/0EKHPkXOkPs</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
-
-  <!-- Lesson 3 -->
+  
+  <!-- الدرس الثالث -->
   <url>
     <loc>https://learn.jalalmahmoud.online/history-of-linux.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/S__Biw-Uqp8/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>استكشاف تاريخ Linux: من UNIX وMINIX إلى ميلاد نظام غيّر عالم البرمجيات</video:title>
+      <video:description>الدرس الثالث في سلسلة دروس لينكس: رحلة تاريخية عميقة من نشأة UNIX في مختبرات بيل، بيئة MINIX التعليمية، مشروع GNU، ورسالة لينوس تورفالدس الشهيرة عام 1991.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/S__Biw-Uqp8</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
-
-  <!-- Lesson 4 -->
+  
+  <!-- الدرس الرابع -->
   <url>
     <loc>https://learn.jalalmahmoud.online/unix-philosophy.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/vElO0pup3zI/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>ثقافة وفلسفة UNIX في Bell Labs: المبادئ التي شكلت عالم البرمجيات</video:title>
+      <video:description>الدرس الرابع في سلسلة دروس لينكس: استكشاف ثقافة UNIX الحرة والمتدفقة في مختبرات بيل (Bell Labs)، فلسفة الأدوات الصغيرة، الأنابيب (Pipes)، لغة C، وتأثيرها على البرمجيات الحديثة.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/vElO0pup3zI</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
-
-  <!-- Lesson 5 -->
+  
+  <!-- الدرس الخامس -->
   <url>
     <loc>https://learn.jalalmahmoud.online/unix-commercialization.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/pfG5hVw3UmM/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>تجارية UNIX: كيف تحولت من مشروع بحثي داخل Bell Labs إلى نظام تشغيل تجاري غيّر صناعة الحوسبة</video:title>
+      <video:description>الدرس الخامس في سلسلة دروس لينكس: قصة تحول UNIX من مشروع بحثي في Bell Labs وتراخيص الجامعات إلى نظام تجاري عملاق، أثر قضية تفكيك احتكار AT&amp;T، وولادة System III و System V و BSD.</video:description>
+      <video:player_loc>https://www.youtube.com/embed/pfG5hVw3UmM</video:player_loc>
+      <video:publication_date>2026-10-04</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
-
-  <!-- Lesson 6: Berkeley Software Distribution (BSD) -->
+  
+  <!-- الدرس السادس -->
   <url>
     <loc>https://learn.jalalmahmoud.online/berkeley-software-distribution.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
     <video:video>
       <video:thumbnail_loc>https://img.youtube.com/vi/T7cdhddZ6r0/hqdefault.jpg</video:thumbnail_loc>
-      <video:title>الدرس السادس: وصول Berkeley Software Distribution (BSD) وانقسام طريق UNIX</video:title>
-      <video:description>شرح فيديو مصاحب للدرس السادس يتناول قصة ظهور BSD في جامعة كاليفورنيا بيركلي، دور بيل جوي، إدخال TCP/IP والشبكات، وانقسام UNIX بين الثقافة الأكاديمية والتجارية.</video:description>
+      <video:title>وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين</video:title>
+      <video:description>الدرس السادس في سلسلة دروس لينكس: قصة وصول Berkeley Software Distribution (BSD) بجامعة بيركلي، دور بيل جوي، إدخال TCP/IP والشبكات، انقسام UNIX إلى مسار أكاديمي ومسار تجاري، والفروق الجوهرية مع Linux.</video:description>
       <video:player_loc>https://www.youtube.com/embed/T7cdhddZ6r0</video:player_loc>
       <video:publication_date>2026-10-04</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
-
+  
 </urlset>

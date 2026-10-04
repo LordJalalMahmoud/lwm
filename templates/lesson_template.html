@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags & SEO Optimization -->
+  <title>{{TITLE}}</title>
+  <meta name="title" content="{{TITLE}}">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="keywords" content="{{KEYWORDS}}">
+  <meta name="author" content="Jalal Mahmoud - Learn With Me">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+  
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="Learn With Me">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <meta property="og:title" content="{{OG_TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:image" content="https://learn.jalalmahmoud.online/icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Learn With Me - منصة تعلم التقنية وخوارط الطريق">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{CANONICAL_URL}}">
+  <meta name="twitter:title" content="{{OG_TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="https://learn.jalalmahmoud.online/icon.png">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+{{SCHEMA_JSON}}
+  </script>
+</head>
+<body>
+
+{{HEADER}}
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="مسار التنقل">
+      <a href="index.html">الرئيسية</a>
+      <span class="separator">/</span>
+      <a href="linux-roadmap.html">خارطة طريق Linux</a>
+      <span class="separator">/</span>
+      <span class="current">{{BREADCRUMB_CURRENT}}</span>
+    </nav>
+
+    <div class="article-layout">
+      <!-- Table of Contents Sidebar -->
+      <aside class="article-sidebar" id="toc">
+        <div class="sidebar-title">
+          <span>📑</span> فهرس محتويات الدرس
+        </div>
+        <ul class="toc-list">
+{{TOC_ITEMS}}
+        </ul>
+      </aside>
+
+      <!-- Main Article Content -->
+      <article class="article-main">
+        <header class="article-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="badge badge-accent">{{BADGE_PRIMARY}}</span>
+            <span class="badge badge-primary">سلسلة دروس لينكس</span>
+            <span class="badge badge-warning">{{BADGE_CATEGORY}}</span>
+          </div>
+          <h1 id="intro">{{LESSON_HEADING}}</h1>
+          <div class="article-header-meta">
+            <span class="article-meta-item">⏱️ وقت القراءة: {{READ_TIME}}</span>
+            <span class="article-meta-item">🎯 الفئة: {{AUDIENCE}}</span>
+            <span class="article-meta-item">📂 المسار: <a href="linux-roadmap.html">خارطة طريق Linux</a></span>
+          </div>
+        </header>
+
+        <div class="article-body">
+{{INTRO_CONTENT}}
+
+{{VIDEO_SECTION}}
+
+          <hr>
+
+{{ARTICLE_BODY}}
+
+          <!-- Previous and Next Lesson Navigation -->
+{{LESSON_NAVIGATION}}
+
+          <!-- Article Footer Action -->
+{{FOOTER_CTA}}
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+{{FOOTER}}
+</body>
+</html>
