@@ -936,7 +936,7 @@ p {
    ========================================================================== */
 .article-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 2.5rem;
   align-items: start;
   margin: 2rem 0 4rem;
@@ -1012,6 +1012,8 @@ p {
   border-radius: var(--radius-xl);
   padding: 3rem 2.5rem;
   box-shadow: var(--shadow-sm);
+  min-width: 0;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {

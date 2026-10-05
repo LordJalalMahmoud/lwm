@@ -420,14 +420,10 @@
           </p>
 
           <ol>
-            <li><strong>Source Code Only (بيع الشيفرة المصدرية فقط دون برمجيات تنفيذية احتكارية)</strong></li>
-            <li><strong>Published Interfaces (نشر الواجهات البرمجية والمعايير علنًا للجميع بالتساوي)</strong></li>
-            <li><strong>Technical Approach (اتخاذ القرارات بناءً على أسس هندسية وتقنية بحتة)</strong></li>
+            <li><strong>Source Code Only:</strong> بيع الشيفرة المصدرية فقط دون برمجيات تنفيذية احتكارية.</li>
+            <li><strong>Published Interfaces:</strong> نشر الواجهات البرمجية والمعايير علنًا للجميع بالتساوي.</li>
+            <li><strong>Technical Approach:</strong> اتخاذ القرارات بناءً على أسس هندسية وتقنية بحتة.</li>
           </ol>
-
-          <p>
-            وسنفصل كل التزام منها بشرح معماري شامل.
-          </p>
 
           <hr>
 
@@ -461,19 +457,16 @@
           </p>
 
           <div class="diagram-box">
-       ┌────────────────────────────────────────────────────────┐
-       │             AT&amp;T / USL UNIX Source Code                │
-       │    (شيفرة مصدرية مكتوبة بلغة C موحدة ومحايدة للجميع)    │
-       └──────────────────────────┬─────────────────────────────┘
-                                  │
-          ┌───────────────────────┼───────────────────────┐
-          │ (Porting)             │ (Porting)             │ (Porting)
-          ▼                       ▼                       ▼
-    ┌───────────┐           ┌───────────┐           ┌───────────┐
-    │ IBM (AIX) │           │ HP(HP-UX) │           │Sun(Solaris)
-    └─────┬─────┘           └─────┬─────┘           └─────┬─────┘
-          ▼                       ▼                       ▼
-   POWER Hardware          PA-RISC Hardware         SPARC Hardware
+                  AT&amp;T / USL UNIX Source Code
+                               │
+               ┌───────────────┼───────────────┐
+               │ (Porting)     │ (Porting)     │ (Porting)
+               ▼               ▼               ▼
+           IBM (AIX)       HP (HP-UX)     Sun (Solaris)
+               │               │               │
+               ▼               ▼               ▼
+            POWER           PA-RISC          SPARC
+           Hardware        Hardware        Hardware
           </div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">الأثر الاستراتيجي لهذا النموذج:</h3>
@@ -535,9 +528,9 @@
             فبدلًا من أن ينحصر اهتمام الصناعة في التساؤل: <em>"من يملك الشفرة المصدرية الأصلية؟"</em>، طرحت USL السؤال الهندسي الأهم في تاريخ هندسة النظم:
           </p>
 
-          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
-            ««ما الذي يجب أن يستطيع أي نظام تشغيل القيام به وتوفيره من واجهات وسلوكيات برمجية حتى نعتبره نظامًا متوافقًا مع UNIX؟»»
-          </blockquote>
+<blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
+  «ما الذي يجب أن يستطيع أي نظام تشغيل القيام به وتوفيره من واجهات وسلوكيات برمجية حتى نعتبره نظامًا متوافقًا مع UNIX؟»
+</blockquote>
 
           <p>
             وهنا انبثق مفهوم <strong>الواجهات المنشورة (Published Interfaces)</strong>؛ أي إتاحة التوثيق الكامل والمواصفات القياسية لواجهات برمجة التطبيقات (APIs) ونداءات النظام (System Calls) علنًا للجمهور والمطورين.
@@ -587,11 +580,9 @@
             جلس مهندسو النظم واتفقوا على ميثاق موحد:
           </p>
 
-          <div class="diagram-box">
-«هذه هي مجموعة نداءات النظام الرسمية (مثل open، read، write، fork، exec، kill)، 
-وهذه هي البنية القياسية لإشارات النظام وتصاريح الملفات ومساراتها، 
-وأي نظام تشغيل يوفر هذه الواجهات سنعتبره متوافقًا مع POSIX!»
-          </div>
+<blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--accent); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.05rem; line-height: 1.8; color: var(--text-main);">
+  «هذه هي مجموعة نداءات النظام الرسمية (مثل open، read، write، fork، exec، kill)، وهذه هي البنية القياسية لإشارات النظام وتصاريح الملفات ومساراتها، وأي نظام تشغيل يوفر هذه الواجهات سنعتبره متوافقًا مع POSIX!»
+</blockquote>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">القيمة المعمارية الكبرى لـ POSIX:</h3>
 
@@ -653,38 +644,36 @@
           </p>
 
           <p>
-            كتب رسالته الشهيرة إلى مجموعة الأخبار على الإنترنت (<code>comp.os.minix</code>) في صيف 1991 يطلب نسخة من <strong>معايير POSIX</strong> المنشورة!
+            كتب رسالته الشهيرة إلى مجموعة الأخبار على الإنترنت (<code>comp.os.minix</code>) في صيف 1991 يطلب نسخة من <strong>معايير POSIX</strong> المنشورة:
           </p>
 
-          <div class="diagram-box">
-«أنا أقوم بمشروع نظام تشغيل مجاني (مجرد هواية، لن يكون كبيرًا واحترافيًا مثل GNU)... 
-أريد أن أجعله متوافقًا قدر الإمكان مع معايير POSIX... 
-هل يملك أحدكم وثائق POSIX بصيغة إلكترونية يمكن الوصول إليها؟»
-          </div>
+<blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--accent); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.05rem; line-height: 1.8; color: var(--text-main); font-style: italic;">
+  «أنا أقوم بمشروع نظام تشغيل مجاني (مجرد هواية، لن يكون كبيرًا واحترافيًا مثل GNU)... أريد أن أجعله متوافقًا قدر الإمكان مع معايير POSIX... هل يملك أحدكم وثائق POSIX بصيغة إلكترونية يمكن الوصول إليها؟»
+</blockquote>
 
-          <div class="diagram-box">
-   ┌────────────────────────────────────────────────────────┐
-   │         AT&amp;T / USL تنشر مواصفات POSIX و SVID           │
-   │           بهدف حماية سوقها وتنظيم عمل الشركاء          │
-   └──────────────────────────┬─────────────────────────────┘
-                              │
-                              ▼
-   ┌────────────────────────────────────────────────────────┐
-   │             الوثائق متاحة كمعايير هندسية عامة          │
-   └──────────────────────────┬─────────────────────────────┘
-                              │
-                              ▼
-   ┌────────────────────────────────────────────────────────┐
-   │     Linus Torvalds يقرأ الواجهات ويبني نواة جديدة      │
-   │     تتطابق مع المعايير حرفيًا.. دون رؤية سطر كود واحد!  │
-   └──────────────────────────┬─────────────────────────────┘
-                              │
-                              ▼
-   ┌────────────────────────────────────────────────────────┐
-   │                  ميلاد نظام LINUX                      │
-   │      نواة حرة 100% متوافقة مع UNIX دون أي نزاع ملكية!   │
-   └────────────────────────────────────────────────────────┘
-          </div>
+<div class="flow-card" style="margin: 1.75rem 0;">
+  <div class="flow-card-title">
+    <span>🐧</span> مسار ولادة Linux عبر الواجهات والمعايير المنشورة
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step-item">
+      <span class="flow-step-num">1</span>
+      <span>AT&amp;T و USL تنشر مواصفات POSIX و SVID كمعايير تنظيمية لحماية سوقها وتنسيق الشركاء</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">2</span>
+      <span>المواصفات تصبح متاحة للمجتمع التقني والأكاديمي كخرائط هندسية علنية ومجانية</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">3</span>
+      <span>Linus Torvalds يدرس الواجهات ويبني نواة جديدة من الصفر تطابق السلوك المعياري المطلوب</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">4</span>
+      <span>ميلاد Linux: نظام حر بالكامل 100% متوافق مع UNIX دون لمس سطر كود واحد من AT&amp;T!</span>
+    </div>
+  </div>
+</div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">المفارقة التاريخية العظمى:</h3>
 
@@ -777,24 +766,21 @@
           </p>
 
           <p>
-            طوال أكثر من عقد ونصف، تطور ترخيص UNIX في بيئة <strong>الحواسيب المركزية الكبيرة (Mainframes) والحواسيب المصغرة المتقدمة (Minicomputers)</strong>. كانت هذه الأنظمة تباع لشركات عملاقة وجامعات كبرى بأسعار تتراوح بين:
+            طوال أكثر من عقد ونصف، تطور ترخيص UNIX في بيئة <strong>الحواسيب المركزية الكبيرة (Mainframes) والحواسيب المصغرة المتقدمة (Minicomputers)</strong>. كانت هذه الأنظمة تباع لشركات عملاقة وجامعات كبرى بأسعار باهظة:
           </p>
 
-          <p>
-            $$\mathbf{\$100,000 \text{ إلى } \$500,000}$$
-          </p>
-
-          <p>
-            وعندما تبيع حاسوبًا بمئة ألف دولار، فإن فرض رسوم ترخيص للنظام تبلغ عدة آلاف من الدولارات يبدو أمرًا منطقيًا وطبيعيًا ومقبولًا جدًا للشركات.
-          </p>
-
-          <p>
-            لكن الثورة التي قلبت الموازين تمثلت في ظهور <strong>الحاسوب الشخصي (IBM PC المتوافق)</strong>، والذي كان يُباع للمستهلك بمبلغ يقارب:
-          </p>
-
-          <p>
-            $$\mathbf{\$2,000 \text{ فقط!}}$$
-          </p>
+<div style="display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 250px; padding: 1.25rem; background: var(--bg-surface-alt); border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center;">
+    <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">تكلفة أجهزة Mainframe المركزية:</span>
+    <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-top: 0.25rem;">100,000$ إلى 500,000$</div>
+    <span style="font-size: 0.8rem; color: var(--text-secondary);">ترخيص UNIX بالآلاف يبدو طبيعيًا ومقبولًا جدًا</span>
+  </div>
+  <div style="flex: 1; min-width: 250px; padding: 1.25rem; background: var(--bg-surface-alt); border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center;">
+    <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">تكلفة الحاسوب الشخصي (PC):</span>
+    <div style="font-size: 1.6rem; font-weight: 800; color: var(--accent); margin-top: 0.25rem;">حوالي 2,000$ فقط!</div>
+    <span style="font-size: 0.8rem; color: var(--text-secondary);">استحالة دفع رسوم ترخيص مرتفعة على جهاز اقتصادي</span>
+  </div>
+</div>
 
           <p>
             وهنا وقعت USL في فخ التسعير القاتل:
@@ -826,21 +812,24 @@
             </p>
           </div>
 
-          <p>
-            يمكن تلخيص المعضلة الحسابية في المعادلة التالية:
-          </p>
-
-          <div class="diagram-box">
-نظام تشغيل قوي ومستقر + فقر شديد في البرامج المكتبية = منتج تجاري غير جذاب للمستهلك
-          </div>
-
-          <p>
-            بينما المعادلة الرابحة لدى المنافس:
-          </p>
-
-          <div class="diagram-box">
-نظام تشغيل ذو استقرار متوسط + ترسانة هائلة من آلاف التطبيقات المتنوعة = سيطرة تجارية كاسحة!
-          </div>
+<div class="flow-compare-grid">
+  <div class="flow-card" style="border-right: 4px solid var(--accent-orange);">
+    <div class="flow-card-title" style="color: var(--accent-orange);">
+      <span>⚠️</span> معادلة تعثر UnixWare
+    </div>
+    <p style="font-size: 1rem; font-weight: 700; margin: 0.5rem 0; color: var(--text-main); line-height: 1.6;">
+      نظام تشغيل قوي ومستقر + شح شديد في التطبيقات المكتبية = منتج تجاري غير جاذب للمستخدم
+    </p>
+  </div>
+  <div class="flow-card" style="border-right: 4px solid var(--accent);">
+    <div class="flow-card-title" style="color: var(--accent);">
+      <span>✅</span> معادلة سيطرة Windows
+    </div>
+    <p style="font-size: 1rem; font-weight: 700; margin: 0.5rem 0; color: var(--text-main); line-height: 1.6;">
+      نظام تشغيل ذو استقرار متوسط + ترسانة هائلة من آلاف البرامج = سيطرة تجارية كاسحة في الأسواق
+    </p>
+  </div>
+</div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">واقع السوق آنذاك:</h3>
 
@@ -900,18 +889,13 @@
           </ul>
 
           <div class="diagram-box">
-                   ┌───────────────────────────────────┐
-                   │         SCO UNIX Host (PC)        │
-                   │      (خادم مركزي للمكتب الصغير)   │
-                   └─────────────────┬─────────────────┘
-                                     │
-           ┌─────────────────────────┼─────────────────────────┐
-           │ (Serial / LAN)          │ (Serial / LAN)          │ (Serial / LAN)
-           ▼                         ▼                         ▼
-     ┌───────────┐             ┌───────────┐             ┌───────────┐
-     │ Terminal 1│             │ Terminal 2│             │ Terminal 3│
-     │  (كاشير)  │             │ (المخزن)  │             │ (المحاسب) │
-     └───────────┘             └───────────┘             └───────────┘
+                  SCO UNIX Host (PC Server)
+                             │
+            ┌────────────────┼────────────────┐
+            │                │                │
+            ▼                ▼                ▼
+       Terminal 1       Terminal 2       Terminal 3
+       (Cashier)       (Accounting)     (Inventory)
           </div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">سر النجاح:</h3>
@@ -1005,21 +989,33 @@
             </p>
           </div>
 
-          <div class="diagram-box">
-               تحول UNIX إلى ملكية تجارية وقانونية مغلقة
-                                 │
-                                 ▼
-                     تراجع روح المشاركة والتعاون
-                                 │
-                                 ▼
-      1984: ريتشارد ستولمان يطلق مشروع GNU ويؤسس حركة البرمجيات الحرة
-                                 │
-                                 ▼
-         بناء كافة أدوات النظام (المترجم GCC، الصدفة Bash، الأدوات)
-                                 │
-                                 ▼
-        نقص في &quot;النواة&quot; ◄── اكتملت في 1991 بنواة LINUX لتورفالدس!
-          </div>
+<div class="flow-card" style="margin: 1.75rem 0;">
+  <div class="flow-card-title">
+    <span>🕊️</span> تسلسل رد الفعل التاريخي: من تقييد UNIX إلى فجر البرمجيات الحرة
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step-item">
+      <span class="flow-step-num">1</span>
+      <span>تحول UNIX إلى ملكية تجارية وقانونية مغلقة محاطة بالدعاوى وعقود الكتمان (NDAs)</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">2</span>
+      <span>تراجع روح المشاركة والتعاون الحر التي ميزت بدايات Bell Labs وبيركلي</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">3</span>
+      <span>1984: ريتشارد ستولمان يطلق مشروع GNU ويؤسس حركة ومؤسسة البرمجيات الحرة (FSF)</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">4</span>
+      <span>بناء المنظومة البرمجية الحرة الكاملة (المترجم GCC، الصدفة Bash، الأدوات الخدمية الأساسية)</span>
+    </div>
+    <div class="flow-step-item">
+      <span class="flow-step-num">5</span>
+      <span>1991: لينوس تورفالدس يبتكر نواة Linux لتكتمل المنظومة بنظام تشغيل حر يدير العالم الرقمي!</span>
+    </div>
+  </div>
+</div>
 
           <p>
             هذه ليست مجرد حكاية برمجيات؛ إنها ملحمة تبرز التشابك المعقد بين:
@@ -1053,12 +1049,12 @@
           <h3 style="margin-top: 1.5rem; color: var(--primary);">3. الجودة التقنية وحدها لا تضمن النجاح التجاري</h3>
 
           <p>
-            كان UnixWare تحفة هندسية في وقته، لكنه سقط في فخ الحواسيب الشخصية بسبب سوء نموذج التسعير وغياب بيئة التطبيقات الجاهزة. نجاح التكنولوجيا يتطلب تضافر أربعة عناصر:
+            كان UnixWare تحفة هندسية في وقته، لكنه سقط في فخ الحواسيب الشخصية بسبب سوء نموذج التسعير وغياب بيئة التطبيقات الجاهزة. نجاح التكنولوجيا يتطلب تضافر أربعة عناصر أساسية:
           </p>
 
-          <p>
-            $$\text{جودة الهندسة} + \text{ملاءمة السوق} + \text{عدالة التسعير} + \text{وفرة التطبيقات}$$
-          </p>
+<div style="padding: 1.25rem; background: var(--bg-surface-alt); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center; font-size: 1.05rem; font-weight: 700; color: var(--primary); margin: 1.25rem 0;">
+  جودة الهندسة + ملاءمة السوق + عدالة التسعير + وفرة التطبيقات = نجاح تجاري مستدام
+</div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">4. التخصص في الأسواق الدقيقة (Niche) قد يتفوق على السوق العام</h3>
 
@@ -1080,44 +1076,77 @@
           <h3 style="margin-top: 1.5rem; color: var(--primary);">أولًا: المخطط المعماري للتسلسل التاريخي والمنطقي</h3>
 
           <div class="diagram-box">
-                     UNIX داخل أروقة Bell Labs و AT&amp;T
-                                     │
-                                     ▼
-                قيمة تقنية هائلة دون نموذج تجاري واضح ومستقر
-                                     │
-                                     ▼
-               انتقال المختبر بين الأقسام حتى تأسيس USL
-                                     │
-                                     ▼
-           مخاوف تفكيك احتكار 1984 وقلق الشركاء (IBM, DEC, Intel)
-                                     │
-                                     ▼
-           التزام USL بمبدأ تكافؤ الفرص (Level Playing Field)
-             ├── 1. Source Code Only (الشركات تقوم بالـ Porting)
-             ├── 2. Published Interfaces (معايير POSIX و SVID)
-             └── 3. Technical Approach (قرارات هندسية بحتة)
-                                     │
-                                     ▼
-           نشر معايير POSIX يمهد الطريق لمشروع Linux عام 1991
-                                     │
-                                     ▼
-                     انقسام المسار التجاري لـ UNIX:
-           ┌─────────────────────────┴─────────────────────────┐
-           ▼                                                   ▼
-     سوق الحواسيب المكتبية PC                           الأسواق المتخصصة والمهنية
-  - إطلاق UnixWare عبر Novell                     - نجاح SCO في خوادم المكاتب والمحطات
-  - صدام مع Windows المهيمن                       - نجاح Sun Microsystems في محطات العمل
-  - فشل بسبب التسعير وشح التطبيقات                 - استقرار UNIX كمعيار لمراكز البيانات
-                                     │
-                                     ▼
-             تصاعد النزاعات القانونية وحماية الملكية الفكرية
-                                     │
-                                     ▼
-             رد الفعل الفكري: ولادة Free Software Foundation (1984)
-                                     │
-                                     ▼
-       اكتمال منظومة الأدوات الحرة ◄── التقت مع نواة Linux عام 1991!
+                  UNIX in Bell Labs &amp; AT&amp;T
+                             │
+                             ▼
+                 USL &amp; Level Playing Field
+                (Source Code Only + POSIX)
+                             │
+             ┌───────────────┴───────────────┐
+             ▼                               ▼
+        UnixWare PC                     Specialized
+     (Failed on Desktop)              (SCO &amp; Sun Win)
+             │                               │
+             └───────────────┬───────────────┘
+                             ▼
+                     Litigation &amp; NDAs
+                             │
+                             ▼
+                   GNU / FSF Revolt (1984)
+                             │
+                             ▼
+                    LINUX KERNEL (1991)
           </div>
+
+<div class="flow-compare-grid" style="margin-top: 2rem;">
+  <div class="flow-card">
+    <div class="flow-card-title">
+      <span>🖥️</span> مسار الحواسيب الشخصية العامة (PC Desktop)
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step-item">
+        <span class="flow-step-num">1</span>
+        <span>مشروع Univel ثم استحواذ Novell على USL</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">2</span>
+        <span>إطلاق نظام UnixWare كعلبة برمجية جاهزة</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">3</span>
+        <span>صدمة الهيمنة الساحقة لنظام Microsoft Windows</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">4</span>
+        <span>تعثر بسبب نموذج التسعير المرتفع وشح التطبيقات</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-card">
+    <div class="flow-card-title">
+      <span>💼</span> مسار الأسواق المتخصصة ومحطات العمل
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step-item">
+        <span class="flow-step-num">1</span>
+        <span>نجاح SCO في المكاتب الصغيرة عبر Dumb Terminals</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">2</span>
+        <span>هيمنة Sun Microsystems على محطات العمل المتقدمة</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">3</span>
+        <span>توحيد إرث BSD و System V في نظام Solaris / SVR4</span>
+      </div>
+      <div class="flow-step-item">
+        <span class="flow-step-num">4</span>
+        <span>ترسيخ UNIX كمعيار ذهبي للبنوك ومراكز البيانات العالمية</span>
+      </div>
+    </div>
+  </div>
+</div>
 
           <h3 style="margin-top: 1.5rem; color: var(--primary);">ثانيًا: جدول المقارنة بين مسارات UNIX التجارية في التسعينيات</h3>
 
@@ -1133,31 +1162,31 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong><strong>السوق المستهدف</strong></strong></td>
+                  <td><strong>السوق المستهدف</strong></td>
                   <td>الحواسيب الشخصية والمكتبية (PC Desktop)</td>
                   <td>المكاتب التجارية والخدمات الصغيرة (Niche)</td>
                   <td>محطات العمل عالية الأداء ومراكز البيانات</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>نوع العتاد الأساسي</strong></strong></td>
+                  <td><strong>نوع العتاد الأساسي</strong></td>
                   <td>أجهزة x86 القياسية للمستخدم النهائي</td>
                   <td>أجهزة x86 تعمل كخادم لمجموعة Dumb Terminals</td>
                   <td>معالجات SPARC ومعماريات RISC المتقدمة</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>العملاء المستهدفون</strong></strong></td>
+                  <td><strong>العملاء المستهدفون</strong></td>
                   <td>المستخدم العادي والشركات العامة</td>
                   <td>المتاجر، الصيدليات، ومكاتب المحاسبة</td>
                   <td>المهندسون، المبرمجون، وبنوك تداول الأسهم</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>نموذج التوزيع</strong></strong></td>
+                  <td><strong>نموذج التوزيع</strong></td>
                   <td>علبة برمجية جاهزة (Boxed Software)</td>
                   <td>حزم خوادم مخصصة لحلول البيع والربط</td>
                   <td>عتاد ونظام متكاملين في حزمة موحدة</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>سبب النتيجة</strong></strong></td>
+                  <td><strong>سبب النتيجة</strong></td>
                   <td>تعثر بسبب التسعير وهيمنة Windows وفقر البرامج</td>
                   <td>نجاح تجاري مربح بفضل التخصص وخفض التكاليف</td>
                   <td>هيمنة كاسحة على الحوسبة المهنية المتقدمة</td>
@@ -1180,19 +1209,19 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong><strong>POSIX (IEEE 1003)</strong></strong></td>
+                  <td><strong>POSIX (IEEE 1003)</strong></td>
                   <td>جمعية IEEE ومنظمة ISO الدولية</td>
                   <td>توحيد نداءات النظام وواجهات البرمجة لضمان قابلية النقل</td>
                   <td>اعتمد عليه Linus Torvalds كمرجع رسمي لتصميم نواة Linux</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>SVID</strong></strong></td>
+                  <td><strong>SVID</strong></td>
                   <td>شركة AT&T / USL</td>
                   <td>تحديد المواصفات المعمارية الدقيقة لنظام System V</td>
                   <td>وفّر خريطة طريق متكاملة لكيفية بناء بيئة تشغيل مطابقة لـ UNIX</td>
                 </tr>
                 <tr>
-                  <td><strong><strong>Single UNIX Specification</strong></strong></td>
+                  <td><strong>Single UNIX Specification</strong></td>
                   <td>اتحاد The Open Group</td>
                   <td>وضع متطلبات منح العلامة التجارية الرسمية UNIX®</td>
                   <td>يحدد المعايير التي تجعل النظم الحديثة معتمدة رسميًا</td>
@@ -1230,7 +1259,7 @@
             وأخيرًا، كانت النتيجة الفكرية الكبرى هي أن التشدد التجاري والقانوني حول كود UNIX قاد في عام 1984 إلى ولادة <strong>حركة البرمجيات الحرة (FSF)</strong> ومشروع GNU؛ لتبدأ الثورة التي التقت خيوطها لاحقًا مع Linux لتصنع العالم الرقمي المفتوح الذي نعيش فيه اليوم.
           </p>
 
-                              <!-- Previous and Next Lesson Navigation -->
+                    <!-- Previous and Next Lesson Navigation -->
           <div class="lesson-navigation">
             <a href="berkeley-software-distribution.html" class="lesson-nav-card prev">
               <span class="lesson-nav-label">← الدرس السابق (الدرس السادس)</span>

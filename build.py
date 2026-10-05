@@ -553,9 +553,10 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
             else:
                 table_html.append('                <tr>')
                 for idx, c in enumerate(cols):
-                    prefix = "<strong>" if idx == 0 else ""
-                    suffix = "</strong>" if idx == 0 else ""
-                    table_html.append(f'                  <td>{prefix}{parse_inline(c)}{suffix}</td>')
+                    parsed_c = parse_inline(c)
+                    if idx == 0 and not (parsed_c.startswith("<strong>") and parsed_c.endswith("</strong>")):
+                        parsed_c = f"<strong>{parsed_c}</strong>"
+                    table_html.append(f'                  <td>{parsed_c}</td>')
                 table_html.append('                </tr>')
         
         if not is_header:
@@ -620,21 +621,26 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
             i += 1
             continue
 
-        # Raw HTML block pass-through
+        # Raw HTML block pass-through with tag depth tracking
         if stripped.startswith("<div") or stripped.startswith("<table") or stripped.startswith("<blockquote") or stripped.startswith("<!--"):
             html_lines = []
+            div_depth = 0
+            blockquote_depth = 0
             while i < len(lines):
-                html_lines.append(lines[i])
-                if stripped.startswith("<!--") and "-->" in lines[i]:
+                cur_line = lines[i]
+                html_lines.append(cur_line)
+                if stripped.startswith("<!--") and "-->" in cur_line:
                     i += 1
                     break
-                elif stripped.startswith("<div") and "</div>" in lines[i]:
+                div_depth += cur_line.count("<div") - cur_line.count("</div")
+                blockquote_depth += cur_line.count("<blockquote") - cur_line.count("</blockquote")
+                if stripped.startswith("<div") and div_depth <= 0:
                     i += 1
                     break
-                elif stripped.startswith("<blockquote") and "</blockquote>" in lines[i]:
+                if stripped.startswith("<blockquote") and blockquote_depth <= 0:
                     i += 1
                     break
-                elif stripped.startswith("<table") and "</table>" in lines[i]:
+                if stripped.startswith("<table") and "</table>" in cur_line:
                     i += 1
                     break
                 i += 1
