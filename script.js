@@ -341,10 +341,11 @@ const LESSON_ROUTES = {
   'history-of-linux.html': 3,
   'unix-philosophy.html': 4,
   'unix-commercialization.html': 5,
-  'berkeley-software-distribution.html': 6
+  'berkeley-software-distribution.html': 6,
+  'unix-laboratory.html': 7
 };
 
-const TOTAL_LESSONS_COUNT = 6;
+const TOTAL_LESSONS_COUNT = 7;
 
 function getCompletedLessons() {
   try {
@@ -592,7 +593,8 @@ async function loadSearchIndex() {
     { type: 'lesson', title: 'الدرس الثالث: تاريخ Linux من UNIX وMINIX', url: 'history-of-linux.html', desc: 'نشأة UNIX ومشروع GNU ورسالة لينوس تورفالدس', tags: ['UNIX', 'GNU', 'Torvalds'] },
     { type: 'lesson', title: 'الدرس الرابع: ثقافة وفلسفة UNIX في Bell Labs', url: 'unix-philosophy.html', desc: 'فلسفة الأدوات الصغيرة، الأنابيب Pipes، ولغة C', tags: ['Pipes', 'أنابيب', 'Bell Labs'] },
     { type: 'lesson', title: 'الدرس الخامس: تجارية UNIX', url: 'unix-commercialization.html', desc: 'تحول UNIX لنظام تجاري وتفكيك احتكار AT&T', tags: ['AT&T', 'تجارية'] },
-    { type: 'lesson', title: 'الدرس السادس: وصول BSD وانقسام UNIX', url: 'berkeley-software-distribution.html', desc: 'ولادة BSD ودور TCP/IP في بناء الإنترنت', tags: ['BSD', 'TCP/IP', 'Berkeley'] }
+    { type: 'lesson', title: 'الدرس السادس: وصول BSD وانقسام UNIX', url: 'berkeley-software-distribution.html', desc: 'ولادة BSD ودور TCP/IP في بناء الإنترنت', tags: ['BSD', 'TCP/IP', 'Berkeley'] },
+    { type: 'lesson', title: 'الدرس السابع: مختبر UNIX وتحوله إلى مشروع تجاري', url: 'unix-laboratory.html', desc: 'مختبر UNIX و USL ومعايير POSIX و SVID وظهور Linux و FSF', tags: ['USL', 'POSIX', 'SVID', 'UnixWare', 'SCO', 'FSF'] }
   ];
   return searchIndexData;
 }

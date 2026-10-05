@@ -32,7 +32,7 @@
             <span class="dropdown-arrow">▾</span>
           </button>
           <div class="dropdown-menu">
-            <div class="dropdown-header">سلسلة مدخل إلى Linux (6 دروس)</div>
+            <div class="dropdown-header">سلسلة مدخل إلى Linux (7 دروس)</div>
             <a href="what-is-linux.html" class="dropdown-item" data-lesson-id="1">
               <span class="dropdown-item-num">01</span>
               <div class="dropdown-item-text">
@@ -81,6 +81,14 @@
               </div>
               <span class="dropdown-item-check" title="مكتمل">✓</span>
             </a>
+            <a href="unix-laboratory.html" class="dropdown-item" data-lesson-id="7">
+              <span class="dropdown-item-num">07</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس السابع</span>
+                <span class="dropdown-item-sub">مختبر UNIX وتحوله التجاري</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
             <div class="dropdown-divider"></div>
             <a href="linux-roadmap.html" class="dropdown-footer-link">
               <span>استعراض كافة الدروس في خارطة الطريق ←</span>
@@ -125,11 +133,11 @@
         <!-- Stats Grid -->
         <div class="grid grid-3" style="margin-top: 1.5rem; text-align: center;">
           <div class="card" style="padding: 1rem;">
-            <div style="font-size: 1.75rem; font-weight: 800; color: var(--primary);">6 دروس</div>
+            <div style="font-size: 1.75rem; font-weight: 800; color: var(--primary);">7 دروس</div>
             <div style="color: var(--text-muted); font-size: 0.85rem;">مسار تعليمي متكامل</div>
           </div>
           <div class="card" style="padding: 1rem;">
-            <div style="font-size: 1.75rem; font-weight: 800; color: var(--accent);">6 مقالات + فيديوهات</div>
+            <div style="font-size: 1.75rem; font-weight: 800; color: var(--accent);">7 مقالات + فيديوهات</div>
             <div style="color: var(--text-muted); font-size: 0.85rem;">مقال تفصيلي وفيديو مدمج لكل درس</div>
           </div>
           <div class="card" style="padding: 1rem;">
@@ -157,7 +165,7 @@
             <span class="progress-icon">🎯</span>
             <div>
               <h3 class="progress-dashboard-title">لوحة تتبع تقدمك في مسار Linux</h3>
-              <p class="progress-dashboard-subtitle" id="progressStatusText">أكملت 0 من 6 دروس (0%) بنجاح</p>
+              <p class="progress-dashboard-subtitle" id="progressStatusText">أكملت 0 من 7 دروس (0%) بنجاح</p>
             </div>
           </div>
           <div class="progress-badge-wrap">
@@ -489,6 +497,60 @@
           </div>
         </div>
 
+        <!-- Step 7: الدرس السابع -->
+        <div class="roadmap-step" data-lesson-id="7">
+          <div class="roadmap-marker">7</div>
+          <div class="roadmap-content">
+            <div class="roadmap-header">
+              <div>
+                <span class="badge badge-accent">الدرس السابع • متاح الآن 🚀</span>
+                <h3 class="roadmap-step-title" style="margin-top: 0.5rem;">مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux</h3>
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-primary">المستوى: متقدم ومتعمق</span>
+                <button class="roadmap-complete-btn" data-lesson-id="7" type="button" aria-label="تحديد الدرس كمكتمل">
+                  <span class="btn-check-icon">○</span>
+                  <span class="btn-check-text">تحديد كمكتمل</span>
+                </button>
+              </div>
+            </div>
+            <p>
+              تحليل معماري وتاريخي متعمق: قصة UNIX Laboratory وتحوله إلى USL، المبادئ الثلاثة (Source Code Only، Published Interfaces، Technical Approach)، ولادة معايير POSIX و SVID، تجربة UnixWare وسوق الحواسيب الشخصية، نجاح SCO و Sun Microsystems، وكيف أدى تقييد الملكية إلى تأسيس Free Software Foundation (FSF) ورسالة لينوس تورفالدس الشهيرة.
+            </p>
+
+            <div class="roadmap-article-highlight">
+              <div class="roadmap-article-info">
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap;">
+                  <span class="badge badge-primary">مقال تفصيلي + فيديو 📺</span>
+                  <span style="font-size: 0.85rem; color: var(--text-muted);">⏱️ 24 دقيقة قراءة</span>
+                </div>
+                <h4><a href="unix-laboratory.html" style="color: inherit;">مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux</a></h4>
+                <p>
+                  يحتوي الدرس على شرح علمي وتطبيقي شامل مدعوم بالرسوم التوضيحية مع فيديو تعليمي عملي مدمج.
+                </p>
+              </div>
+              <div>
+                <a href="unix-laboratory.html" class="btn btn-primary">
+                  <span>فتح الدرس السابع</span>
+                  <span>←</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="roadmap-tags">
+              <span class="roadmap-topic-tag">UNIX System Laboratories (USL)</span>
+              <span class="roadmap-topic-tag">Source Code Only & Porting</span>
+              <span class="roadmap-topic-tag">معايير POSIX</span>
+              <span class="roadmap-topic-tag">واجهات SVID</span>
+              <span class="roadmap-topic-tag">UnixWare vs Windows</span>
+              <span class="roadmap-topic-tag">SCO & Niche Markets</span>
+              <span class="roadmap-topic-tag">Sun Microsystems & SVR4</span>
+              <span class="roadmap-topic-tag">Free Software Foundation (FSF)</span>
+              <span class="roadmap-topic-tag">Standards Outlive Code</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -517,6 +579,9 @@
         <a href="berkeley-software-distribution.html" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
           <span>الدرس السادس: وصول BSD وانقسام UNIX ←</span>
         </a>
+        <a href="unix-laboratory.html" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, var(--accent-orange), #ea580c);">
+          <span>الدرس السابع: مختبر UNIX وتحوله التجاري ←</span>
+        </a>
         <a href="index.html" class="btn btn-outline btn-lg">
           <span>العودة للرئيسية</span>
         </a>
@@ -544,6 +609,7 @@
           <li><a href="unix-philosophy.html">الدرس الرابع: ثقافة وفلسفة UNIX</a></li>
           <li><a href="unix-commercialization.html">الدرس الخامس: تجارية UNIX</a></li>
           <li><a href="berkeley-software-distribution.html">الدرس السادس: وصول BSD وانقسام UNIX</a></li>
+          <li><a href="unix-laboratory.html">الدرس السابع: مختبر UNIX وتحوله التجاري</a></li>
         </ul>
       </div>
       <div class="footer-bottom">

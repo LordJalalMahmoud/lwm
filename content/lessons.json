@@ -180,5 +180,37 @@
       "macOS Darwin",
       "Linux vs BSD Architecture"
     ]
+  },
+  {
+    "id": 7,
+    "filename": "unix-laboratory.html",
+    "nav_title": "الدرس السابع",
+    "title": "مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux",
+    "short_title": "مختبر UNIX وتحوله التجاري",
+    "description": "الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).",
+    "level": "متقدم ومتعمق",
+    "badge_primary": "الدرس السابع",
+    "badge_category": "تاريخ ومعايير النظم",
+    "badge_accent": "الدرس السابع • متاح الآن 🚀",
+    "read_time": "24 دقيقة",
+    "video_id": "o6g7CbdUJ9A",
+    "video_url": "https://www.youtube.com/watch?v=o6g7CbdUJ9A",
+    "video_caption": "قصة مختبر UNIX وتحوله إلى مشروع تجاري، معايير POSIX و SVID، ودورها التاريخي في تمهيد الطريق لولادة Linux والبرمجيات الحرة.",
+    "icon": "🔬",
+    "border_color": "var(--accent-orange)",
+    "btn_gradient": "linear-gradient(135deg, var(--accent-orange), #ea580c)",
+    "card_desc": "استكشف أسرار UNIX System Laboratories (USL)، كيف مهدت معايير POSIX و SVID لظهور Linux بدون سطر كود واحد من AT&T، وتحديات المنافسة مع Windows وولادة حركة البرمجيات الحرة.",
+    "roadmap_desc": "تحليل معماري وتاريخي متعمق: قصة UNIX Laboratory وتحوله إلى USL، المبادئ الثلاثة (Source Code Only، Published Interfaces، Technical Approach)، ولادة معايير POSIX و SVID، تجربة UnixWare وسوق الحواسيب الشخصية، نجاح SCO و Sun Microsystems، وكيف أدى تقييد الملكية إلى تأسيس Free Software Foundation (FSF) ورسالة لينوس تورفالدس الشهيرة.",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
   }
 ]

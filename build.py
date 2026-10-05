@@ -176,6 +176,55 @@ def update_nav_and_footer_in_file(filepath, is_article=False):
     return True
 
 
+def update_lesson_navigation_in_file(filepath, lesson_meta, all_lessons):
+    """Updates the .lesson-navigation section in an article HTML file to link correctly to prev/next lessons."""
+    if not filepath.exists():
+        return False
+    
+    with open(filepath, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    lesson_id = lesson_meta["id"]
+    prev_lesson = next((l for l in all_lessons if l["id"] == lesson_id - 1), None)
+    next_lesson = next((l for l in all_lessons if l["id"] == lesson_id + 1), None)
+
+    if prev_lesson:
+        prev_card = f'''            <a href="{prev_lesson['filename']}" class="lesson-nav-card prev">
+              <span class="lesson-nav-label">← الدرس السابق ({prev_lesson['nav_title']})</span>
+              <span class="lesson-nav-title">{prev_lesson['title']}</span>
+            </a>'''
+    else:
+        prev_card = '''            <a href="linux-roadmap.html" class="lesson-nav-card prev">
+              <span class="lesson-nav-label">← خارطة الطريق</span>
+              <span class="lesson-nav-title">خارطة طريق ومسار تعلم لينكس</span>
+            </a>'''
+
+    if next_lesson:
+        next_card = f'''            <a href="{next_lesson['filename']}" class="lesson-nav-card next">
+              <span class="lesson-nav-label">{next_lesson['nav_title']} ←</span>
+              <span class="lesson-nav-title">{next_lesson['title']}</span>
+            </a>'''
+    else:
+        next_card = '''            <a href="linux-roadmap.html" class="lesson-nav-card next">
+              <span class="lesson-nav-label">خارطة الطريق ←</span>
+              <span class="lesson-nav-title">استعراض كافة الدروس في خارطة طريق Linux</span>
+            </a>'''
+
+    nav_block = f'''          <!-- Previous and Next Lesson Navigation -->
+          <div class="lesson-navigation">
+{prev_card}
+{next_card}
+          </div>'''
+
+    nav_pat = r'(?:<!-- Previous and Next Lesson Navigation -->\s*)?<div class="lesson-navigation">.*?</div>'
+    if re.search(nav_pat, content, flags=re.DOTALL):
+        content = re.sub(nav_pat, nav_block, content, flags=re.DOTALL)
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(content)
+        return True
+    return False
+
+
 def generate_sitemap():
     """Generates sitemap.xml with full Google video search extension."""
     lessons = load_lessons()
@@ -414,6 +463,8 @@ def sync_roadmap_page():
 
     if 'id="roadmapProgressCard"' not in content:
         content = content.replace('<div class="roadmap-container">', f'{dashboard_card_html}\n\n      <div class="roadmap-container">')
+    else:
+        content = re.sub(r'أكملت 0 من \d+ دروس', f'أكملت 0 من {count} دروس', content)
     
     # Replace roadmap-container
     steps_pattern = r'(<div class="roadmap-container">)(.*?)(</div>\s*</section>\s*<!-- Call to Action Banner -->)'
@@ -569,13 +620,38 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
             i += 1
             continue
 
+        # Raw HTML block pass-through
+        if stripped.startswith("<div") or stripped.startswith("<table") or stripped.startswith("<blockquote") or stripped.startswith("<!--"):
+            html_lines = []
+            while i < len(lines):
+                html_lines.append(lines[i])
+                if stripped.startswith("<!--") and "-->" in lines[i]:
+                    i += 1
+                    break
+                elif stripped.startswith("<div") and "</div>" in lines[i]:
+                    i += 1
+                    break
+                elif stripped.startswith("<blockquote") and "</blockquote>" in lines[i]:
+                    i += 1
+                    break
+                elif stripped.startswith("<table") and "</table>" in lines[i]:
+                    i += 1
+                    break
+                i += 1
+            raw_html = "\n".join(html_lines)
+            if in_intro:
+                intro_blocks.append(raw_html)
+            else:
+                body_blocks.append(raw_html)
+            continue
+
         # Headings
         if stripped.startswith("#"):
             match = re.match(r'^(#+)\s*(.*)', stripped)
             level = len(match.group(1))
             heading_text = match.group(2).strip()
 
-            if level == 1:
+            if level == 1 or level == 2:
                 # Top level title or main section
                 # If it's the very first # title, treat as main article header
                 if sec_counter == 0 and in_intro:
@@ -585,18 +661,11 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
                     in_intro = False
                     sec_counter += 1
                     sec_id = f"sec-{sec_counter}"
-                    clean_title = re.sub(r'^\d+\.\s*', '', heading_text)
+                    clean_title = re.sub(r'^(?:\d+|[أ-ي]+)\.?\s*(?:[—–\-:]\s*)?', '', heading_text)
                     display_title = f"{sec_counter}. {clean_title}"
                     toc_items.append((sec_id, display_title))
-                    body_blocks.append(f'          <hr>\n\n          <!-- Section {sec_counter} -->\n          <h2 id="{sec_id}">{display_title}</h2>')
-            elif level == 2:
-                in_intro = False
-                sec_counter += 1
-                sec_id = f"sec-{sec_counter}"
-                clean_title = re.sub(r'^\d+\.\s*', '', heading_text)
-                display_title = f"{sec_counter}. {clean_title}"
-                toc_items.append((sec_id, display_title))
-                body_blocks.append(f'          <hr>\n\n          <!-- Section {sec_counter} -->\n          <h2 id="{sec_id}">{display_title}</h2>')
+                    hr_prefix = "          <hr>\n\n" if sec_counter > 1 else ""
+                    body_blocks.append(f'{hr_prefix}          <!-- Section {sec_counter} -->\n          <h2 id="{sec_id}">{display_title}</h2>')
             elif level >= 3:
                 clean_sub = heading_text
                 body_blocks.append(f'          <h3 style="margin-top: 1.5rem; color: var(--primary);">{parse_inline(clean_sub)}</h3>')
@@ -610,7 +679,44 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
             i += 1
             continue
 
-        # Blockquote / Callout
+        # GitHub Style Callouts (> [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING], > [!CAUTION])
+        if stripped.startswith("> [!"):
+            m = re.match(r'^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(.*)', stripped)
+            alert_type = m.group(1).upper() if m else "NOTE"
+            first_line = m.group(2).strip() if m else ""
+            alert_lines = [first_line] if first_line else []
+            i += 1
+            while i < len(lines) and lines[i].strip().startswith(">"):
+                alert_lines.append(lines[i].strip().lstrip("> ").strip())
+                i += 1
+            alert_text = parse_inline(" ".join(alert_lines))
+            icon_map = {
+                "NOTE": "💡 إضاءة تاريخية وفلسفية:",
+                "TIP": "🎯 فكرة هندسية محورية:",
+                "IMPORTANT": "⚠️ نقطة جوهرية ومحورية:",
+                "WARNING": "⚠️ تحذير وملاحظة نقدية:",
+                "CAUTION": "🛑 تنبيه قانوني وتاريخي:"
+            }
+            border_color_map = {
+                "NOTE": "var(--primary)",
+                "TIP": "var(--accent)",
+                "IMPORTANT": "var(--accent-orange)",
+                "WARNING": "var(--accent-orange)",
+                "CAUTION": "#ef4444"
+            }
+            callout_html = f'''          <div class="callout-box" style="border-right-color: {border_color_map.get(alert_type, 'var(--primary)')};">
+            <h4 style="margin-bottom: 0.5rem; color: {border_color_map.get(alert_type, 'var(--primary)')};">{icon_map.get(alert_type, '💡 إضاءة مهمة:')}</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              {alert_text}
+            </p>
+          </div>'''
+            if in_intro:
+                intro_blocks.append(callout_html)
+            else:
+                body_blocks.append(callout_html)
+            continue
+
+        # Blockquote / Standard Quote
         if stripped.startswith(">"):
             quote_text = parse_inline(stripped.lstrip("> ").strip())
             quote_html = f'''          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
@@ -631,6 +737,21 @@ def parse_markdown_to_lesson_html(markdown_text, lesson_meta):
                 list_items.append(f'            <li>{item_text}</li>')
                 i += 1
             list_html = '          <ul>\n' + "\n".join(list_items) + '\n          </ul>'
+            if in_intro:
+                intro_blocks.append(list_html)
+            else:
+                body_blocks.append(list_html)
+            continue
+
+        # Lists (ordered)
+        if re.match(r'^\d+\.\s+', stripped):
+            list_items = []
+            while i < len(lines) and re.match(r'^\d+\.\s+', lines[i].strip()):
+                m = re.match(r'^\d+\.\s+(.*)', lines[i].strip())
+                item_text = parse_inline(m.group(1).strip())
+                list_items.append(f'            <li>{item_text}</li>')
+                i += 1
+            list_html = '          <ol>\n' + "\n".join(list_items) + '\n          </ol>'
             if in_intro:
                 intro_blocks.append(list_html)
             else:
@@ -938,7 +1059,11 @@ def build_all(compile_all=False, compile_ids=None):
     for hf in all_html_files:
         is_article = (hf.name not in ["index.html", "linux-roadmap.html"])
         update_nav_and_footer_in_file(hf, is_article=is_article)
-    print(f"Updated header navigation & footers across {len(all_html_files)} HTML pages.")
+        if is_article:
+            matching_lesson = next((l for l in lessons if l["filename"] == hf.name), None)
+            if matching_lesson:
+                update_lesson_navigation_in_file(hf, matching_lesson, lessons)
+    print(f"Updated header navigation, footers & lesson navigation across {len(all_html_files)} HTML pages.")
 
     # 3. Synchronize index.html and linux-roadmap.html
     sync_index_page()

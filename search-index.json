@@ -2930,5 +2930,423 @@
       "macOS Darwin",
       "Linux vs BSD Architecture"
     ]
+  },
+  {
+    "type": "lesson",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "الدرس السابع: مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux",
+    "url": "unix-laboratory.html",
+    "desc": "الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "1. ما قصة UNIX Laboratory وتأسيس USL؟",
+    "url": "unix-laboratory.html#sec-1",
+    "desc": "الدرس السابع • 1. ما قصة UNIX Laboratory وتأسيس USL؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "2. ما علاقة USL بقضايا SCO ضد Linux؟",
+    "url": "unix-laboratory.html#sec-2",
+    "desc": "الدرس السابع • 2. ما علاقة USL بقضايا SCO ضد Linux؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "3. لماذا كانت شركات الكمبيوتر قلقة من AT&T بعد تفكيك الاحتكار؟",
+    "url": "unix-laboratory.html#sec-3",
+    "desc": "الدرس السابع • 3. لماذا كانت شركات الكمبيوتر قلقة من AT&T بعد تفكيك الاحتكار؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "4. الالتزام الأول: مبدأ بيع الشيفرة فقط (Source Code Only)",
+    "url": "unix-laboratory.html#sec-4",
+    "desc": "الدرس السابع • 4. الالتزام الأول: مبدأ بيع الشيفرة فقط (Source Code Only)",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "5. لماذا لم يكن هناك Boxed UNIX من البداية؟ وميلاد UnixWare",
+    "url": "unix-laboratory.html#sec-5",
+    "desc": "الدرس السابع • 5. لماذا لم يكن هناك Boxed UNIX من البداية؟ وميلاد UnixWare",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "6. الالتزام الثاني: الواجهات المنشورة (Published Interfaces) وتوحيد المقاييس",
+    "url": "unix-laboratory.html#sec-6",
+    "desc": "الدرس السابع • 6. الالتزام الثاني: الواجهات المنشورة (Published Interfaces) وتوحيد المقاييس",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "7. ما هو معيار POSIX القياسي؟",
+    "url": "unix-laboratory.html#sec-7",
+    "desc": "الدرس السابع • 7. ما هو معيار POSIX القياسي؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "8. ما هو معيار SVID القياسي؟",
+    "url": "unix-laboratory.html#sec-8",
+    "desc": "الدرس السابع • 8. ما هو معيار SVID القياسي؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "9. لماذا أصبحت هذه الواجهات حجر الأساس لولادة Linux؟",
+    "url": "unix-laboratory.html#sec-9",
+    "desc": "الدرس السابع • 9. لماذا أصبحت هذه الواجهات حجر الأساس لولادة Linux؟",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "10. الالتزام الثالث: النهج الهندسي والتقني (Technical Approach)",
+    "url": "unix-laboratory.html#sec-10",
+    "desc": "الدرس السابع • 10. الالتزام الثالث: النهج الهندسي والتقني (Technical Approach)",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "11. الصدام مع الواقع: انتقال UNIX إلى سوق الحواسيب الشخصية (Desktop)",
+    "url": "unix-laboratory.html#sec-11",
+    "desc": "الدرس السابع • 11. الصدام مع الواقع: انتقال UNIX إلى سوق الحواسيب الشخصية (Desktop)",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "12. معضلة نموذج التسعير والتراخيص بين Mainframes و PCs",
+    "url": "unix-laboratory.html#sec-12",
+    "desc": "الدرس السابع • 12. معضلة نموذج التسعير والتراخيص بين Mainframes و PCs",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "13. معضلة التطبيقات وفقر البيئة البرمجية المحيطة بـ UnixWare",
+    "url": "unix-laboratory.html#sec-13",
+    "desc": "الدرس السابع • 13. معضلة التطبيقات وفقر البيئة البرمجية المحيطة بـ UnixWare",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "14. هل فشل UNIX تجاريًا بالكامل؟ (تصحيح المفهوم)",
+    "url": "unix-laboratory.html#sec-14",
+    "desc": "الدرس السابع • 14. هل فشل UNIX تجاريًا بالكامل؟ (تصحيح المفهوم)",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "15. قصة نجاح SCO في الأسواق المتخصصة (Niche Markets)",
+    "url": "unix-laboratory.html#sec-15",
+    "desc": "الدرس السابع • 15. قصة نجاح SCO في الأسواق المتخصصة (Niche Markets)",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "16. قصة نجاح محطات العمل من Sun Microsystems ونظام Solaris",
+    "url": "unix-laboratory.html#sec-16",
+    "desc": "الدرس السابع • 16. قصة نجاح محطات العمل من Sun Microsystems ونظام Solaris",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "17. تحول UNIX من ثقافة المشاركة إلى التملك القانوني وحروب التراخيص",
+    "url": "unix-laboratory.html#sec-17",
+    "desc": "الدرس السابع • 17. تحول UNIX من ثقافة المشاركة إلى التملك القانوني وحروب التراخيص",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "18. ولادة Free Software Foundation (FSF) عام 1984",
+    "url": "unix-laboratory.html#sec-18",
+    "desc": "الدرس السابع • 18. ولادة Free Software Foundation (FSF) عام 1984",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "19. الدروس التقنية والمعمارية المستفادة من هذه المرحلة",
+    "url": "unix-laboratory.html#sec-19",
+    "desc": "الدرس السابع • 19. الدروس التقنية والمعمارية المستفادة من هذه المرحلة",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "20. الصورة الكاملة: مخططات التدفق والمقارنات الشاملة",
+    "url": "unix-laboratory.html#sec-20",
+    "desc": "الدرس السابع • 20. الصورة الكاملة: مخططات التدفق والمقارنات الشاملة",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
+  },
+  {
+    "type": "section",
+    "lessonId": 7,
+    "lessonTitle": "الدرس السابع",
+    "title": "21. الخلاصة والرؤية الشاملة لمستقبل أنظمة التشغيل",
+    "url": "unix-laboratory.html#sec-21",
+    "desc": "الدرس السابع • 21. الخلاصة والرؤية الشاملة لمستقبل أنظمة التشغيل",
+    "tags": [
+      "UNIX System Laboratories (USL)",
+      "Source Code Only & Porting",
+      "معايير POSIX",
+      "واجهات SVID",
+      "UnixWare vs Windows",
+      "SCO & Niche Markets",
+      "Sun Microsystems & SVR4",
+      "Free Software Foundation (FSF)",
+      "Standards Outlive Code"
+    ]
   }
 ]

@@ -23,6 +23,7 @@
 | **04** | [ثقافة وفلسفة UNIX في Bell Labs](unix-philosophy.html) | الأدوات الصغيرة، الأنابيب، ولغة C | [شاهد الفيديو 📺](https://www.youtube.com/watch?v=vElO0pup3zI) |
 | **05** | [تجارية UNIX: من مختبرات بيل لنظام تجاري](unix-commercialization.html) | تفكيك احتكار AT&T وظهور System V | [شاهد الفيديو 📺](https://www.youtube.com/watch?v=pfG5hVw3UmM) |
 | **06** | [وصول Berkeley Software Distribution (BSD)](berkeley-software-distribution.html) | ولادة BSD، دور TCP/IP، وانقسام UNIX | [شاهد الفيديو 📺](https://www.youtube.com/watch?v=T7cdhddZ6r0) |
+| **07** | [مختبر UNIX وتحول يونكس إلى مشروع تجاري](unix-laboratory.html) | قصة USL، معايير POSIX و SVID، ونشأة مسار Linux و FSF | [شاهد الفيديو 📺](https://www.youtube.com/watch?v=o6g7CbdUJ9A) |
 
 ---
 

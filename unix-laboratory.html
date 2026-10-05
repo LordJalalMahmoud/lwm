@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags & SEO Optimization -->
+  <title>مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux | Learn With Me</title>
+  <meta name="title" content="مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux | Learn With Me">
+  <meta name="description" content="الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).">
+  <meta name="keywords" content="UNIX System Laboratories (USL), Source Code Only & Porting, معايير POSIX, واجهات SVID, UnixWare vs Windows, SCO & Niche Markets, Sun Microsystems & SVR4, Free Software Foundation (FSF), Standards Outlive Code">
+  <meta name="author" content="Jalal Mahmoud - Learn With Me">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://learn.jalalmahmoud.online/unix-laboratory.html">
+  
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:site_name" content="Learn With Me">
+  <meta property="og:url" content="https://learn.jalalmahmoud.online/unix-laboratory.html">
+  <meta property="og:title" content="مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux">
+  <meta property="og:description" content="الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).">
+  <meta property="og:image" content="https://learn.jalalmahmoud.online/icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Learn With Me - منصة تعلم التقنية وخوارط الطريق">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://learn.jalalmahmoud.online/unix-laboratory.html">
+  <meta name="twitter:title" content="مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux">
+  <meta name="twitter:description" content="الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).">
+  <meta name="twitter:image" content="https://learn.jalalmahmoud.online/icon.png">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data (JSON-LD) for Search Engines -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://learn.jalalmahmoud.online/#website",
+      "url": "https://learn.jalalmahmoud.online/",
+      "name": "Learn With Me",
+      "inLanguage": "ar"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://learn.jalalmahmoud.online/unix-laboratory.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "الرئيسية",
+          "item": "https://learn.jalalmahmoud.online/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "خارطة طريق Linux",
+          "item": "https://learn.jalalmahmoud.online/linux-roadmap.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "الدرس السابع",
+          "item": "https://learn.jalalmahmoud.online/unix-laboratory.html"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://learn.jalalmahmoud.online/unix-laboratory.html#article",
+      "headline": "مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux",
+      "description": "الدرس السابع في سلسلة دروس لينكس: قصة UNIX Laboratory وتحوله إلى USL، التزامات تكافؤ الفرص (Source Code Only & Published Interfaces)، ولادة معايير POSIX و SVID، معركة الحواسيب الشخصية و UnixWare، وظهور حركة البرمجيات الحرة (FSF).",
+      "inLanguage": "ar",
+      "mainEntityOfPage": "https://learn.jalalmahmoud.online/unix-laboratory.html",
+      "datePublished": "2026-10-04T08:00:00+00:00",
+      "dateModified": "2026-10-04T08:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Jalal Mahmoud"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Learn With Me",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://learn.jalalmahmoud.online/brand-icon.png"
+        }
+      },
+      "image": "https://learn.jalalmahmoud.online/icon.png"
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://learn.jalalmahmoud.online/unix-laboratory.html#video",
+      "name": "مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux",
+      "description": "قصة مختبر UNIX وتحوله إلى مشروع تجاري، معايير POSIX و SVID، ودورها التاريخي في تمهيد الطريق لولادة Linux والبرمجيات الحرة.",
+      "thumbnailUrl": [
+        "https://img.youtube.com/vi/o6g7CbdUJ9A/hqdefault.jpg",
+        "https://img.youtube.com/vi/o6g7CbdUJ9A/maxresdefault.jpg"
+      ],
+      "uploadDate": "2026-10-04T08:00:00+00:00",
+      "contentUrl": "https://www.youtube.com/watch?v=o6g7CbdUJ9A",
+      "embedUrl": "https://www.youtube.com/embed/o6g7CbdUJ9A",
+      "inLanguage": "ar"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">
+          <img src="brand-icon.png" alt="Learn With Me Logo" width="42" height="42">
+        </div>
+        <div class="brand-text">Learn <span>With Me</span></div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="linux-roadmap.html" class="nav-link">خارطة طريق Linux</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+            <span>دروس لينكس</span>
+            <span class="dropdown-arrow">▾</span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">سلسلة مدخل إلى Linux (7 دروس)</div>
+            <a href="what-is-linux.html" class="dropdown-item" data-lesson-id="1">
+              <span class="dropdown-item-num">01</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس الأول</span>
+                <span class="dropdown-item-sub">ما هو لينكس؟</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="linux-vs-other-os.html" class="dropdown-item" data-lesson-id="2">
+              <span class="dropdown-item-num">02</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس الثاني</span>
+                <span class="dropdown-item-sub">كيف يختلف لينكس؟</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="history-of-linux.html" class="dropdown-item" data-lesson-id="3">
+              <span class="dropdown-item-num">03</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس الثالث</span>
+                <span class="dropdown-item-sub">تاريخ لينكس</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="unix-philosophy.html" class="dropdown-item" data-lesson-id="4">
+              <span class="dropdown-item-num">04</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس الرابع</span>
+                <span class="dropdown-item-sub">ثقافة وفلسفة UNIX</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="unix-commercialization.html" class="dropdown-item" data-lesson-id="5">
+              <span class="dropdown-item-num">05</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس الخامس</span>
+                <span class="dropdown-item-sub">تجارية UNIX</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="berkeley-software-distribution.html" class="dropdown-item" data-lesson-id="6">
+              <span class="dropdown-item-num">06</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس السادس</span>
+                <span class="dropdown-item-sub">وصول BSD وانقسام UNIX</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <a href="unix-laboratory.html" class="dropdown-item active" data-lesson-id="7">
+              <span class="dropdown-item-num">07</span>
+              <div class="dropdown-item-text">
+                <span class="dropdown-item-title">الدرس السابع</span>
+                <span class="dropdown-item-sub">مختبر UNIX وتحوله التجاري</span>
+              </div>
+              <span class="dropdown-item-check" title="مكتمل">✓</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="linux-roadmap.html" class="dropdown-footer-link">
+              <span>استعراض كافة الدروس في خارطة الطريق ←</span>
+            </a>
+          </div>
+        </li>
+        <li><a href="#toc" class="nav-link">📑 فهرس المقال</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="searchTriggerBtn" class="search-trigger-btn" type="button" aria-label="بحث سريع في المنصة (Ctrl+K)">
+          <span class="search-icon">🔍</span>
+          <span class="search-btn-text">بحث...</span>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="تبديل الوضع الليلي">🌙</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="مسار التنقل">
+      <a href="index.html">الرئيسية</a>
+      <span class="separator">/</span>
+      <a href="linux-roadmap.html">خارطة طريق Linux</a>
+      <span class="separator">/</span>
+      <span class="current">الدرس السابع: مختبر UNIX وتحوله التجاري</span>
+    </nav>
+
+    <div class="article-layout">
+      <!-- Table of Contents Sidebar -->
+      <aside class="article-sidebar" id="toc">
+        <div class="sidebar-title">
+          <span>📑</span> فهرس محتويات الدرس
+        </div>
+        <ul class="toc-list">
+          <li><a href="#intro">مقدمة الدرس</a></li>
+          <li><a href="#video-section">📺 الفيديو التعليمي المصاحب</a></li>
+          <li><a href="#sec-1">1. ما قصة UNIX Laboratory وتأسيس USL؟</a></li>
+          <li><a href="#sec-2">2. ما علاقة USL بقضايا SCO ضد Linux؟</a></li>
+          <li><a href="#sec-3">3. لماذا كانت شركات الكمبيوتر قلقة من AT&T بعد تفكيك الاحتكار؟</a></li>
+          <li><a href="#sec-4">4. الالتزام الأول: مبدأ بيع الشيفرة فقط (Source Code Only)</a></li>
+          <li><a href="#sec-5">5. لماذا لم يكن هناك Boxed UNIX من البداية؟ وميلاد UnixWare</a></li>
+          <li><a href="#sec-6">6. الالتزام الثاني: الواجهات المنشورة (Published Interfaces) وتوحيد المقاييس</a></li>
+          <li><a href="#sec-7">7. ما هو معيار POSIX القياسي؟</a></li>
+          <li><a href="#sec-8">8. ما هو معيار SVID القياسي؟</a></li>
+          <li><a href="#sec-9">9. لماذا أصبحت هذه الواجهات حجر الأساس لولادة Linux؟</a></li>
+          <li><a href="#sec-10">10. الالتزام الثالث: النهج الهندسي والتقني (Technical Approach)</a></li>
+          <li><a href="#sec-11">11. الصدام مع الواقع: انتقال UNIX إلى سوق الحواسيب الشخصية (Desktop)</a></li>
+          <li><a href="#sec-12">12. معضلة نموذج التسعير والتراخيص بين Mainframes و PCs</a></li>
+          <li><a href="#sec-13">13. معضلة التطبيقات وفقر البيئة البرمجية المحيطة بـ UnixWare</a></li>
+          <li><a href="#sec-14">14. هل فشل UNIX تجاريًا بالكامل؟ (تصحيح المفهوم)</a></li>
+          <li><a href="#sec-15">15. قصة نجاح SCO في الأسواق المتخصصة (Niche Markets)</a></li>
+          <li><a href="#sec-16">16. قصة نجاح محطات العمل من Sun Microsystems ونظام Solaris</a></li>
+          <li><a href="#sec-17">17. تحول UNIX من ثقافة المشاركة إلى التملك القانوني وحروب التراخيص</a></li>
+          <li><a href="#sec-18">18. ولادة Free Software Foundation (FSF) عام 1984</a></li>
+          <li><a href="#sec-19">19. الدروس التقنية والمعمارية المستفادة من هذه المرحلة</a></li>
+          <li><a href="#sec-20">20. الصورة الكاملة: مخططات التدفق والمقارنات الشاملة</a></li>
+          <li><a href="#sec-21">21. الخلاصة والرؤية الشاملة لمستقبل أنظمة التشغيل</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Article Content -->
+      <article class="article-main">
+        <header class="article-header">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="badge badge-accent">الدرس السابع في السلسلة 🚀</span>
+            <span class="badge badge-primary">سلسلة دروس لينكس</span>
+            <span class="badge badge-warning">تاريخ ومعايير النظم</span>
+          </div>
+          <h1 id="intro">مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux</h1>
+          <div class="article-header-meta">
+            <span class="article-meta-item">⏱️ وقت القراءة: 24 دقيقة</span>
+            <span class="article-meta-item">🎯 الفئة: مهندسو برمجيات، معماريو نظم، ومحبو تاريخ وتطور الحوسبة</span>
+            <span class="article-meta-item">📂 المسار: <a href="linux-roadmap.html">خارطة طريق Linux</a></span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>
+            تاريخ <strong>UNIX</strong> لا يرتبط فقط بتطور نظام تشغيل جديد غيّر وجه الحوسبة، بل يرتبط أيضًا بقصة تاريخية معقدة وشائقة عن المختبرات البحثية، الشركات التكنولوجية الكبرى، نزاعات التراخيص، والمنافسة الشرسة، ومحاولات تحقيق التوازن الصعب بين الانفتاح التجاري والسيطرة على التكنولوجيا.
+          </p>
+
+          <p>
+            كان <strong>UNIX Laboratory</strong> واحدًا من أثمن الأصول التقنية التي ارتبطت بشركتي <strong>AT&T</strong> و <strong>Bell Laboratories</strong>؛ إذ اعتُبر بمثابة "جوهرة التاج" في الهندسة البرمجية. لكنه واجه معضلة إدارية واقتصادية أساسية: كان نظامًا وتقنيةً ذات قيمة معمارية وفكرية هائلة، وفي الوقت نفسه لم يكن من السهل تحديد المكان التنظيمي المناسب له داخل أروقة AT&T الضخمة، أو ابتكار نموذج تجاري مستقر وناجح لتحقيق أرباح متوازنة منه.
+          </p>
+
+          <p>
+            ومع تنقل المختبر بين أقسام مختلفة وتغير اسمه عبر مراحل متعددة، استقر أخيرًا على الاسم الأكثر ارتباطًا بمرحلة الاستقلال والانفصال عن AT&T: <strong>UNIX System Laboratories (USL)</strong>.
+          </p>
+
+          <p>
+            تمثل هذه الحقبة محطة مفصلية بالغة الأهمية لفهم الجذور الحقيقية لولادة <strong>Linux</strong> وحركة <strong>البرمجيات الحرة (Free Software)</strong>؛ لأن القرارات الاستراتيجية التي اتخذتها مؤسسة UNIX في ذلك الوقت — خصوصًا فيما يتعلق بحصر التوزيع في الشيفرة المصدرية (Source Code Only)، ونشر الواجهات القياسية (Published Interfaces مثل POSIX و SVID) — ساهمت بصورة مباشرة وغير مباشرة في تهيئة الأرضية الخصبة التي استطاع Linux أن ينمو ويزدهر داخلها دون أن يحتاج إلى سطر كود واحد من AT&T.
+          </p>
+
+          <!-- Embedded YouTube Video Section -->
+          <div class="video-wrapper" id="video-section">
+            <div class="video-container">
+              <iframe 
+                src="https://www.youtube.com/embed/o6g7CbdUJ9A" 
+                title="مختبر UNIX وتحول يونكس إلى مشروع تجاري: من Bell Labs إلى USL وصعود المعايير ومسار Linux" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                loading="lazy"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <p class="video-caption">
+              <span>📺</span> <strong>فيديو الدرس السابع:</strong> قصة مختبر UNIX وتحوله إلى مشروع تجاري، معايير POSIX و SVID، ودورها التاريخي في تمهيد الطريق لولادة Linux والبرمجيات الحرة.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 1 -->
+          <h2 id="sec-1">1. ما قصة UNIX Laboratory وتأسيس USL؟</h2>
+
+          <p>
+            بدأت قصة مختبر UNIX من حقيقة مفارقة: كان النظام يُنظر إليه من قِبل إدارة AT&T باعتباره "جوهرة تقنية" ذات قيمة مستقبلية استثنائية، لكن الشركة العملاقة لم تكن تدري كيف تدمجه في هيكلها الوظيفي التقليدي القائم على الاتصالات الهاتفية، ولا كيف تضع له نموذجًا تجاريًا يدر أرباحًا مستقرة دون إثارة مخاوف الهيئات التنظيمية لمكافحة الاحتكار.
+          </p>
+
+          <p>
+            وعلى مدار سنوات، تنقل الفريق المطور لـ UNIX ومختبره بين معامل <strong>Bell Laboratories</strong> وقطاعات متعددة داخل <strong>AT&T</strong>، وتغير اسمه الرسمي أكثر من مرة ليعكس التغير في التوجهات الإدارية.
+          </p>
+
+          <p>
+            وفي المرحلة التي بدأت فيها ملامح الاستقلال التنظيمي والانفصال عن AT&T تتبلور، أُطلق على هذا الكيان اسمه الأكثر شهرة في تاريخ صناعة النظم:
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--primary);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">💡 إضاءة تاريخية وفلسفية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>UNIX System Laboratories — USL</strong> الكيان القانوني والهندسي الذي قاد تطوير وترخيص نظام UNIX System V في أواخر الثمانينيات ومطلع التسعينيات، وكان حلقة الوصل بين الإرث البحثي لمختبرات بيل والعالم التجاري المفتوح.
+            </p>
+          </div>
+
+          <p>
+            وهنا دخل تاريخ UNIX مرحلة جديدة كليًا؛ فالأمر لم يعد مجرد تطوير نظام تشغيل عبقري داخل بيئة بحثية أكاديمية مغلقة، وإنما أصبح السؤال الاستراتيجي المطروح على طاولة إدارة USL:
+          </p>
+
+          <p>
+            <strong>كيف يمكن إدارة UNIX كمنتج وتقنية تجارية تحقق عوائد مجزية، مع الحفاظ في الوقت ذاته على علاقة مستقرة، عادلة، وموثوقة مع مئات الشركات والمصنعين الذين بنوا أعمالهم وعتادهم على أساسه؟</strong>
+          </p>
+
+          <hr>
+
+          <!-- Section 2 -->
+          <h2 id="sec-2">2. ما علاقة USL بقضايا SCO ضد Linux؟</h2>
+
+          <p>
+            خرج من أروقة USL القسم الأكبر والأهم من شفرة UNIX المصدرية وتراخيصها الرسمية. ومع التحولات والبيوع اللاحقة في التسعينيات، انتقلت أجزاء جوهرية من هذا الإرث التراخيصي والبرمجي إلى شركة <strong>Santa Cruz Operation (SCO)</strong>.
+          </p>
+
+          <p>
+            وفي مطلع الألفية الجديدة، وتحديدًا عام 2003، استندت SCO إلى هذا الإرث المصيري لشن سلسلة من أشهر وأعنف الدعاوى القضائية في تاريخ البرمجيات ضد عمالقة مجتمع Linux، وكان في مقدمتهم <strong>IBM</strong> و <strong>Red Hat</strong>؛ حيث ادعت SCO أن أجزاء من كود UNIX المصدري المملوك تاريخيًا لـ USL قد تم نقلها أو تضمينها بطرق غير مشروعة في نواة Linux.
+          </p>
+
+          <p>
+            لكن المفارقة التاريخية والتعليمية الكبرى هنا تتجلى في الآتي:
+          </p>
+
+          <ul>
+            <li>معظم المهندسين والمتابعين يتذكرون إرث USL فقط بسبب تلك <strong>النزاعات القضائية الصاخبة</strong>.</li>
+            <li>بينما يغفل الكثيرون عن حقيقة أعمق وأهم بكثير: مساهمات USL المعمارية والهندسية، والتزامها بنشر المعايير والواجهات، هي التي مهدت الطريق بنجاح لولادة وتفوق نظام Linux في المقام الأول!</li>
+          </ul>
+
+          <div class="callout-box" style="border-right-color: var(--accent-orange);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent-orange);">⚠️ نقطة جوهرية ومحورية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>الدرس التاريخي والفكري:</strong> أحيانًا يكون تأثير تقنية ما في مسار التاريخ الإنساني أكبر بكثير وأبقى من الصورة النمطية التي اشتهرت بها لاحقًا في أروقة المحاكم. فقد ترتبط مؤسسة في الأذهان بقضايا حقوق الملكية، بينما تكون مساهماتها المعيارية والهندسية هي السبب الجذري في ثورة التكنولوجيا المعاصرة.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 3 -->
+          <h2 id="sec-3">3. لماذا كانت شركات الكمبيوتر قلقة من AT&T بعد تفكيك الاحتكار؟</h2>
+
+          <p>
+            خلال ثمانينيات القرن العشرين، وتحديدًا عقب القرار التاريخي لوزارة العدل الأمريكية بتفكيك احتكار AT&T (المعروف بـ <strong>Divestiture عام 1984</strong>)، سادت حالة عارمة من الحذر والترقب الشديد في أوساط صناعة الحوسبة.
+          </p>
+
+          <p>
+            كانت شركات تصنيع الحواسيب الكبرى قلقة من السيناريو التالي:
+          </p>
+
+          <ul>
+            <li>قبل عام 1984، كانت AT&T ممنوعة قانونيًا بموجب مرسوم 1956 من بيع منتجات تجارية خارج قطاع خدمات الهاتف، ولذلك وزعت كود UNIX للجامعات مجانًا أو برسوم رمزية.</li>
+            <li>لكن بعد تفكيك الاحتكار، أصبحت AT&T حرة طليقة في دخول سوق الحواسيب والبرمجيات التجارية!</li>
+          </ul>
+
+          <p>
+            خافت شركات ضخمة مثل:
+          </p>
+
+          <ul>
+            <li><strong>IBM</strong></li>
+            <li><strong>Intel</strong></li>
+            <li><strong>Digital Equipment Corporation (DEC)</strong></li>
+            <li><strong>Hewlett-Packard (HP)</strong></li>
+          </ul>
+
+          <p>
+            من أن تتحول AT&T — بفضل إمكانياتها المالية الهائلة وامتلاكها لنظام UNIX — إلى غول يسيطر على صناعة أجهزة الكمبيوتر ويسحق المنافسين.
+          </p>
+
+          <p>
+            ولكي يستمر الشركاء في استخدام UNIX وتطوير عتاد متوافق معه، كان لزامًا على UNIX Lab (ولاحقًا USL) أن يقدم تطمينات صارمة وضمانات مؤسسية تثبت أن سوق UNIX لن يتحول إلى ملعب احتكاري تسيطر فيه AT&T على الجميع بصورة غير عادلة.
+          </p>
+
+          <p>
+            ومن هنا نشأ المبدأ الاستراتيجي الذهبي:
+          </p>
+
+          <p>
+            <strong>الحفاظ على تكافؤ الفرص (Level Playing Field)</strong> بين جميع الشركات المصنعة دون تفضيل قطاع على آخر.
+          </p>
+
+          <p>
+            وتجسد هذا الالتزام في <strong>ثلاثة أركان أساسية</strong>:
+          </p>
+
+          <ol>
+            <li><strong>Source Code Only (بيع الشيفرة المصدرية فقط دون برمجيات تنفيذية احتكارية)</strong></li>
+            <li><strong>Published Interfaces (نشر الواجهات البرمجية والمعايير علنًا للجميع بالتساوي)</strong></li>
+            <li><strong>Technical Approach (اتخاذ القرارات بناءً على أسس هندسية وتقنية بحتة)</strong></li>
+          </ol>
+
+          <p>
+            وسنفصل كل التزام منها بشرح معماري شامل.
+          </p>
+
+          <hr>
+
+          <!-- Section 4 -->
+          <h2 id="sec-4">4. الالتزام الأول: مبدأ بيع الشيفرة فقط (Source Code Only)</h2>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">ماذا يعني مبدأ Source Code Only؟</h3>
+
+          <p>
+            في تلك المرحلة الحساسة، قررت AT&T ومختبر UNIX ألا تنافس مصنعي العتاد وجهًا لوجه عن طريق بيع نسخة مجمعة مسبقًا وجاهزة للعمل (Binary / Boxed OS) لكل مستخدم نهائي كمنتج تجاري استهلاكي مغلق.
+          </p>
+
+          <p>
+            بدلًا من ذلك، التزمت USL بنموذج <strong>ترخيص الشيفرة المصدرية (Source Code Only)</strong>:
+          </p>
+
+          <ul>
+            <li>تشتري شركة الحواسيب (مثل IBM أو DEC أو HP) ترخيص الكود المصدري لنظام UNIX System V.</li>
+            <li>تحصل الشركة على الملفات المصدرية المكتوبة بلغة C.</li>
+            <li>تقوم الشركة بنفسها بعملية مواءمة النظام مع عتادها الداخلي ومعالجاتها، وهي العملية المعروفة بـ <strong>Porting</strong>.</li>
+          </ul>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">ما المقصود بعملية الـ Porting (التكييف والنقل المعماري)؟</h3>
+
+          <p>
+            الـ <strong>Porting</strong> يعني تكييف وتعديل النواة والبرامج التابعة لها لكي تعمل بكفاءة على معمارية معالج مختلفة (CPU Architecture)، أو مع وحدات إدارة ذاكرة (MMU) مختلفة، أو مع أجهزة إدخال وإخراج ومتحكمات تخزين خاصة بتلك الشركة.
+          </p>
+
+          <p>
+            فمثلًا، إذا كانت شركة IBM تريد تشغيل UNIX على حواسيبها المعتمدة على معالجات POWER، فإنها لم تكن تنتظر من AT&T أن تصنع لها نسخة خاصة. بل تأخذ الشفرة المصدرية وتعدل طبقة العتاد المنخفضة (Architecture-dependent code)، ثم تقوم بتجميع (Compile) النظام بالكامل ليولد نظامها الخاص المعروف بـ <strong>AIX</strong>. وكذلك فعلت HP لإنتاج <strong>HP-UX</strong>، و Sun لإنتاج <strong>SunOS / Solaris</strong>.
+          </p>
+
+          <div class="diagram-box">
+       ┌────────────────────────────────────────────────────────┐
+       │             AT&amp;T / USL UNIX Source Code                │
+       │    (شيفرة مصدرية مكتوبة بلغة C موحدة ومحايدة للجميع)    │
+       └──────────────────────────┬─────────────────────────────┘
+                                  │
+          ┌───────────────────────┼───────────────────────┐
+          │ (Porting)             │ (Porting)             │ (Porting)
+          ▼                       ▼                       ▼
+    ┌───────────┐           ┌───────────┐           ┌───────────┐
+    │ IBM (AIX) │           │ HP(HP-UX) │           │Sun(Solaris)
+    └─────┬─────┘           └─────┬─────┘           └─────┬─────┘
+          ▼                       ▼                       ▼
+   POWER Hardware          PA-RISC Hardware         SPARC Hardware
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">الأثر الاستراتيجي لهذا النموذج:</h3>
+
+          <ul>
+            <li><strong>توزيع التكلفة والجهد:</strong> لم تكن AT&T مضطرة لتحمل تكلفة بناء وصيانة نسخ مخصصة لآلاف الأنواع من الأجهزة والعتاد المعقد.</li>
+            <li><strong>تمكين الشركاء:</strong> حصلت كل شركة على فرصة بناء نظام تشغيل مستقر يحمل هويتها ويستغل أقصى طاقات عتادها الخاص دون أن تخاف من هيمنة AT&T.</li>
+            <li><strong>انتشار بيئة UNIX:</strong> تحول UNIX إلى لغة التخاطب المشتركة في جميع مراكز البيانات ومحطات العمل العالمية.</li>
+          </ul>
+
+          <hr>
+
+          <!-- Section 5 -->
+          <h2 id="sec-5">5. لماذا لم يكن هناك Boxed UNIX من البداية؟ وميلاد UnixWare</h2>
+
+          <p>
+            طوال الثمانينيات، كان السؤال يتردد:
+          </p>
+
+          <p>
+            <strong>لماذا لا تذهب إلى متجر برمجيات لتشتري علبة كرتونية أنيقة تحمل اسم UNIX وتثبتها على جهازك الشخصي مثلما تشتري MS-DOS أو Windows؟</strong>
+          </p>
+
+          <p>
+            السبب الجوهري كان الحفاظ على الحياد وتكافؤ الفرص؛ فطرح "صندوق تجاري موحد" من قِبل AT&T كان سيعني منافستها الصريحة لعملائها من مصنعي المعدات الأصلية الذين يدفعون ملايين الدولارات لترخيص الشيفرة المصدرية. لذلك اكتفت USL ببيع المصدر فقط وإتاحته للمرخص لهم بالتساوي.
+          </p>
+
+          <p>
+            لكن مع مطلع التسعينيات، وتحديدًا في عام <strong>1992</strong>، بدأت التحولات الكبرى:
+          </p>
+
+          <ul>
+            <li>دخل مختبر USL في مشروع مشترك (Joint Venture) مع شركة الشبكات الشهيرة <strong>Novell</strong> تحت اسم <strong>Univel</strong>.</li>
+            <li>في عام <strong>1993</strong>، استحوذت شركة Novell بالكامل على UNIX System Laboratories (USL) من AT&T في صفقة بلغت قيمتها نحو 350 مليون دولار.</li>
+            <li>ونتيجة لذلك، كُسرت القاعدة التاريخية لأول مرة، ووُلد منتج تجاري جاهز في علبة موجه للمستخدمين وأجهزة الحواسيب الشخصية، أُطلق عليه اسم:</li>
+          </ul>
+
+          <div class="callout-box" style="border-right-color: var(--primary);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">💡 إضاءة تاريخية وفلسفية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>UnixWare</strong> نظام تشغيل تجاري متكامل مبني مباشرة على أحدث إصدارات UNIX System V Release 4.2 (SVR4.2)، يجمع بين قوة وثبات نواة UNIX الأصلية وخدمات شبكات Novell NetWare، وطُرح في الأسواق كمنتج استهلاكي جاهز للتثبيت على معالجات Intel x86.
+            </p>
+          </div>
+
+          <p>
+            كان هذا تحولًا نوعيًا هائلًا؛ إذ انتقل UNIX من نموذج يرتكز حصرًا على ترخيص الشفرة المصدرية للمؤسسات والشركات المصنعة، إلى نموذج بيع <strong>منتج برمجي تجاري معبأ للمستخدم النهائي</strong>.
+          </p>
+
+          <hr>
+
+          <!-- Section 6 -->
+          <h2 id="sec-6">6. الالتزام الثاني: الواجهات المنشورة (Published Interfaces) وتوحيد المقاييس</h2>
+
+          <p>
+            كان الالتزام الثاني لـ USL ذا بعد معماري أعمق وأكثر ثورية من مجرد توزيع الشفرة.
+          </p>
+
+          <p>
+            فبدلًا من أن ينحصر اهتمام الصناعة في التساؤل: <em>"من يملك الشفرة المصدرية الأصلية؟"</em>، طرحت USL السؤال الهندسي الأهم في تاريخ هندسة النظم:
+          </p>
+
+          <blockquote style="margin: 1.5rem 0; padding: 1.25rem 1.75rem; border-right: 4px solid var(--primary); background: var(--bg-surface-alt); border-radius: var(--radius-md); font-size: 1.15rem; font-weight: 600; color: var(--text-main);">
+            ««ما الذي يجب أن يستطيع أي نظام تشغيل القيام به وتوفيره من واجهات وسلوكيات برمجية حتى نعتبره نظامًا متوافقًا مع UNIX؟»»
+          </blockquote>
+
+          <p>
+            وهنا انبثق مفهوم <strong>الواجهات المنشورة (Published Interfaces)</strong>؛ أي إتاحة التوثيق الكامل والمواصفات القياسية لواجهات برمجة التطبيقات (APIs) ونداءات النظام (System Calls) علنًا للجمهور والمطورين.
+          </p>
+
+          <p>
+            وكان الهدف الأساسي خدمة شريحة حيوية في صناعة التقنية:
+          </p>
+
+          <ul>
+            <li><strong>OEMs — Original Equipment Manufacturers (الشركات المصنعة للمعدات الأصلية):</strong></li>
+          </ul>
+
+          <p>
+            وهي الشركات التي تبني حواسيب وتجهيزات متقدمة وتحتاج إلى معايير برمجية مستقرة ومتوقعة تضمن أن البرامج المكتوبة لأي جهاز ستعمل على أجهزتها الأخرى دون مفاجآت أو إعادة كتابة.
+          </p>
+
+          <p>
+            ومن هذا الالتزام المعياري، وُلد اثنان من أعظم مراجع تاريخ البرمجيات: <strong>POSIX</strong> و <strong>SVID</strong>.
+          </p>
+
+          <hr>
+
+          <!-- Section 7 -->
+          <h2 id="sec-7">7. ما هو معيار POSIX القياسي؟</h2>
+
+          <p>
+            يُعد معيار <strong>POSIX</strong> من أهم الإنجازات المعمارية التي ضمنت بقاء وتطور مفاهيم UNIX حتى يومنا هذا:
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--primary);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">💡 إضاءة تاريخية وفلسفية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>POSIX — Portable Operating System Interface</strong> (واجهة نظام التشغيل القابل للنقل) عائلة من المعايير القياسية المفتوحة صاغتها جمعية مهندسي الكهرباء والإلكترونيات (<strong>IEEE</strong>) واعتمدتها المنظمة الدولية للمعايير (<strong>ISO</strong>)، وتحدد الواجهات البرمجية لنواة النظام، الصدفة (Shell)، والأدوات الخدمية الأساسية.
+            </p>
+          </div>
+
+          <p>
+            الفكرة البسيطة والعبقرية لمعيار POSIX تكمن في إنهاء التشتت والفوضى:
+          </p>
+
+          <p>
+            بدلًا من أن يقول نظام Sun: <em>"أنا أتعامل مع الملفات والعمليات بطريقتي الخاصة"</em>, ويقول نظام IBM: <em>"أنا أملك طريقتي المختلفة"</em>, ويقول نظام BSD: <em>"نحن نستخدم نداءات نظام متباينة"</em>;
+          </p>
+
+          <p>
+            جلس مهندسو النظم واتفقوا على ميثاق موحد:
+          </p>
+
+          <div class="diagram-box">
+«هذه هي مجموعة نداءات النظام الرسمية (مثل open، read، write، fork، exec، kill)، 
+وهذه هي البنية القياسية لإشارات النظام وتصاريح الملفات ومساراتها، 
+وأي نظام تشغيل يوفر هذه الواجهات سنعتبره متوافقًا مع POSIX!»
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">القيمة المعمارية الكبرى لـ POSIX:</h3>
+
+          <ol>
+            <li><strong>استقلالية التطبيقات:</strong> كتابة برنامج بلغة C يعتمد على معايير POSIX تعني إمكانية نقله (Porting) وتجميعه على أي نظام تشغيل آخر متوافق دون تعديل الكود.</li>
+            <li><strong>حرية المستخدم والمؤسسات:</strong> عدم الارتباط بعتاد شركة معينة (Vendor Lock-in)؛ فالبرمجيات أصبحت قادرة على الهجرة بين الحواسيب بحرية تامة.</li>
+          </ol>
+
+          <hr>
+
+          <!-- Section 8 -->
+          <h2 id="sec-8">8. ما هو معيار SVID القياسي؟</h2>
+
+          <p>
+            إلى جانب معيار POSIX الأكاديمي والصناعي الواسع، أصدرت شركة AT&T وثيقتها الهندسية المرجعية الخاصة:
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--primary);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">💡 إضاءة تاريخية وفلسفية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>SVID — AT&T UNIX System V Interface Definition</strong> المواصفة القياسية الرسمية التي نشرتها AT&T لتحديد سلوك ومواصفات واجهات نظام UNIX System V بكل دقة وتفصيل، لتكون بمثابة الإنجيل الهندسي لكل من يريد بناء نظام أو برنامج متوافق تمامًا مع بيئة System V.
+            </p>
+          </div>
+
+          <p>
+            وهكذا أصبح لدى مهندسي الحوسبة مصدران متكاملان للتوافق المعماري:
+          </p>
+
+          <ul>
+            <li><strong>POSIX:</strong> المعيار الدولي العام لقابلية نقل أنظمة التشغيل.</li>
+            <li><strong>SVID:</strong> المواصفة المعمارية المتعمقة لعائلة System V التجارية.</li>
+          </ul>
+
+          <p>
+            تحولت هذه الوثائق المنشورة إلى <strong>خرائط هندسية مفتوحة</strong>؛ يستطيع أي مهندس أو شركة الرجوع إليها لفهم السلوك المتوقع لكل جزء من أجزاء نظام التشغيل.
+          </p>
+
+          <hr>
+
+          <!-- Section 9 -->
+          <h2 id="sec-9">9. لماذا أصبحت هذه الواجهات حجر الأساس لولادة Linux؟</h2>
+
+          <p>
+            هذه النقطة تمثل واحدة من أروع وأعظم المفارقات في تاريخ الحوسبة الحديث:
+          </p>
+
+          <p>
+            لم تكن وثائق POSIX و SVID مجرد مراجع لتنظيم سوق الشركات التجارية الكبرى؛ بل تحولت دون قصد إلى <strong>الكتالوج الهندسي الإرشادي الذي وُلد منه نظام Linux بالكامل!</strong>
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">قصة رسالة Linus Torvalds التاريخية:</h3>
+
+          <p>
+            عندما كان الطالب الفنلندي الشاب <strong>لينوس تورفالدس (Linus Torvalds)</strong> جالسًا في غرفته بجامعة هلسنكي عام <strong>1991</strong>، يبني نواته الصغيرة الجديدة لجهازه المعتمد على معالج 386، لم يكن يملك ترخيصًا بملايين الدولارات لشراء كود UNIX الأصلي من AT&T أو USL، ولم يكن مسموحًا له قانونيًا بالاطلاع عليه.
+          </p>
+
+          <p>
+            ماذا فعل لينوس إذن؟
+          </p>
+
+          <p>
+            كتب رسالته الشهيرة إلى مجموعة الأخبار على الإنترنت (<code>comp.os.minix</code>) في صيف 1991 يطلب نسخة من <strong>معايير POSIX</strong> المنشورة!
+          </p>
+
+          <div class="diagram-box">
+«أنا أقوم بمشروع نظام تشغيل مجاني (مجرد هواية، لن يكون كبيرًا واحترافيًا مثل GNU)... 
+أريد أن أجعله متوافقًا قدر الإمكان مع معايير POSIX... 
+هل يملك أحدكم وثائق POSIX بصيغة إلكترونية يمكن الوصول إليها؟»
+          </div>
+
+          <div class="diagram-box">
+   ┌────────────────────────────────────────────────────────┐
+   │         AT&amp;T / USL تنشر مواصفات POSIX و SVID           │
+   │           بهدف حماية سوقها وتنظيم عمل الشركاء          │
+   └──────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+   ┌────────────────────────────────────────────────────────┐
+   │             الوثائق متاحة كمعايير هندسية عامة          │
+   └──────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+   ┌────────────────────────────────────────────────────────┐
+   │     Linus Torvalds يقرأ الواجهات ويبني نواة جديدة      │
+   │     تتطابق مع المعايير حرفيًا.. دون رؤية سطر كود واحد!  │
+   └──────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+   ┌────────────────────────────────────────────────────────┐
+   │                  ميلاد نظام LINUX                      │
+   │      نواة حرة 100% متوافقة مع UNIX دون أي نزاع ملكية!   │
+   └────────────────────────────────────────────────────────┘
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">المفارقة التاريخية العظمى:</h3>
+
+          <p>
+            من المؤكد أن مهندسي AT&T وإدارتها لم يخطر ببالهم أبدًا أن نشرهم للواجهات القياسية والمواصفات السلوكية سيمكّن طالبًا جامعيًا عبقريًا من كتابة نواة نظام تشغيل كاملة، نظيفة من أي انتهاك للملكية الفكرية، وتعمل تمامًا كـ UNIX، <strong>دون استخدام سطر واحد من شفرة AT&T المصدرية!</strong>
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--accent);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">🎯 فكرة هندسية محورية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>القاعدة المعمارية الخالدة: المعايير أبقى وأقوى من الشيفرة المصدرية (Standards Outlive Code)</strong> امتلاك الكود المصدري يمنحك المعرفة بكيفية بناء برنامج معين في لحظة زمنية محددة؛ أما <strong>المعيار المنشور المفتوح</strong> فيمنح الإنسانية جمعاء القدرة على إعادة ابتكار النظام وتطوير بدائل حرة ومتطورة تتفوق على الأصل!
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 10 -->
+          <h2 id="sec-10">10. الالتزام الثالث: النهج الهندسي والتقني (Technical Approach)</h2>
+
+          <p>
+            ارتبط الالتزام الثالث بطريقة اتخاذ القرار وثقافة العمل داخل UNIX System Laboratories.
+          </p>
+
+          <p>
+            بحسب التوثيق التاريخي، وظلت هذه السمة حتى المراحل الأخيرة من عمر المختبر، كانت القرارات الهندسية والمعمارية المتعلقة باتجاهات UNIX تُبنى أساسًا على <strong>الاعتبارات التقنية ومعايير الجودة البرمجية الصارمة</strong>، وليس على أهواء مديري التسويق والمبيعات سريعة الربح.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">أهم ملامح هذه الفلسفة:</h3>
+
+          <ul>
+            <li><strong>إدارة تقنية من صلب الميدان:</strong> كان المسؤولون التنفيذيون في USL يصعدون عبر المسار الهندسي؛ فهم مبرمجون ومعماريو نظم يفهمون لغة الآلة، النواة، وبروتوكولات الشبكات، وليسوا مجرد إداريين غرباء عن التكنولوجيا.</li>
+            <li><strong>الابتعاد عن الممارسات الاحتكارية الخبيثة:</strong> لم يكن في ثقافة USL — كما يشهد مؤلفو تلك الحقبة — أي توجه لكتابة شيفرات خبيثة أو "أفخاخ برمجية غير موثقة" تهدف إلى تعطيل برامج الشركات المنافسة أو إعاقة عمل الشركاء.</li>
+            <li><strong>البوصلة الهندسية:</strong> كان السؤال الدائم الذي يوجه بوصلة التطوير:</li>
+          </ul>
+
+          <p>
+            <strong>«كيف نجعل UNIX نظامًا أفضل، وأكثر استقرارًا، وأقوى هندسيًا؟»</strong>
+          </p>
+
+          <p>
+            بدلًا من السؤال الاحتكاري الشائع في وادي السيليكون:
+          </p>
+
+          <p>
+            <strong>«كيف نمنع المنافسين ونغلق السوق في وجوههم؟»</strong>
+          </p>
+
+          <p>
+            وحتى عندما أصبحت البيئة تجارية ومحكومة بالربح، بقيت النزاهة الهندسية هي صمام الأمان الذي حافظ على جودة النظام.
+          </p>
+
+          <hr>
+
+          <!-- Section 11 -->
+          <h2 id="sec-11">11. الصدام مع الواقع: انتقال UNIX إلى سوق الحواسيب الشخصية (Desktop)</h2>
+
+          <p>
+            مع بداية التسعينيات وتحول المختبر إلى USL ثم اندماجه مع Novell، بدأت تظهر طموحات تجارية جامحة:
+          </p>
+
+          <p>
+            <strong>لماذا يبقى UNIX محبوسًا في غرف الخوادم ومحطات العمل المعقدة؟ لماذا لا نقتحم به سوق الحواسيب الشخصية (PC) وأجهزة سطح المكتب للمستخدم العادي؟</strong>
+          </p>
+
+          <p>
+            بدأت USL في توظيف خبراء التسويق بكثافة، وتم توجيه جهود ضخمة لتسويق نظام <strong>UnixWare</strong> كمنافس مباشر على أجهزة الحواسيب المكتبية المعتمدة على معالجات Intel.
+          </p>
+
+          <p>
+            لكن المحاولة اصطدمت بجدار صلب وواقع تجاري مرير:
+          </p>
+
+          <ol>
+            <li>كان نظام <strong>Microsoft Windows</strong> (مع إصدارات Windows 3.1 ثم لاحقًا Windows 95) قد فرض سيطرته المطلقة والكاملة على عقول المستخدمين وأسواق الحواسيب الشخصية.</li>
+            <li>كانت مايكروسوفت تمتلك شبكة توزيع عملاقة وشراكات مسبقة مع كافة صانعي أجهزة الـ PC (مثل Compaq و Dell و Gateway).</li>
+            <li>لم تكن USL تملك اليد العليا في هذا السوق الجديد عليها؛ فالبيئة التي اعتادت عليها كانت بيئة مهندسين وعلماء، بينما تطلب سوق الحواسيب الشخصية واجهات رسومية فائقة البساطة، سهولة تثبيت، ودعمًا لآلاف الطابعات والملحقات الاستهلاكية.</li>
+          </ol>
+
+          <p>
+            لكن الصدام مع Windows لم يكن سوى قمة جبل الجليد؛ فقد كانت هناك مشكلتان أعمق تسبّبتا في إفشال التجربة.
+          </p>
+
+          <hr>
+
+          <!-- Section 12 -->
+          <h2 id="sec-12">12. معضلة نموذج التسعير والتراخيص بين Mainframes و PCs</h2>
+
+          <p>
+            جاءت الضربة القاضية لمشروع UNIX المكتبي من عمق تاريخه الاقتصادي ونموذج تسعير تراخيصه:
+          </p>
+
+          <p>
+            طوال أكثر من عقد ونصف، تطور ترخيص UNIX في بيئة <strong>الحواسيب المركزية الكبيرة (Mainframes) والحواسيب المصغرة المتقدمة (Minicomputers)</strong>. كانت هذه الأنظمة تباع لشركات عملاقة وجامعات كبرى بأسعار تتراوح بين:
+          </p>
+
+          <p>
+            $$\mathbf{\$100,000 \text{ إلى } \$500,000}$$
+          </p>
+
+          <p>
+            وعندما تبيع حاسوبًا بمئة ألف دولار، فإن فرض رسوم ترخيص للنظام تبلغ عدة آلاف من الدولارات يبدو أمرًا منطقيًا وطبيعيًا ومقبولًا جدًا للشركات.
+          </p>
+
+          <p>
+            لكن الثورة التي قلبت الموازين تمثلت في ظهور <strong>الحاسوب الشخصي (IBM PC المتوافق)</strong>، والذي كان يُباع للمستهلك بمبلغ يقارب:
+          </p>
+
+          <p>
+            $$\mathbf{\$2,000 \text{ فقط!}}$$
+          </p>
+
+          <p>
+            وهنا وقعت USL في فخ التسعير القاتل:
+          </p>
+
+          <ul>
+            <li>حاولت نقل حسابات ورسوم التراخيص المصممة لعالم الـ Mainframes الباذخ إلى عالم الـ PC الاقتصادي الرخيص.</li>
+            <li>لم يكن بمقدور أي مشترٍ لجهاز كمبيوتر بألفي دولار أن يدفع مبلغًا ضخمًا مقابل ترخيص نظام UnixWare!</li>
+            <li>في المقابل، كانت مايكروسوفت تبيع ترخيص MS-DOS و Windows لمصنعي الحواسيب ببضع عشرات من الدولارات لكل جهاز (OEM bulk licensing).</li>
+          </ul>
+
+          <p>
+            جعل هذا الفارق الاقتصادي الهائل من المستحيل على UnixWare أن ينافس في سوق الحواسيب الشخصية العامة.
+          </p>
+
+          <hr>
+
+          <!-- Section 13 -->
+          <h2 id="sec-13">13. معضلة التطبيقات وفقر البيئة البرمجية المحيطة بـ UnixWare</h2>
+
+          <p>
+            المشكلة الجوهرية الثالثة التي واجهت UnixWare كانت قانونًا بديهيًا في اقتصاديات أنظمة التشغيل:
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--accent-orange);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent-orange);">⚠️ تحذير وملاحظة نقدية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>القانون الذهبي لأنظمة التشغيل:</strong> المستخدم العادي لا يشتري نظام التشغيل لذاته أو لجمال أسطر برمجته في النواة؛ بل يشتريه من أجل تشغيل <strong>البرامج والتطبيقات</strong> التي تنجز أعماله اليومية.
+            </p>
+          </div>
+
+          <p>
+            يمكن تلخيص المعضلة الحسابية في المعادلة التالية:
+          </p>
+
+          <div class="diagram-box">
+نظام تشغيل قوي ومستقر + فقر شديد في البرامج المكتبية = منتج تجاري غير جذاب للمستهلك
+          </div>
+
+          <p>
+            بينما المعادلة الرابحة لدى المنافس:
+          </p>
+
+          <div class="diagram-box">
+نظام تشغيل ذو استقرار متوسط + ترسانة هائلة من آلاف التطبيقات المتنوعة = سيطرة تجارية كاسحة!
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">واقع السوق آنذاك:</h3>
+
+          <ul>
+            <li>كان نظام <strong>Windows</strong> يسبح في بحر متلاطم من برمجيات معالجة الكلمات، الجداول الحسابية (Excel، Lotus 1-2-3)، قواعد البيانات، برامج الرسم، وحزم الألعاب الترفيهية.</li>
+            <li>أما <strong>UnixWare</strong>، فمع أنه كان نظامًا فائق القوة هندسيًا ويمتلك تعدد مهام وتعدد مستخدمين حقيقيين وذاكرة محمية، إلا أن المستخدم الذي يثبته على حاسوبه الشخصي كان يجد نفسه في صحراء قاحلة؛ لا يجد تطبيقات مكتبية تلبي احتياجات الموظف العادي، ولا برامج محاسبة جاهزة للأعمال البسيطة.</li>
+          </ul>
+
+          <p>
+            وهكذا، شكّل <strong>الثالوث القاتل</strong> نهاية طموح UNIX المكتبي:
+          </p>
+
+          <ol>
+            <li><strong>قوة وانتشار Windows الساحقة.</strong></li>
+            <li><strong>فشل نموذج التسعير وعدم ملاءمته لأجهزة الـ PC.</strong></li>
+            <li><strong>غياب بيئة التطبيقات الجاهزة للمستخدم النهائي.</strong></li>
+          </ol>
+
+          <hr>
+
+          <!-- Section 14 -->
+          <h2 id="sec-14">14. هل فشل UNIX تجاريًا بالكامل؟ (تصحيح المفهوم)</h2>
+
+          <p>
+            عند قراءة قصة تعثر UnixWare، قد يتبادر إلى الذهن سؤال بديهي:
+          </p>
+
+          <p>
+            <strong>هل يعني ذلك أن UNIX فشل تجاريًا كفكرة ونظام؟</strong>
+          </p>
+
+          <p>
+            الإجابة التاريخية القاطعة هي: <strong>لا، على الإطلاق!</strong>
+          </p>
+
+          <p>
+            إن عدم نجاح تجربة USL في سوق "الحواسيب المكتبية الفردية" لا يعني بأي حال فشل UNIX التجاري؛ بل إن UNIX حقق في تلك الحقبة ذاتها أرباحًا طائلة وهيمنة ساحقة، ولكن في <strong>أسواق أخرى متخصصة واحترافية</strong> عرفت كيف تستغل مميزاته الفريدة.
+          </p>
+
+          <hr>
+
+          <!-- Section 15 -->
+          <h2 id="sec-15">15. قصة نجاح SCO في الأسواق المتخصصة (Niche Markets)</h2>
+
+          <p>
+            أفضل برهان على أن العيب لم يكن في تقنية UNIX ذاتها هو تجربة شركة <strong>The Santa Cruz Operation (SCO)</strong>.
+          </p>
+
+          <p>
+            تمكنت SCO من تحقيق نجاح تجاري واستثماري مذهل؛ لأنها لم ترتكب خطأ الدخول في معركة خاسرة ضد مايكروسوفت على مكاتب المستخدمين المنزليين، بل اختارت بذكاء استهداف <strong>سوق متخصصة (Niche Market)</strong>:
+          </p>
+
+          <ul>
+            <li>باعت إصدارات UNIX مهيأة للعمل على معالجات x86 للحواسيب الشخصية.</li>
+            <li>لكنها استخدمت تلك الحواسيب كـ <strong>خوادم مركزية مصغرة</strong> داخل المكاتب التجارية الصغيرة، الصيدليات، متاجر التجزئة، مكاتب المحاماة، ومحطات الوقود.</li>
+            <li>قامت بربط تلك الحواسيب بمجموعة من الشاشات ولوحات المفاتيح الرخيصة التي تسمى <strong>المحطات الطرفية البسيطة (Dumb Terminals)</strong>.</li>
+          </ul>
+
+          <div class="diagram-box">
+                   ┌───────────────────────────────────┐
+                   │         SCO UNIX Host (PC)        │
+                   │      (خادم مركزي للمكتب الصغير)   │
+                   └─────────────────┬─────────────────┘
+                                     │
+           ┌─────────────────────────┼─────────────────────────┐
+           │ (Serial / LAN)          │ (Serial / LAN)          │ (Serial / LAN)
+           ▼                         ▼                         ▼
+     ┌───────────┐             ┌───────────┐             ┌───────────┐
+     │ Terminal 1│             │ Terminal 2│             │ Terminal 3│
+     │  (كاشير)  │             │ (المخزن)  │             │ (المحاسب) │
+     └───────────┘             └───────────┘             └───────────┘
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">سر النجاح:</h3>
+
+          <p>
+            استطاع صاحب المتجر أو الصيدلية تشغيل نظام أعمال متكامل يخدم 5 أو 10 موظفين في وقت واحد بالاعتماد على حاسوب واحد وترخيص واحد، بتكلفة اقتصادية زهيدة مقارنة بشراء 10 أجهزة PC مستقلة برخص Windows باهظة.
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--accent);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--accent);">🎯 فكرة هندسية محورية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>الدرس الاستراتيجي في الأعمال:</strong> قد يفشل منتج تقني ممتاز إذا حاول مجابهة النظام المسيطر على السوق العام المفتوح وجهًا لوجه، لكنه قد يحقق نجاحًا خرافيًا وأرباحًا مستدامة إذا ركز بدقة على <strong>سوق متخصصة تلائم إمكانياته وتلبي حاجة حقيقية غير مخدومة</strong>.
+            </p>
+          </div>
+
+          <hr>
+
+          <!-- Section 16 -->
+          <h2 id="sec-16">16. قصة نجاح محطات العمل من Sun Microsystems ونظام Solaris</h2>
+
+          <p>
+            على الطرف الآخر من المعادلة، كانت شركة <strong>Sun Microsystems</strong> تصنع ملحمة نجاح تجارية كبرى بمليارات الدولارات.
+          </p>
+
+          <p>
+            ركزت Sun على سوق الحوسبة الفائقة والمهنية من خلال بيع <strong>محطات عمل UNIX (Workstations)</strong> المعتمدة على معالجات SPARC القوية، موجهة إياها إلى فئات مستعدة لدفع مبالغ ضخمة:
+          </p>
+
+          <ul>
+            <li>المبرمجون ومهندسو البرمجيات المتقدمة.</li>
+            <li>مهندسو التصميم الميكانيكي والمعماري (CAD/CAM) وتصميم الدوائر الإلكترونية (EDA).</li>
+            <li>البيئات الحساسة ذات التدفق المالي العالي، مثل غرف التداول في بورصات الأسهم العالمية والبنوك الاستثمارية (Wall Street).</li>
+          </ul>
+
+          <p>
+            كانت أنظمة Sun في بدايتها معتمدة على إرث <strong>BSD</strong> (عبر نظام SunOS)، لكن في أواخر الثمانينيات تحالفت Sun مع AT&T لدمج أفضل ما في عالم BSD وعالم System V داخل إصدار موحد أسطوري: <strong>UNIX System V Release 4 (SVR4)</strong>، والذي تحول لاحقًا إلى نظام <strong>Solaris</strong>.
+          </p>
+
+          <p>
+            أثبتت تجربة Sun أن UNIX كان الملك غير المتوج على عرش الحوسبة المتقدمة ومراكز البيانات والأنظمة المهنية الصارمة.
+          </p>
+
+          <hr>
+
+          <!-- Section 17 -->
+          <h2 id="sec-17">17. تحول UNIX من ثقافة المشاركة إلى التملك القانوني وحروب التراخيص</h2>
+
+          <p>
+            لكل قفزة تجارية ثمن؛ وكان ثمن تحول UNIX إلى تقنية تجارية بمليارات الدولارات هو <strong>انحسار الروح الأكاديمية والتشاركية المفتوحة</strong> التي رافقت نشأته الأولى في مختبرات Bell Labs وجامعة بيركلي.
+          </p>
+
+          <p>
+            في البدايات، كان الكود المصدري يُتبادل على أشرطة مغناطيسية بين الأساتذة والطلاب والباحثين، مع كتابة الملاحظات والأفكار البرمجية وتطوير الحلول المشتركة دون أدنى قلق قانوني.
+          </p>
+
+          <p>
+            أما في الثمانينيات، ومع وضوح العوائد المالية الضخمة لـ UNIX:
+          </p>
+
+          <ul>
+            <li>أصبحت الشفرة المصدرية أصلًا تجاريًا يخضع لحماية مشددة واتفاقيات عدم إفصاح صارمة (Non-Disclosure Agreements - NDAs).</li>
+            <li>أصبحت العلامة التجارية <strong>UNIX®</strong> علامة تجارية محمية بقوة القانون لا يجوز لأحد استخدامها دون ترخيص وتدقيق رسمي.</li>
+            <li>اشتعل عصر <strong>الدعاوى القضائية الشرسة</strong> لحماية الشفرة والعلامات؛ مثل قضية AT&T/USL ضد جامعة بيركلي وشركة BSDI، ولاحقًا قضايا SCO.</li>
+          </ul>
+
+          <p>
+            تحول UNIX من "مشروع تقني إبداعي وبيئة تعاونية للمبرمجين" إلى <strong>ملكية فكرية رأسمالية محاطة بالأسلاك الشائكة والمحامين</strong>.
+          </p>
+
+          <hr>
+
+          <!-- Section 18 -->
+          <h2 id="sec-18">18. ولادة Free Software Foundation (FSF) عام 1984</h2>
+
+          <p>
+            هنا تقودنا القصة التاريخية إلى أهم رد فعل فكري وتقني شهده عالم البرمجيات:
+          </p>
+
+          <p>
+            أدى هذا الإغلاق المتزايد لـ UNIX، وفرض عقود الكتمان وحظر مشاركة الأكواد، إلى إشعال غضب عارم داخل الأوساط الأكاديمية ومجتمع الهاكرز القديم في معهد ماساتشوستس للتكنولوجيا (<strong>MIT</strong>).
+          </p>
+
+          <p>
+            وفي عام <strong>1984</strong> — وهو نفس عام تفكيك احتكار AT&T وبدء توحش التراخيص التجارية لـ UNIX — قاد مهندس البرمجيات العبقري <strong>ريتشارد ستولمان (Richard Stallman)</strong> ثورة مضادة، معلنًا تأسيس:
+          </p>
+
+          <div class="callout-box" style="border-right-color: var(--primary);">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary);">💡 إضاءة تاريخية وفلسفية:</h4>
+            <p style="margin-bottom: 0; font-size: 1.05rem;">
+              <strong>Free Software Foundation — FSF (مؤسسة البرمجيات الحرة)</strong> وإطلاق <strong>مشروع GNU</strong>، بهدف هندسة وبناء نظام تشغيل حر ومتكامل تمامًا، شبيه بـ UNIX (Unix-like)، ولكن دون أن يحتوي على سطر كود واحد مقيد الملكية، ليمنح المستخدمين والمبرمجين الحريات الأربع الأساسية لتشغيل الكود، دراسته، تعديله، وتوزيعه.
+            </p>
+          </div>
+
+          <div class="diagram-box">
+               تحول UNIX إلى ملكية تجارية وقانونية مغلقة
+                                 │
+                                 ▼
+                     تراجع روح المشاركة والتعاون
+                                 │
+                                 ▼
+      1984: ريتشارد ستولمان يطلق مشروع GNU ويؤسس حركة البرمجيات الحرة
+                                 │
+                                 ▼
+         بناء كافة أدوات النظام (المترجم GCC، الصدفة Bash، الأدوات)
+                                 │
+                                 ▼
+        نقص في &quot;النواة&quot; ◄── اكتملت في 1991 بنواة LINUX لتورفالدس!
+          </div>
+
+          <p>
+            هذه ليست مجرد حكاية برمجيات؛ إنها ملحمة تبرز التشابك المعقد بين:
+          </p>
+
+          <p>
+            <strong>التقنية الهندسية + حماية الملكية الفكرية + استراتيجيات الأعمال + صياغة المعايير + الفلسفة الأخلاقية لحرية البرمجيات.</strong>
+          </p>
+
+          <hr>
+
+          <!-- Section 19 -->
+          <h2 id="sec-19">19. الدروس التقنية والمعمارية المستفادة من هذه المرحلة</h2>
+
+          <p>
+            تقدم لنا تجربة UNIX Laboratory و USL خمسة دروس استراتيجية لا غنى عنها لكل مهندس برمجيات ومعماري نظم:
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">1. المصدر البرمجي ليس كل شيء؛ المعايير أقوى وأبقى</h3>
+
+          <p>
+            امتلاك الكود المصدري أمر بالغ الأهمية لدراسة النظام وتعديله، لكنه ليس الطريقة الوحيدة لتحديد هويته وسلوكه. فالواجهات والمعايير المنشورة مثل POSIX و SVID أثبتت أنها ذات تأثير تاريخي أعظم؛ لأنها سمحت للمطورين ببناء أنظمة مستقلة تمامًا (مثل Linux) دون الحاجة لنسخ كود الأصل أو الخضوع لقيوده.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">2. المعايير المفتوحة تصنع قابلية النقل (Portability)</h3>
+
+          <p>
+            عندما تتفق الأنظمة المتنافسة على واجهات معيارية موحدة، يصبح من السهل جدًا كتابة برمجيات تعمل في كل مكان دون إعادة ابتكار العجلة. استقلال البرنامج عن العتاد هو سر ازدهار الحوسبة السحابية ومراكز البيانات اليوم.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">3. الجودة التقنية وحدها لا تضمن النجاح التجاري</h3>
+
+          <p>
+            كان UnixWare تحفة هندسية في وقته، لكنه سقط في فخ الحواسيب الشخصية بسبب سوء نموذج التسعير وغياب بيئة التطبيقات الجاهزة. نجاح التكنولوجيا يتطلب تضافر أربعة عناصر:
+          </p>
+
+          <p>
+            $$\text{جودة الهندسة} + \text{ملاءمة السوق} + \text{عدالة التسعير} + \text{وفرة التطبيقات}$$
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">4. التخصص في الأسواق الدقيقة (Niche) قد يتفوق على السوق العام</h3>
+
+          <p>
+            أثبتت تجربة SCO أن استهداف سوق محددة وصغيرة والتميز فيها بحلول واقعية واقتصادية أكثر جدوى وربحية من استنزاف الموارد في معركة مستحيلة ضد المحتكر الأكبر للسوق العام.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">5. القيود التجارية قد تشعل ثورات برمجية غير متوقعة</h3>
+
+          <p>
+            كلما زادت الشركات من التضييق القانوني واحتكار التقنية، نشأت حركات مضادة تسعى للتحرر البرمجي. لقد كان إغلاق UNIX التجاري هو الحافز التاريخي المباشر الذي ولد من رحمه مشروع GNU، ومؤسسة البرمجيات الحرة، ومن بعدهما نظام Linux الذي يدير كوكب الأرض اليوم!
+          </p>
+
+          <hr>
+
+          <!-- Section 20 -->
+          <h2 id="sec-20">20. الصورة الكاملة: مخططات التدفق والمقارنات الشاملة</h2>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">أولًا: المخطط المعماري للتسلسل التاريخي والمنطقي</h3>
+
+          <div class="diagram-box">
+                     UNIX داخل أروقة Bell Labs و AT&amp;T
+                                     │
+                                     ▼
+                قيمة تقنية هائلة دون نموذج تجاري واضح ومستقر
+                                     │
+                                     ▼
+               انتقال المختبر بين الأقسام حتى تأسيس USL
+                                     │
+                                     ▼
+           مخاوف تفكيك احتكار 1984 وقلق الشركاء (IBM, DEC, Intel)
+                                     │
+                                     ▼
+           التزام USL بمبدأ تكافؤ الفرص (Level Playing Field)
+             ├── 1. Source Code Only (الشركات تقوم بالـ Porting)
+             ├── 2. Published Interfaces (معايير POSIX و SVID)
+             └── 3. Technical Approach (قرارات هندسية بحتة)
+                                     │
+                                     ▼
+           نشر معايير POSIX يمهد الطريق لمشروع Linux عام 1991
+                                     │
+                                     ▼
+                     انقسام المسار التجاري لـ UNIX:
+           ┌─────────────────────────┴─────────────────────────┐
+           ▼                                                   ▼
+     سوق الحواسيب المكتبية PC                           الأسواق المتخصصة والمهنية
+  - إطلاق UnixWare عبر Novell                     - نجاح SCO في خوادم المكاتب والمحطات
+  - صدام مع Windows المهيمن                       - نجاح Sun Microsystems في محطات العمل
+  - فشل بسبب التسعير وشح التطبيقات                 - استقرار UNIX كمعيار لمراكز البيانات
+                                     │
+                                     ▼
+             تصاعد النزاعات القانونية وحماية الملكية الفكرية
+                                     │
+                                     ▼
+             رد الفعل الفكري: ولادة Free Software Foundation (1984)
+                                     │
+                                     ▼
+       اكتمال منظومة الأدوات الحرة ◄── التقت مع نواة Linux عام 1991!
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">ثانيًا: جدول المقارنة بين مسارات UNIX التجارية في التسعينيات</h3>
+
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>وجه المقارنة</th>
+                  <th>UNIX System Laboratories (UnixWare)</th>
+                  <th>Santa Cruz Operation (SCO UNIX)</th>
+                  <th>Sun Microsystems (Solaris / SVR4)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong><strong>السوق المستهدف</strong></strong></td>
+                  <td>الحواسيب الشخصية والمكتبية (PC Desktop)</td>
+                  <td>المكاتب التجارية والخدمات الصغيرة (Niche)</td>
+                  <td>محطات العمل عالية الأداء ومراكز البيانات</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>نوع العتاد الأساسي</strong></strong></td>
+                  <td>أجهزة x86 القياسية للمستخدم النهائي</td>
+                  <td>أجهزة x86 تعمل كخادم لمجموعة Dumb Terminals</td>
+                  <td>معالجات SPARC ومعماريات RISC المتقدمة</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>العملاء المستهدفون</strong></strong></td>
+                  <td>المستخدم العادي والشركات العامة</td>
+                  <td>المتاجر، الصيدليات، ومكاتب المحاسبة</td>
+                  <td>المهندسون، المبرمجون، وبنوك تداول الأسهم</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>نموذج التوزيع</strong></strong></td>
+                  <td>علبة برمجية جاهزة (Boxed Software)</td>
+                  <td>حزم خوادم مخصصة لحلول البيع والربط</td>
+                  <td>عتاد ونظام متكاملين في حزمة موحدة</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>سبب النتيجة</strong></strong></td>
+                  <td>تعثر بسبب التسعير وهيمنة Windows وفقر البرامج</td>
+                  <td>نجاح تجاري مربح بفضل التخصص وخفض التكاليف</td>
+                  <td>هيمنة كاسحة على الحوسبة المهنية المتقدمة</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; color: var(--primary);">ثالثًا: جدول مقارنة المعايير والواجهات المنشورة</h3>
+
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>المعيار / الواجهة</th>
+                  <th>الجهة المصدرة</th>
+                  <th>الهدف الأساسي</th>
+                  <th>الأثر المباشر على Linux</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong><strong>POSIX (IEEE 1003)</strong></strong></td>
+                  <td>جمعية IEEE ومنظمة ISO الدولية</td>
+                  <td>توحيد نداءات النظام وواجهات البرمجة لضمان قابلية النقل</td>
+                  <td>اعتمد عليه Linus Torvalds كمرجع رسمي لتصميم نواة Linux</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>SVID</strong></strong></td>
+                  <td>شركة AT&T / USL</td>
+                  <td>تحديد المواصفات المعمارية الدقيقة لنظام System V</td>
+                  <td>وفّر خريطة طريق متكاملة لكيفية بناء بيئة تشغيل مطابقة لـ UNIX</td>
+                </tr>
+                <tr>
+                  <td><strong><strong>Single UNIX Specification</strong></strong></td>
+                  <td>اتحاد The Open Group</td>
+                  <td>وضع متطلبات منح العلامة التجارية الرسمية UNIX®</td>
+                  <td>يحدد المعايير التي تجعل النظم الحديثة معتمدة رسميًا</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <hr>
+
+          <!-- Section 21 -->
+          <h2 id="sec-21">21. الخلاصة والرؤية الشاملة لمستقبل أنظمة التشغيل</h2>
+
+          <p>
+            ليست قصة <strong>UNIX Laboratory</strong> و <strong>UNIX System Laboratories (USL)</strong> مجرد سرد تاريخي لأحداث مضت في عالم الحواسيب، بل هي دراسة حالة فريدة وعميقة لكيفية تحول التكنولوجيا الفائقة من مجرد أبحاث أكاديمية داخل المختبرات إلى أصول رأسمالية وقانونية تتصارع عليها كبرى الشركات العالمية.
+          </p>
+
+          <p>
+            لقد بدأت القصة في بيئة Bell Labs الحالمة، ثم وجدت USL نفسها مضطرة لإدارة معادلة بالغة التعقيد: <strong>كيف تضمن أرباح التقنية دون أن تفقد ثقة الشركاء والمصنعين؟</strong>
+          </p>
+
+          <p>
+            وجاءت إجابتها عبر إرساء المبادئ الثلاثة: <strong>Source Code Only</strong>، و <strong>Published Interfaces</strong>، و <strong>Technical Approach</strong>.
+          </p>
+
+          <p>
+            وكان نشر معايير <strong>POSIX</strong> و <strong>SVID</strong> هو الهدية المعمارية العظمى التي قدمتها تلك الحقبة دون أن تدري؛ إذ قدمت للعالم نموذجًا هندسيًا واضحًا يمكن لأي مطور بناء نظام متوافق معه. وعندما التقط الشاب لينوس تورفالدس هذه المواصفات عام 1991، صنع منها نواة Linux التي غيرت وجه الحوسبة، دون أن يملك سطرًا واحدًا من كود AT&T الأصلي!
+          </p>
+
+          <p>
+            وعلى الجانب التجاري، أثبتت تجربة UnixWare أن أعظم التقنيات قد تتعثر إذا أخطأت في فهم اقتصاديات السوق، وتحدت المنافس المسيطر دون ترسانة كافية من التطبيقات الجاهزة، في حين أثبتت تجارب SCO و Sun أن التخصص الدقيق في بيئات الأعمال والخوادم هو الحصن المنيع لـ UNIX.
+          </p>
+
+          <p>
+            وأخيرًا، كانت النتيجة الفكرية الكبرى هي أن التشدد التجاري والقانوني حول كود UNIX قاد في عام 1984 إلى ولادة <strong>حركة البرمجيات الحرة (FSF)</strong> ومشروع GNU؛ لتبدأ الثورة التي التقت خيوطها لاحقًا مع Linux لتصنع العالم الرقمي المفتوح الذي نعيش فيه اليوم.
+          </p>
+
+                              <!-- Previous and Next Lesson Navigation -->
+          <div class="lesson-navigation">
+            <a href="berkeley-software-distribution.html" class="lesson-nav-card prev">
+              <span class="lesson-nav-label">← الدرس السابق (الدرس السادس)</span>
+              <span class="lesson-nav-title">وصول Berkeley Software Distribution (BSD): عندما انقسم طريق UNIX إلى اتجاهين</span>
+            </a>
+            <a href="linux-roadmap.html" class="lesson-nav-card next">
+              <span class="lesson-nav-label">خارطة الطريق ←</span>
+              <span class="lesson-nav-title">استعراض كافة الدروس في خارطة طريق Linux</span>
+            </a>
+          </div>
+
+          <!-- Article Footer Action -->
+          <div class="article-footer-cta">
+            <div class="article-footer-cta-text">
+              <h3>رائع ومذهل! أتممت بنجاح قراءة واستيعاب الدرس السابع 🎉</h3>
+              <p>واصل تقدمك في المسار واكتشف المزيد من أسرار أنظمة التشغيل وهندسة النظم عبر خارطة الطريق!</p>
+            </div>
+            <div class="article-completion-action">
+              <button class="lesson-complete-toggle-btn" data-lesson-id="7" type="button">
+                <span class="btn-check-icon">○</span>
+                <span class="btn-check-text">تحديد هذا الدرس كمكتمل في مسارك التعليمي ✅</span>
+              </button>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="linux-roadmap.html" class="btn btn-primary btn-lg">استعراض خارطة طريق Linux ←</a>
+              <a href="index.html" class="btn btn-outline btn-lg">الصفحة الرئيسية</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">
+            <img src="brand-icon.png" alt="Learn With Me Logo" width="32" height="32">
+            <span>Learn With Me</span>
+          </span>
+          <p>منصة تعليمية متخصصة في هندسة النظم، لينكس، وتقنيات السحابة والـ DevOps.</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="linux-roadmap.html">خارطة طريق Linux</a></li>
+          <li><a href="what-is-linux.html">الدرس الأول: ما هو لينكس؟</a></li>
+          <li><a href="linux-vs-other-os.html">الدرس الثاني: كيف يختلف لينكس؟</a></li>
+          <li><a href="history-of-linux.html">الدرس الثالث: تاريخ لينكس</a></li>
+          <li><a href="unix-philosophy.html">الدرس الرابع: ثقافة وفلسفة UNIX</a></li>
+          <li><a href="unix-commercialization.html">الدرس الخامس: تجارية UNIX</a></li>
+          <li><a href="berkeley-software-distribution.html">الدرس السادس: وصول BSD وانقسام UNIX</a></li>
+          <li><a href="unix-laboratory.html">الدرس السابع: مختبر UNIX وتحوله التجاري</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Learn With Me</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Enhancements & Theme Script -->
+  <script src="script.js"></script>
+
+</body>
+</html>
